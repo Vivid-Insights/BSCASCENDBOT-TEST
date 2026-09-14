@@ -4,6 +4,7 @@ import {
   GETTING_STARTED_AREA,
   MENTORSHIP_AREA,
   CONFIDENCE_AREA,
+  CAREER_PATHS_AREA,
   buildFacets,
   mostRelevant,
   queryWords,
@@ -59,6 +60,14 @@ describe("buildFacets", () => {
     // adviseOnCareerTopic (which has no such topic) or pick up the unrelated
     // Wellbeing answer that shares a pre-v4 tag with one of these.
     expect(facets.S1.question).toBe("I constantly feel like I don't belong in tech.");
+  });
+
+  it("wires Career Paths' 8 real Otema answers to S1..S8, in order", () => {
+    const facets = buildFacets(CAREER_PATHS_AREA);
+    for (const id of CAREER_PATHS_AREA.realOrder) {
+      expect(facets[id]).toBeDefined();
+      expect(facets[id].source).toBe("OTEMA");
+    }
   });
 
   it("only ever includes drafted facets that are review-approved", () => {
