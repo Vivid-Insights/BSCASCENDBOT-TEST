@@ -200,6 +200,19 @@ Deno.serve(async (req) => {
       functionCalled = "closeDiscussionArea";
     } else if (activeAreaConfig && saysLeaving(message)) {
       // Layer 2 — explicit leave, ahead of any model call.
+      //
+      // Used to stop here with a canned "Of course — what's on your mind?"
+      // even when the SAME message already carried her actual question —
+      // "actually, can we talk about something else, how do I negotiate a
+      // raise" got the canned line and no answer to the raise question she'd
+      // just asked, same failure as the classifier-detected leaving branch
+      // in discussion-coach.ts. Close the area, then answer this message the
+      // same way a fresh message with no area open would be answered —
+      // continuing into the routing bookkeeping's own "background" work
+      // rather than announcing it. Otema's LEAVE_PHRASES only signal that
+      // she's changing subject, not to WHICH one, so this can't hand off
+      // directly to a named destination the way the classifier's leaving
+      // path can — the general router below figures that part out.
       areaState.closedAreas = [...new Set([...areaState.closedAreas, areaState.activeArea!])];
       areaState.activeArea = null;
       areaState.stallCount = 0;
@@ -211,8 +224,19 @@ Deno.serve(async (req) => {
         stall_count: 0, wrapped_up: false, last_stage: null,
         updated_at: new Date().toISOString(),
       });
-      replyText = "Of course — what's on your mind?";
-      functionCalled = "closeDiscussionArea";
+      const routed = await routeWithAI(
+        coach.instructions,
+        coach.functionSchemas,
+        conversationHistory,
+        message,
+        azureConfig
+      );
+      routingDebug = routed.debug;
+      console.log(`[Converser] Routing (post-leave) → ${routed.fnName}`, routed.fnArgs, routingDebug ? `(${routingDebug})` : "");
+      const fn = coach.getFunctionByName(routed.fnName) || coach.getFunctionByName("adviseOnCareerTopic");
+      if (!fn) throw new Error(`No function found: ${routed.fnName}`);
+      replyText = await fn.call(routed.fnArgs, message);
+      functionCalled = routed.fnName;
     } else if (activeAreaConfig) {
       // An area is already open — go straight to it rather than risk the
       // generic router reclassifying a continuing message into something

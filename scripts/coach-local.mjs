@@ -1729,6 +1729,16 @@ async function closeArea(reason, { by = "coach", to = null } = {}) {
   // The coach is a coach, not a chair. Nothing here should sound like someone
   // closing an agenda item, declaring what was achieved, or granting
   // permission to continue — offering, not concluding.
+  //
+  // Production (discussion-coach.ts) no longer stops at this canned line when
+  // `to` names a destination: it hands the same message straight to that
+  // area (or the flat advice path) and answers it in the same turn, found
+  // live to be a real problem — "let's get into salary & negotiation" with no
+  // answer to the raise question she'd just asked. This harness can't mirror
+  // that: it loads exactly one area's config per run (`--area=X`), so there
+  // is no second area's DiscussArea instance here to hand off to. The line
+  // below stays as the harness's own honest stand-in, not a claim that this
+  // is what production still does.
   let line;
   if (by === "user") {
     // They have already moved. Follow them; don't deliver a report card.

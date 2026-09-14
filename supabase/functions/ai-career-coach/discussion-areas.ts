@@ -422,6 +422,27 @@ export function otherAreas(areaN: number): Record<string, string> {
   return Object.fromEntries(Object.entries(ALL_AREAS).filter(([n]) => Number(n) !== areaN));
 }
 
+// Bridges a leaving destination (an ALL_AREAS number, from the classifier's
+// leaveTo field) to the TOPIC_CATEGORIES slug used by
+// AREA_TOPIC_TO_FUNCTION_NAME and adviseOnCareerTopic's currentEntities —
+// needed so DiscussArea.call() can hand off to the destination and answer
+// the question in the same turn, instead of only announcing the switch and
+// leaving her to ask again. The 3 areas with no DiscussArea yet (7, 8, 10)
+// still resolve to a real topic slug; the flat adviseOnCareerTopic path
+// picks those up instead of a built area.
+export const AREA_NUMBER_TO_TOPIC: Record<string, string> = {
+  "1": "getting_started",
+  "2": "further_education",
+  "3": "career_paths",
+  "4": "mentorship",
+  "5": "wellbeing",
+  "6": "mindset",
+  "7": "cv_job_search",
+  "8": "interview_prep",
+  "9": "salary",
+  "10": "ai_impact",
+};
+
 // ── Leave / done detection (layer 2 + 2a) ───────────────────────────────────
 // Ported verbatim from scripts/coach-local.mjs. Deliberately deterministic and
 // runs ahead of any model call — see index.ts, which checks these before

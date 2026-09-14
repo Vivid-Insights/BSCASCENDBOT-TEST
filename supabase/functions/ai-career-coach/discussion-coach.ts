@@ -48,6 +48,8 @@ import {
   matchStrength,
   otherAreas,
   ALL_AREAS,
+  AREA_NUMBER_TO_TOPIC,
+  AREA_TOPIC_TO_FUNCTION_NAME,
   WRAP_UP_LINE,
   COULD_NOT_ANSWER,
 } from "./discussion-areas.ts";
@@ -463,20 +465,63 @@ export class DiscussArea extends WordaliseFunction {
 
     // Layer 1 — the classifier itself decided she's leaving.
     if (placed.stage === "leaving") {
-      const dest = (() => {
+      const destNum = (() => {
         const raw = String(placed.leaveTo || "").trim();
         if (!raw || /^none$/i.test(raw)) return null;
         const num = raw.match(/\d+/)?.[0];
-        if (num && ALL_AREAS[num]) return ALL_AREAS[num];
-        return Object.values(ALL_AREAS).find((t) => raw.toLowerCase().includes(t.split(" ")[0].toLowerCase())) || null;
+        if (num && ALL_AREAS[num]) return num;
+        const found = Object.entries(ALL_AREAS).find(([, name]) => raw.toLowerCase().includes(name.split(" ")[0].toLowerCase()));
+        return found ? found[0] : null;
       })();
       state.closedAreas = [...new Set([...state.closedAreas, this.area.topic])];
       state.activeArea = null;
       state.stallCount = 0;
       state.wrappedUp = false;
       state.lastStage = null;
+      // Facet IDs are only unique WITHIN an area — carrying the old area's
+      // coveredFacets into a fresh one could wrongly suppress a same-named
+      // facet (e.g. "S1") in the destination that she's never actually heard.
+      state.coveredFacets = [];
+      // No persist here yet — deliberately. Found live: persisting this
+      // intermediate "closed, nothing active" state and THEN letting the
+      // handoff below run its own persist a moment later — two upserts to
+      // the same profile row inside one request — left active_area stuck on
+      // the OLD area for the next turn even though this turn's reply was
+      // correctly answered by the new one. One write for one outcome: below,
+      // whichever path actually answers her is the one that persists.
+
+      // The message she just sent is what she actually wants answered — "the
+      // real blocker belongs to another area entirely" per the classifier's
+      // own instructions, meaning there IS substance here, not just an intent
+      // to switch. Answer it in this same turn via the destination instead of
+      // only announcing the switch and making her ask again. Found live:
+      // she'd get "Of course — let's get into salary & negotiation" with no
+      // answer to the raise question she'd just asked.
+      const destTopic = destNum ? AREA_NUMBER_TO_TOPIC[destNum] : null;
+      if (destTopic) {
+        try {
+          const destFnName = AREA_TOPIC_TO_FUNCTION_NAME[destTopic];
+          const destFn = destFnName ? this.converser.getFunctionByName(destFnName) : undefined;
+          if (destFn) return await destFn.call({}, question); // persists its own state
+          // Not yet a built area (Job Search, Interview Prep, AI & Future) —
+          // the flat advice path still answers it directly, same as any
+          // other message that lands on one of these topics. It has no area
+          // state of its own to persist, so this closed-area state is the
+          // one write this path needs.
+          this.ctx.currentEntities = [destTopic];
+          const advise = this.converser.getFunctionByName("adviseOnCareerTopic");
+          if (advise) {
+            await this.persist(state);
+            return await advise.call({}, question);
+          }
+        } catch { /* fall through to the canned line below */ }
+      }
+      // Reached when there's no destination at all, no built area or flat
+      // topic to answer through, or the attempt above threw — the only path
+      // left that doesn't already persist via a nested call, so it's this
+      // one's job to make the closed area durable.
       await this.persist(state);
-      return this.closingLine("user", dest);
+      return this.closingLine("user", destNum ? ALL_AREAS[destNum] : null);
     }
 
     // Layer 3 — stall: the same stage again with nothing new added.
