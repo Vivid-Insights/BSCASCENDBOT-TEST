@@ -968,6 +968,7 @@
       <button class="sub-tab-btn" onclick="switchSubTab('area2', this)"><span class="sn">02</span>Further Education</button>
       <button class="sub-tab-btn" onclick="switchSubTab('area3', this)"><span class="sn">03</span>Career Paths &amp; Roadmaps</button>
       <button class="sub-tab-btn" onclick="switchSubTab('area4', this)"><span class="sn">04</span>Mentorship</button>
+      <button class="sub-tab-btn" onclick="switchSubTab('area5', this)"><span class="sn">05</span>Wellbeing &amp; Balance</button>
       <button class="sub-tab-btn" onclick="switchSubTab('area6', this)"><span class="sn">06</span>Confidence</button>
     </div>
 
@@ -2564,6 +2565,190 @@
             <div class="ff-top"><span class="facet-id">S6</span><h4>BSC programme, unclear goal</h4><span class="src real">OTEMA</span></div>
             <p class="ff-q">How can the BSC programme help me with my specific career goals?</p>
             <p class="ff-a">Coming in with a goal helps you get the most out of it — but if you're unsure, tell your mentor exactly that, and they'll help structure your thinking into a roadmap. What are you focused on right now?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="sub-area5" class="sub-panel">
+      <div class="section">
+        <div class="section-title">Area Flow · Area 5</div>
+        <h2 class="section-heading">Inside Wellbeing &amp; Balance <span class="st proposed">PROPOSED</span></h2>
+        <p class="prompt-intro">One classification call per message places the user in one of two stages; the stage scopes which of Otema's 5 real answers, plus 7 drafted facets, the model is shown; the model writes the reply from that material. The 5 answers (Q30, 31, 32, 33, 35) split on whether she's already settled into a job or still in the run-up to one — learning a new skill, or job-searching through a transition — versus already working and negotiating how the job fits around the rest of her life. Q34 ("staying motivated when progress feels slow") stays tagged under Confidence's mindset material, not moved here — it's about sustaining effort toward a goal, not about load or balance. Not yet designed in the local harness; this is the first pass — the facet graph below already reflects a dead-end discovery pass, not just the raw closers.</p>
+        <div class="banner spec">
+          <strong>Two stages: not settled yet, versus settled and balancing.</strong> A covers burnout while learning or upskilling, and the mental-health toll of a career transition itself — the stress of not yet having landed. B covers boundaries in an existing job, family responsibilities alongside career growth, and flexible/remote arrangements — the stress of a job that already exists and has to fit around everything else. The moment a message describes an actual current job's hours, manager, or team, it's B, even if she got there partway through a transition.
+        </div>
+        <div class="banner info">
+          <strong>S1's answer assumes a reasonable team.</strong> It says stating working hours works because "most well-run teams respect that once it's stated consistently" — true as a default, but if she describes a manager or team that doesn't respect a stated boundary, repeating that assumption back to her would contradict what she just said rather than respond to it. That's what S1a is for, and S1a itself has to be able to hold three different outcomes she might report — it worked, she was penalized for it, or she left the job over it — not just the first.
+        </div>
+        <div class="banner info">
+          <strong>Two standalone gaps found in the dead-end pass, both severe enough to hold up wiring this into production.</strong> Nothing here covers someone already in crisis in a current job — not preventing burnout, already past it — and nothing covers a hostile or unsafe environment (harassment, discrimination) as the actual source of the strain, which is a materially different problem from workload or boundaries and needs different content (safety, documentation, escalation) rather than pacing advice. Given this area explicitly speaks to women in tech, meeting either with generic boundary-setting tips would be worse than saying nothing. <strong>G1</strong> and <strong>G2</strong> below close these.
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · Shape</div><h2 class="section-heading">The Shape of the Area</h2>
+        <div class="key">
+          <p class="key-intro"><strong>Reading the codes:</strong> <span class="chip">S</span> is one of Otema's five real answers, numbered in question-bank order (S1–S5 = Q30, 31, 32, 33, 35 — Q34 is excluded, see above). <span class="chip">G</span> is a standalone drafted gap facet with no real-answer parent. Response-branch facets (S1a, S2a, S3a, S5a, S5b) are their own cards further down.</p>
+          <div class="key-grid">
+            <div><span class="chip">S1</span> Setting boundaries in a demanding job (Q30)</div>
+            <div><span class="chip">S2</span> Family responsibilities alongside career growth (Q31)</div>
+            <div><span class="chip">S3</span> Avoiding burnout while learning a new skill (Q32)</div>
+            <div><span class="chip">S4</span> Flexible working arrangements in tech (Q33)</div>
+            <div><span class="chip">S5</span> Mental health during a career transition (Q35)</div>
+            <div><span class="chip">G1</span> Already-present burnout or crisis in a current job</div>
+            <div><span class="chip">G2</span> Harassment or a hostile/unsafe work environment</div>
+          </div>
+        </div>
+        <div class="flow-note">All 5 real facets belong to Otema. <strong>S3a is the cross-cutting facet</strong> — it's the case a real answer on either side of the stage line doesn't cover on its own: learning a new skill while already working a job and carrying family load, not learning in relative isolation. <strong>G1 and G2 are standalone gap topics</strong> with no real-answer parent, both surfaced in the dead-end pass below rather than read off an existing closer. Three lower-priority dead ends (guilt-driven inability to disconnect with no external pressure, family/partner disapproval of the career itself, fear that asking for flexibility reads as uncommitted) and one lower-priority missing topic (isolation from the very remote/flexible work S4 recommends) were also found and are documented in the dead-end pass, but deferred past this first build — same treatment other areas have given lower-severity findings.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · Facets</div><h2 class="section-heading">The 5 Facets and Where Each Leads</h2>
+        <p class="prompt-intro">Edges are read off the actual closing questions. All 5 are <span class="src real">OTEMA</span>'s real questionnaire answers.</p>
+
+        <div class="stage-band"><span class="sb-id">Stage A</span><h3>Not settled yet</h3><span class="sb-note">learning or upskilling, or in the middle of a career transition, no stable job on the other side of it yet</span></div>
+        <div class="facet-grid">
+          <div class="facet real">
+            <div class="facet-top"><span class="facet-id">S3</span><h4>Avoiding burnout while learning</h4><span class="src real">OTEMA</span></div>
+            <p class="closer">"How much time are you putting in right now?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">S5</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet real">
+            <div class="facet-top"><span class="facet-id">S5</span><h4>Mental health during a career transition</h4><span class="src real">OTEMA</span></div>
+            <p class="closer">"What's weighing on you most?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">S3</span><span class="chip self">stays</span></div>
+          </div>
+        </div>
+
+        <div class="stage-band"><span class="sb-id">Stage B</span><h3>Settled and balancing</h3><span class="sb-note">an actual current job exists; the live question is how to make it fit around everything else</span></div>
+        <div class="facet-grid">
+          <div class="facet real">
+            <div class="facet-top"><span class="facet-id">S1</span><h4>Setting boundaries in a demanding job</h4><span class="src real">OTEMA</span></div>
+            <p class="closer">"What's making boundaries hard for you?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">S2</span><span class="chip">S4</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet real">
+            <div class="facet-top"><span class="facet-id">S2</span><h4>Family responsibilities alongside career growth</h4><span class="src real">OTEMA</span></div>
+            <p class="closer">"What's your setup like right now?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">S1</span><span class="chip">S4</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet real">
+            <div class="facet-top"><span class="facet-id">S4</span><h4>Flexible working arrangements</h4><span class="src real">OTEMA</span></div>
+            <p class="closer">"Is this a dealbreaker for you?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">S1</span><span class="chip">S2</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G1</span><h4>Already-present burnout or crisis in a current job</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"How long has it been like this?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G2</span><h4>Harassment or a hostile/unsafe work environment</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"Has this happened more than once, or is this the first time?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · Response branches</div>
+        <h2 class="section-heading">What Happens After the Question <span class="st proposed">PROPOSED</span></h2>
+        <div class="banner info"><strong>Five dead ends closed with response branches; several more found and deferred (see the flow-note above).</strong> S1's closer has no branch for a team or manager who doesn't actually respect a stated boundary, which is the opposite of what the real answer assumes — and that branch itself has to hold three different outcomes she might report back (it worked, she was penalized for it, or she left the job over it), not just the first. S2's closer has no branch for having no one to lean on — no partner, no family nearby, nothing to build a support network out of — and separately, no branch for the mental load persisting even when help is physically present, which is a different problem from an absent network and folded into the same facet's scope. S3's closer has no branch for someone learning while already holding down a job and family load, not learning on its own. S5's closer has two gaps: no branch for transition stress that's really presenting as self-doubt about whether she's good enough to make it — Confidence's territory, not this area's, so that branch validates once and the leaving table below sends it onward if it becomes the main subject — and no branch at all for financial precarity during the transition, which S5's real answer never mentions despite being a near-certain concern for anyone job-searching without income. All are drafted into <code>botema-generated-examples.ts</code>, <code>unreviewed</code>, same gate as everything else here.</div>
+        <div class="facet-grid">
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">S1a</span><h4>Boundaries stated but not respected</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">responds to <span class="chip">S1</span></span></div>
+            <p class="closer">"What happens when you actually hold that line?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">S2a</span><h4>No support network — or help exists but the mental load doesn't move</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">responds to <span class="chip">S2</span></span></div>
+            <p class="closer">"What's the one piece of this that would help most if it were off your plate?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">S3a</span><h4>Learning on top of a job and family load</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">responds to <span class="chip">S3</span></span></div>
+            <p class="closer">"Which of the three is most flexible to trim back for a few weeks — work, the course, or everything else?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">S5a</span><h4>Transition stress reading as self-doubt</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">responds to <span class="chip">S5</span></span></div>
+            <p class="closer">"Is it the uncertainty of the transition itself, or a doubt about whether you can actually do this?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">S5b</span><h4>Financial precarity during the transition</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">responds to <span class="chip">S5</span></span></div>
+            <p class="closer">"What does your runway actually look like right now?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · Leaving</div><h2 class="section-heading">When to Suggest a Different Area</h2>
+        <p class="prompt-intro">The Flow C hand-off, triggered from inside the area rather than by the user asking.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>What's happening</th><th>What it actually means</th><th>Offer instead</th></tr></thead>
+            <tbody>
+              <tr><td>Self-doubt about whether she's good enough or belongs becomes the main subject, past a single S5a validation</td><td>A confidence problem wearing a wellbeing question's clothes</td><td><strong>Area 6</strong> · Confidence &amp; Imposter Syndrome</td></tr>
+              <tr><td>The boundary or workload problem turns out to be about being underpaid for the hours she's putting in</td><td>The load question has become a pricing question</td><td><strong>Area 9</strong> · Salary &amp; Negotiation</td></tr>
+              <tr><td>The flexible-arrangements question turns into which specific companies or roles actually offer it, or S1a's outcome is that she's decided to leave over an unrespected boundary</td><td>The wellbeing question has become a job-search question</td><td><strong>Area 7</strong> · Job Search &amp; Applications</td></tr>
+              <tr><td>Two turns with no new information, or a facet revisited with nothing added</td><td>The area is done, whether or not every facet was covered</td><td>Sum up and offer the remaining areas</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · To build</div><h2 class="section-heading">What This Needs</h2>
+        <div class="grid-2">
+          <div class="scope-card can">
+            <div class="scope-head">Already true</div>
+            <div class="scope-body">
+              <div class="scope-item"><strong>All 5 real answers already live today</strong><div class="example">Served flat via <code>adviseOnCareerTopic</code>, topic <code>wellbeing</code> — no stage model, no dead-end handling, no memory of what was already covered</div></div>
+            </div>
+          </div>
+          <div class="scope-card cant">
+            <div class="scope-head">Doesn't exist yet</div>
+            <div class="scope-body">
+              <div class="scope-item"><strong>Any version in the local harness</strong><div class="example">First pass at this area — no <code>scripts/areas/wellbeing.mjs</code>, no scenarios, no sweep yet</div></div>
+              <div class="scope-item"><strong>Wired into the live edge function</strong><div class="example">Same gap as every area before it was built out</div></div>
+              <div class="scope-item"><strong>A full dead-end sweep</strong><div class="example">Edges above are read off closing questions, not confirmed by a tester pass</div></div>
+              <div class="scope-item"><strong>The router split moving burnout/workload content out of <code>addressMindsetChallenge</code></strong><div class="example">Rule 3 in <code>botema-coach.ts</code> currently sends "burnout, workload stress" straight to the mindset function; that needs narrowing to motivation-loss only, mirroring the split already done for Confidence, so burnout/boundary/family/flexible-work content reaches <code>discussWellbeingArea</code> via the existing <code>wellbeing</code> topic instead</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · Full text</div><h2 class="section-heading">All Answers in Full</h2>
+        <p class="prompt-intro">The complete question and answer behind every facet above, in ID order — all of them Otema's real words from the questionnaire.</p>
+        <div class="full-list">
+          <div class="full-facet real">
+            <div class="ff-top"><span class="facet-id">S1</span><h4>Setting boundaries in a demanding job</h4><span class="src real">OTEMA</span></div>
+            <p class="ff-q">How do I set healthy boundaries in a demanding tech job?</p>
+            <p class="ff-a">Set explicit working hours and communicate them clearly — mute non-urgent notifications outside them and treat 'always-on' as something you opt into, not a given. Most well-run teams respect that once it's stated consistently. What's making boundaries hard for you?</p>
+          </div>
+          <div class="full-facet real">
+            <div class="ff-top"><span class="facet-id">S2</span><h4>Family responsibilities alongside career growth</h4><span class="src real">OTEMA</span></div>
+            <p class="ff-q">How do women in tech manage family responsibilities alongside career growth?</p>
+            <p class="ff-a">Negotiate flexible or remote arrangements explicitly rather than assuming they're off the table, and build a real support network around you. Revisit the trade-offs periodically — they don't have to be permanent. What's your setup like right now?</p>
+          </div>
+          <div class="full-facet real">
+            <div class="ff-top"><span class="facet-id">S3</span><h4>Avoiding burnout while learning</h4><span class="src real">OTEMA</span></div>
+            <p class="ff-q">How do I avoid burnout when learning to code or building a new tech skill?</p>
+            <p class="ff-a">Pace yourself with sustainable weekly hours instead of sprinting and crashing, and build in rest days. Move to real projects tied to your own interests once you're past the tutorials — it keeps momentum up and the stress bearable. How much time are you putting in right now?</p>
+          </div>
+          <div class="full-facet real">
+            <div class="ff-top"><span class="facet-id">S4</span><h4>Flexible working arrangements</h4><span class="src real">OTEMA</span></div>
+            <p class="ff-q">Is it possible to have flexible working arrangements in most tech roles?</p>
+            <p class="ff-a">More available in tech than in most industries — remote and hybrid roles are common and part of why African talent serving global remote employers has grown so much. It does vary by role though; support and on-call roles often need fixed hours. Is this a dealbreaker for you?</p>
+          </div>
+          <div class="full-facet real">
+            <div class="ff-top"><span class="facet-id">S5</span><h4>Mental health during a career transition</h4><span class="src real">OTEMA</span></div>
+            <p class="ff-q">How do I manage my mental health while going through a challenging career transition?</p>
+            <p class="ff-a">Treat the transition itself as a real stressor, not just a logistics project — protect your sleep and social connection, set realistic timelines, and talk to people who've made the same switch. It's okay to take days off; job searching is a job in itself. What's weighing on you most?</p>
           </div>
         </div>
       </div>

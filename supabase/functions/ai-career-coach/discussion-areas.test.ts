@@ -3,6 +3,7 @@ import {
   SALARY_AREA,
   GETTING_STARTED_AREA,
   MENTORSHIP_AREA,
+  WELLBEING_AREA,
   CONFIDENCE_AREA,
   CAREER_PATHS_AREA,
   FURTHER_EDUCATION_AREA,
@@ -49,6 +50,31 @@ describe("buildFacets", () => {
       expect(facets[id]).toBeDefined();
       expect(facets[id].source).toBe("OTEMA");
     }
+  });
+
+  it("wires Wellbeing's 5 real Otema answers to S1..S5, in order, from adviseOnCareerTopic", () => {
+    const facets = buildFacets(WELLBEING_AREA);
+    for (const id of WELLBEING_AREA.realOrder) {
+      expect(facets[id]).toBeDefined();
+      expect(facets[id].source).toBe("OTEMA");
+    }
+    // Confirms it read from the "wellbeing" topic tag in adviseOnCareerTopic,
+    // not Confidence's addressMindsetChallenge answers or Q34 (motivation),
+    // which stays out of this area's real-answer set by explicit decision.
+    expect(facets.S1.question).toBe("How do I set healthy boundaries in a demanding tech job?");
+  });
+
+  it("cross-lists S2, S3a, and S4 into both of Wellbeing's stages", () => {
+    // Found necessary live (area-tester, 2026-09-14): S2 and S4 are
+    // job-status-agnostic in Otema's own phrasing, and S3a is the facet that
+    // answers a stage-A question reclassified to B mid-conversation. All
+    // three must be reachable regardless of which stage the classifier picks.
+    expect(WELLBEING_AREA.stages.A.facets).toContain("S2");
+    expect(WELLBEING_AREA.stages.B.facets).toContain("S2");
+    expect(WELLBEING_AREA.stages.A.facets).toContain("S4");
+    expect(WELLBEING_AREA.stages.B.facets).toContain("S4");
+    expect(WELLBEING_AREA.stages.A.facets).toContain("S3a");
+    expect(WELLBEING_AREA.stages.B.facets).toContain("S3a");
   });
 
   it("wires Confidence's 5 real answers by exact question text, from addressMindsetChallenge", () => {

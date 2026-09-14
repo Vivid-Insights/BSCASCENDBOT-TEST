@@ -7,7 +7,7 @@ import { UpdateCareerTopic, CaptureUserBackground, InviteUserContext } from "./b
 import { KNOWLEDGE_BASE, GENERAL_FALLBACK } from "./bsc-knowledge.ts";
 import { BOTEMA_EXAMPLES, BOTEMA_SYSTEM_PROMPT, BOTEMA_VALUES } from "./botema-examples.ts";
 import { DiscussArea } from "./discussion-coach.ts";
-import { SALARY_AREA, GETTING_STARTED_AREA, MENTORSHIP_AREA, CONFIDENCE_AREA, CAREER_PATHS_AREA, FURTHER_EDUCATION_AREA, AREA_TOPIC_TO_FUNCTION_NAME } from "./discussion-areas.ts";
+import { SALARY_AREA, GETTING_STARTED_AREA, MENTORSHIP_AREA, WELLBEING_AREA, CONFIDENCE_AREA, CAREER_PATHS_AREA, FURTHER_EDUCATION_AREA, AREA_TOPIC_TO_FUNCTION_NAME } from "./discussion-areas.ts";
 
 // Reasoning effort. gpt-5-nano reasons at roughly medium if left alone, and
 // for generation that is waste — the prompt carries the persona, the knowledge
@@ -133,21 +133,24 @@ class BoteMindset extends WordaliseFunction {
   get name() { return "addressMindsetChallenge"; }
   // Narrowed once discussConfidenceArea took over imposter syndrome, self-
   // doubt and belonging — see the routing split in BotemaCoach.instructions.
-  // This still handles the mindset-adjacent content that genuinely isn't
-  // about self-doubt: burnout, workload stress, motivation loss on its own.
-  get description() { return "Call when the user expresses burnout, workload stress, or motivation difficulties that are NOT about self-doubt, imposter syndrome, confidence or belonging — those go to discussConfidenceArea instead."; }
+  // Narrowed a second time 2026-09-14 once discussWellbeingArea went live:
+  // burnout, workload stress, boundaries, and family/flexible-work balance
+  // moved to Wellbeing & Balance's own topic (rule 7, topic "wellbeing"),
+  // leaving this with motivation loss and general transition anxiety that
+  // isn't about load or balance — see the routing split in rule 3.
+  get description() { return "Call when the user expresses motivation difficulties or general transition anxiety that is NOT about self-doubt, imposter syndrome, confidence, belonging, burnout, workload, or balancing a job with the rest of life — those go to discussConfidenceArea or discussWellbeingArea instead."; }
   get parameters() {
     return {
       type: "object",
       properties: {
-        challenge_type: { type: "string", description: "motivation, burnout, or general" },
+        challenge_type: { type: "string", description: "motivation or general" },
       },
       required: [],
     };
   }
 
   getDomainKnowledge(_args: Record<string, unknown>): string {
-    return KNOWLEDGE_BASE["mindset"] + "\n\n---\n\n" + KNOWLEDGE_BASE["wellbeing"];
+    return KNOWLEDGE_BASE["mindset"];
   }
 
   async loadFewShotExamples(args: Record<string, unknown> = {}, limit = 3) {
@@ -300,7 +303,7 @@ ROUTING RULES — always call exactly one function, never respond directly:
 
 2. CONFIDENCE & IMPOSTER SYNDROME — a narrative about HERSELF: comparing herself to colleagues, not feeling like she belongs, discounting her own achievements or praise, imposter syndrome — OR self-doubt that has stalled a concrete action: not applying, not speaking up, not putting herself forward, turning down an opportunity → call discussConfidenceArea. The distinguishing test versus rule 3: is the feeling about her own sense of belonging or competence, even without a stalled action behind it?
 
-3. OTHER MINDSET — burnout, workload stress, or motivation loss that is NOT about self-doubt, belonging or competence → call addressMindsetChallenge. If genuinely unsure between this and rule 2, prefer rule 2 when the words "belong", "imposter", "competent", "confidence" or "good enough" appear — those are specifically what discussConfidenceArea is for.
+3. OTHER MINDSET — motivation loss (staying motivated when progress feels slow) or general anxiety about a transition that is NOT about self-doubt, belonging, or competence → call addressMindsetChallenge. Burnout, boundaries and hours, workload stress, family responsibilities alongside career growth, and flexible/remote-work questions are NOT this rule — those belong to rule 7 with topic "wellbeing" instead (Wellbeing & Balance), even though they can look mindset-adjacent. If genuinely unsure between this and rule 2, prefer rule 2 when the words "belong", "imposter", "competent", "confidence" or "good enough" appear — those are specifically what discussConfidenceArea is for.
 
 4. BACKGROUND — user explicitly shares detailed personal info: their current job title, years of experience, specific goals, location, or education level → call captureUserBackground. Do NOT use this for short replies like "I'm new" or "I'm a beginner".
 
@@ -332,6 +335,7 @@ Always call exactly one function.`;
       new DiscussArea(this, SALARY_AREA, AREA_TOPIC_TO_FUNCTION_NAME.salary),
       new DiscussArea(this, GETTING_STARTED_AREA, AREA_TOPIC_TO_FUNCTION_NAME.getting_started),
       new DiscussArea(this, MENTORSHIP_AREA, AREA_TOPIC_TO_FUNCTION_NAME.mentorship),
+      new DiscussArea(this, WELLBEING_AREA, AREA_TOPIC_TO_FUNCTION_NAME.wellbeing),
       new DiscussArea(this, CAREER_PATHS_AREA, AREA_TOPIC_TO_FUNCTION_NAME.career_paths),
       new DiscussArea(this, FURTHER_EDUCATION_AREA, AREA_TOPIC_TO_FUNCTION_NAME.further_education),
       // Reached directly by the router (rule 2), not via updateCareerTopic —

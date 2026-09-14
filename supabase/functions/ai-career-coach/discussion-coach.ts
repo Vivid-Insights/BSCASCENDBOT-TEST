@@ -582,10 +582,25 @@ export class DiscussArea extends WordaliseFunction {
     const attemptingWrapUpRescue =
       (somethingWasCut && bare && this.area.wrapUp && effectiveStage !== this.area.wrapUp) ||
       (bare && this.area.wrapUp && effectiveStage === this.area.wrapUp);
-    if (attemptingWrapUpRescue) {
-      state.wrappedUp = true;
+    // Third shape, found live on Wellbeing (area-tester 2026-09-14): an area
+    // with NO wrap-up stage at all (Career Paths, Further Education,
+    // Mentorship, now Wellbeing) gets neither branch above, since both are
+    // gated on this.area.wrapUp existing. A bare/dangling reply on one of
+    // these used to fall straight to the area's generic fallback question
+    // with no retry — found on exactly the turns it mattered most: she
+    // reported the same unrespected boundary happening again, and separately
+    // said she'd been dreading work for two months, and both collapsed to
+    // "What's weighing on you most..." indistinguishable from silence.
+    // Generalizes the same one-retry rescue to run regardless of whether the
+    // area has a wrap-up stage, against the CURRENT stage rather than one.
+    const attemptingGenericRescue = !this.area.wrapUp && bare;
+    if (attemptingWrapUpRescue || attemptingGenericRescue) {
+      const regenTarget = attemptingGenericRescue ? effectiveStage : this.area.wrapUp!;
+      // Not set on the generic path — there is no wrap-up to offer in an area
+      // without one; the final fallback below stays this.area.fallbackQuestion.
+      if (!attemptingGenericRescue) state.wrappedUp = true;
       try {
-        const again = await generate(this.area, this.area.wrapUp, question, history, facets, state.coveredFacets, state, priorReplies, this.azure);
+        const again = await generate(this.area, regenTarget, question, history, facets, state.coveredFacets, state, priorReplies, this.azure);
         if (again.raw) {
           let regen = stripQuotaConcession(again.raw).text;
           if (placed.reportsExternalTreatment === false) regen = stripUnearnedValidation(regen);

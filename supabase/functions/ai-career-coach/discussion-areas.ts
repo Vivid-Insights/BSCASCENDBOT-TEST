@@ -275,6 +275,51 @@ export const MENTORSHIP_AREA: AreaConfig = {
   },
 };
 
+// Ported verbatim from scripts/areas/wellbeing.mjs. Two facets are
+// deliberately cross-listed into BOTH stages, found necessary live
+// (area-tester, 2026-09-14) rather than assumed up front: S3a because a
+// stage-A learning question can turn out to be happening alongside an
+// existing job, which the describes text below reclassifies to B mid-way
+// through; S2 and S4 because their real questions are, in Otema's own
+// phrasing, generic and job-status-agnostic ("is it possible to have
+// flexible working arrangements", "how do women in tech manage family
+// responsibilities") — the classifier split on both across separate live
+// runs despite an explicit tie-break rule, the same soft-classification-
+// boundary conclusion reached elsewhere (Career Paths' comparative-field
+// fix), so both are made reachable from either stage rather than fought with
+// more prompt wording. Reached the same way as Salary/Mentorship/Career
+// Paths/Further Education: via updateCareerTopic's existing `wellbeing`
+// topic — no router split of its own kind was needed for this path, but see
+// botema-coach.ts's routing rule 3, narrowed so burnout/workload/boundary
+// content reaches this area instead of addressMindsetChallenge.
+export const WELLBEING_AREA: AreaConfig = {
+  n: 5,
+  name: "Wellbeing & Balance",
+  topic: "wellbeing",
+  realOrder: ["S1", "S2", "S3", "S4", "S5"],
+  wrapUp: null,
+  stageSummary: {
+    A: "not settled yet — learning burnout or transition stress",
+    B: "settled and balancing an existing job with everything else",
+  },
+  fallbackQuestion: "What's weighing on you most with balancing everything right now?",
+  supersedes: [],
+  stages: {
+    A: {
+      label: "Not settled yet",
+      describes:
+        "Learning or upskilling, or in the middle of a career transition — no stable job on the other side of it yet. Giveaway words: \"learning\", \"studying\", \"job hunting\", \"between jobs\", \"transition\", \"still looking\". The moment a message names an actual current job's hours, manager, or team, it's stage B, even if she got there partway through a transition.",
+      facets: ["S2", "S3", "S3a", "S4", "S5", "S5a", "S5b"],
+    },
+    B: {
+      label: "Settled and balancing",
+      describes:
+        "An actual current job exists — the live question is how to make it fit around everything else: boundaries and hours, family responsibilities, flexible or remote arrangements, or an environment that's already become unsafe or unsustainable. Giveaway words: \"my job\", \"my manager\", \"my team\", \"my hours\", naming a current role. Also covers learning or upskilling stacked ON TOP OF an existing job and family load — that's still B, not A, once a current job is in the picture at all.",
+      facets: ["S1", "S1a", "S2", "S2a", "S3a", "S4", "G1", "G2"],
+    },
+  },
+};
+
 // Ported verbatim from scripts/areas/confidence.mjs. Reached differently from
 // every other area in production: it is NOT routed through updateCareerTopic
 // (there is no "confidence" entry in TOPIC_CATEGORIES) — the router calls
@@ -337,6 +382,7 @@ export const AREAS: Record<string, AreaConfig> = {
   salary: SALARY_AREA,
   getting_started: GETTING_STARTED_AREA,
   mentorship: MENTORSHIP_AREA,
+  wellbeing: WELLBEING_AREA,
   mindset: CONFIDENCE_AREA,
   career_paths: CAREER_PATHS_AREA,
   further_education: FURTHER_EDUCATION_AREA,
@@ -346,6 +392,7 @@ export const AREA_TOPIC_TO_FUNCTION_NAME: Record<string, string> = {
   salary: "discussSalaryArea",
   getting_started: "discussGettingStartedArea",
   mentorship: "discussMentorshipArea",
+  wellbeing: "discussWellbeingArea",
   mindset: "discussConfidenceArea",
   career_paths: "discussCareerPathsArea",
   further_education: "discussFurtherEducationArea",

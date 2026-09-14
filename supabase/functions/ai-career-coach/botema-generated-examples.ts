@@ -398,6 +398,79 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       reviewStatus: "unreviewed", drafted: "2026-08-27",
     },
 
+    // ── Area 5 · Wellbeing & Balance ───────────────────────────────────────
+    // Seven gaps identified 2026-09-14 in the storyboard's dead-end discovery
+    // pass, before this area had ever been built anywhere. Two (G1, G2) are
+    // standalone: nothing in Otema's 5 real answers covers an already-present
+    // crisis in a current job (everything is framed preventively) or a hostile/
+    // unsafe environment as the actual source of strain — a materially
+    // different problem needing safety/escalation content, not pacing tips.
+    // Given this area explicitly speaks to women in tech, meeting either with
+    // generic boundary advice would be worse than saying nothing, so these two
+    // were drafted before wiring the area in at all rather than left for later.
+    // The other five are response branches off S1, S2, S3, and S5.
+    {
+      question: "I set those hours but my manager still expects a reply after hours anyway.",
+      answer:
+        "That's the case the general advice doesn't cover — a stated boundary only works if the people around you actually respect it, and not every manager does. If this keeps happening after you've said it plainly, that's information about the team, not a sign you asked wrong. A plain, direct conversation naming the pattern is usually the first real move, whatever your workplace's formal process looks like or doesn't; some people push through and raise it again if nothing changes, others decide it's not worth staying somewhere that won't budge, and both are legitimate calls, not a failure either way. Has this been a one-off, or has it kept happening since you raised it?",
+      topic: "wellbeing", area: 5, facet: "S1a", respondsTo: "S1",
+      userSaid: "I set those hours and my manager still messages me expecting a reply after hours",
+      gap: "S1's real answer assumes a reasonable team that respects a stated boundary once it's said — this is the case where that assumption is wrong, and has to hold both persisting and deciding to leave as legitimate outcomes, without assuming a formal HR/escalation process exists (area-tester found the model inventing SLA/on-call machinery unprompted, 2026-09-14)",
+      reviewStatus: "unreviewed", drafted: "2026-09-14",
+    },
+    {
+      question: "I don't really have anyone — no partner, no family nearby, nothing to build a support network out of.",
+      answer:
+        "Building a network from nothing is a slower, more deliberate project than it sounds — think in terms of one or two reliable people, not a whole system: another parent at the same stage, a colleague who works similar hours, or a paid option like a childminder a few hours a week if that's within reach. And if you do have some help already but you're still the only one holding the whole plan in your head, that's a different weight from having no help at all, and worth naming directly to whoever's around rather than assuming more hands automatically means less to carry. What would make the biggest difference right now — more hands, or someone else carrying part of the plan?",
+      topic: "wellbeing", area: 5, facet: "S2a", respondsTo: "S2",
+      userSaid: "I don't have anyone to lean on — no partner, no family nearby",
+      gap: "S2's real answer assumes a network can be built if you try — this covers both having none to build from and, separately, having help physically present while still carrying the mental load alone",
+      reviewStatus: "unreviewed", drafted: "2026-09-14",
+    },
+    {
+      question: "I'm not just learning — I'm doing this on top of a full-time job and looking after my kids in the evenings.",
+      answer:
+        "That's a genuinely heavier load than pacing a course on its own, so the sustainable-hours advice needs a harder edit: something has to flex, even temporarily, because there's no version of this where work, the course, and everything else all get full attention at once. Most people in your position do better picking one to deliberately under-invest in for a stretch rather than spreading thin across all three. Which of the three is most flexible to trim back for a few weeks — work, the course, or everything else?",
+      topic: "wellbeing", area: 5, facet: "S3a", respondsTo: "S3",
+      userSaid: "I'm learning on top of a full-time job and looking after my kids",
+      gap: "S3's real answer assumes learning is the main load being paced — this is the case where it's stacked on top of an existing job and family responsibilities, not carried on its own",
+      reviewStatus: "unreviewed", drafted: "2026-09-14",
+    },
+    {
+      question: "Honestly it's not the uncertainty — I don't know if I'm actually good enough to pull this off.",
+      answer:
+        "That's worth pulling apart from the logistics, because it's a different question than the one about timelines and runway — doubting whether you can do this sits closer to confidence than to the transition itself. It's common enough during a switch that it doesn't mean anything's actually wrong, but it deserves its own space rather than getting folded into general transition stress. Is it the whole switch you're doubting, or something more specific about it?",
+      topic: "wellbeing", area: 5, facet: "S5a", respondsTo: "S5",
+      userSaid: "It's not the uncertainty, it's whether I'm actually good enough to pull this off",
+      gap: "S5's closer can surface self-doubt about capability rather than logistics stress — validates once and the leaving table hands it to Confidence if it stays the main subject",
+      reviewStatus: "unreviewed", drafted: "2026-09-14",
+    },
+    {
+      question: "I'm scared I'll run out of money before I find something.",
+      answer:
+        "Money pressure on top of everything else makes the uncertainty so much harder to sit with, and it deserves being looked at directly rather than folded into general transition stress. Get honest with yourself about how many months your runway actually covers, and whether a stopgap — part-time work, freelancing, anything short-term — buys you room without derailing the transition itself. What does your runway actually look like right now?",
+      topic: "wellbeing", area: 5, facet: "S5b", respondsTo: "S5",
+      userSaid: "I'm scared I'll run out of money before I find something",
+      gap: "S5's real answer never mentions money at all despite it being a near-certain concern for anyone job-searching without income — this answer deliberately asks her for the runway rather than stating one; area-tester still caught the model inventing a specific month count unprompted (2026-09-14), addressed by broadening NO_INVENTED_FIGURES in converser.ts to cover timeframes, not just currency",
+      reviewStatus: "unreviewed", drafted: "2026-09-14",
+    },
+    {
+      question: "I dread going to work every day now and I'm not sleeping properly because of it.",
+      answer:
+        "That's past the point where pacing advice is the right tool — this is already a crisis, not something to prevent. Alongside anything you change at work, it's worth talking to a professional about the sleep and the dread specifically, not just a coach. How long has it been like this?",
+      topic: "wellbeing", area: 5, facet: "G1",
+      gap: "Already-present burnout or crisis in a current job — every Stage B facet is framed preventively, nothing meets someone already past that point",
+      reviewStatus: "unreviewed", drafted: "2026-09-14",
+    },
+    {
+      question: "Someone at work keeps making comments that make me uncomfortable and I don't know what to do.",
+      answer:
+        "That's not a workload or boundary problem — that's about whether you're safe and respected where you are, and it deserves to be treated that way, not folded into general burnout advice. Worth documenting what's happened as it happens, and knowing your options — HR, a trusted manager, or support outside the company entirely. Has this happened more than once, or is this the first time?",
+      topic: "wellbeing", area: 5, facet: "G2",
+      gap: "Harassment or a hostile/unsafe work environment as the actual source of strain — a materially different problem from workload or boundaries, needing safety/escalation content rather than pacing advice",
+      reviewStatus: "unreviewed", drafted: "2026-09-14",
+    },
+
     // ── Area 9 · Salary & Negotiation ─────────────────────────────────────
     // Four gaps identified 2026-08-14: none of these are in the 57-question
     // bank, and neither KNOWLEDGE_BASE.salary nor her real examples cover them.

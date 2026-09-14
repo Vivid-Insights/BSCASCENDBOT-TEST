@@ -274,7 +274,13 @@ export class AddressMindsetChallenge extends WordaliseFunction {
 
   get name() { return "addressMindsetChallenge"; }
   get description() {
-    return "Call this when the user expresses a mindset challenge — imposter syndrome, feeling like they don't belong, self-doubt, lack of confidence, burnout, motivation difficulties, or mental health during a career transition.";
+    // Narrowed 2026-09-14 alongside Wellbeing & Balance going live: burnout,
+    // boundaries/workload, and mental health during a transition now belong
+    // to discussWellbeingArea (see botema-coach.ts's routing rule 3 and rule
+    // 7's "wellbeing" topic) — this function is left with motivation loss and
+    // general transition anxiety not about load or balance, same move as
+    // Confidence's own narrowing when it split out.
+    return "Call this when the user expresses a mindset challenge that is NOT burnout, workload, boundaries, or balance-related — imposter syndrome, feeling like they don't belong, self-doubt, lack of confidence, or motivation difficulties.";
   }
   get parameters() {
     return {
@@ -282,7 +288,7 @@ export class AddressMindsetChallenge extends WordaliseFunction {
       properties: {
         challenge_type: {
           type: "string",
-          description: "The specific mindset challenge: imposter_syndrome, confidence, motivation, burnout, belonging, or general",
+          description: "The specific mindset challenge: imposter_syndrome, confidence, motivation, belonging, or general",
         },
       },
       required: [],
@@ -294,7 +300,7 @@ export class AddressMindsetChallenge extends WordaliseFunction {
   }
 
   getDomainKnowledge(_args: Record<string, unknown>): string {
-    return `${KNOWLEDGE_BASE["mindset"]}\n\n---\n\n${KNOWLEDGE_BASE["wellbeing"]}`;
+    return KNOWLEDGE_BASE["mindset"];
   }
 
   async generateResponse(prompt: string, _question: string): Promise<string> {

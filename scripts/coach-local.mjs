@@ -278,6 +278,7 @@ const AREAS_BUILT = [
   "career-paths",
   "further-education",
   "mentorship",
+  "wellbeing",
 ];
 
 if (!AREAS_BUILT.includes(AREA_SLUG)) {
@@ -2112,15 +2113,30 @@ async function main() {
     // covered the first shape.
     const rescueIntoWrapUp = somethingWasCut && bareReply && WRAP_UP && placed.stage !== WRAP_UP;
     const regenerateWrapUp = bareReply && WRAP_UP && placed.stage === WRAP_UP;
-    if (rescueIntoWrapUp || regenerateWrapUp) {
+    // Third shape, found live on Wellbeing (area-tester 2026-09-14): an area
+    // with NO wrap-up stage at all — same as Career Paths, Further Education,
+    // Mentorship — gets neither branch above, since both are gated on WRAP_UP
+    // existing. A bare/dangling reply on one of these areas used to fall
+    // straight through to the area's generic fallback question with no retry
+    // at all, on exactly the turns this matters most: she reported the same
+    // unrespected boundary happening again (S1a), and separately said she'd
+    // been dreading work for two months (G1) — both replies collapsed to
+    // "What's weighing on you most with balancing everything right now?",
+    // indistinguishable from what she'd have gotten having said nothing.
+    // Generalizes the same one-retry rescue to run regardless of whether the
+    // area has a wrap-up stage, against the CURRENT stage rather than one.
+    const rescueGeneric = !WRAP_UP && bareReply;
+    if (rescueIntoWrapUp || regenerateWrapUp || rescueGeneric) {
       const why = !text ? "nothing survived" : danglingBody ? "reply promised content it didn't contain" : "only a question survived";
-      console.log(C.amber(`  [${why} the guards — ${regenerateWrapUp ? "regenerating the wrap-up" : "answering as a wrap-up instead"}]`));
+      const regenTarget = rescueGeneric ? placed.stage : WRAP_UP;
+      console.log(C.amber(`  [${why} the guards — ${rescueGeneric ? "regenerating the reply" : regenerateWrapUp ? "regenerating the wrap-up" : "answering as a wrap-up instead"}]`));
       // Set before the call, not after: if the regeneration also comes back
       // empty, the rescue below should offer to finish rather than serve the
       // area's fallback question, which is the thing this branch exists to
-      // avoid. Observed doing exactly that on a live run.
-      state.wrappedUp = true;
-      const again = await wordalise(input, WRAP_UP, history, facets, search, state.usedExamples, priorReplies).catch(() => null);
+      // avoid. Observed doing exactly that on a live run. Not set on the
+      // generic path — there is no wrap-up to offer in an area without one.
+      if (!rescueGeneric) state.wrappedUp = true;
+      const again = await wordalise(input, regenTarget, history, facets, search, state.usedExamples, priorReplies).catch(() => null);
       if (again) {
         // The same guards the first attempt got, in the same order. Running a
         // shorter chain here let the regenerated reply open with the exact

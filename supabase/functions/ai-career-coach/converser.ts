@@ -656,7 +656,9 @@ export const NO_INVENTED_FIGURES =
   "You have no live pay data and no web access, so never state a specific salary, rate or currency figure, " +
   "and never claim to be citing market data, surveys or research — you have none. " +
   "If someone asks what a role pays, tell them how to find out instead: what to compare, who to ask, and what makes a source trustworthy. " +
-  "Being honest that reliable public data is thin in many markets is a better answer than a confident number.";
+  "The same goes for any other specific number you have no basis for — a runway in months, a percentage, a headcount, a timeline — " +
+  "if she hasn't told you the inputs, work out how she'd figure it out herself rather than handing her a confident-sounding number. " +
+  "Being honest that reliable data is thin in many markets is a better answer than a confident number.";
 
 // Front half of resolveNarrowOrAnswer(), split out so the area/stage
 // generation path (DiscussArea, in botema-coach.ts) can reuse the same
