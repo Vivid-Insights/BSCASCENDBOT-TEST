@@ -45,6 +45,16 @@ export interface AreaConfig {
   wrapUp: string | null;
   supersedes: Array<{ after: string; retire: string[] }>;
   stages: Record<string, StageConfig>;
+  // Confidence's real answers carry pre-v4 topic tags shared with an
+  // unrelated Wellbeing answer (see scripts/areas/confidence.mjs), so they're
+  // matched by exact question text instead of by topic. Optional — every
+  // other area matches by `topic` alone.
+  realQuestions?: string[];
+  // Which BOTEMA_EXAMPLES array to read real answers from. Everything routed
+  // through updateCareerTopic lives under adviseOnCareerTopic; Confidence is
+  // routed directly to its own function and its real answers live under
+  // addressMindsetChallenge instead. Defaults to adviseOnCareerTopic.
+  realSource?: "adviseOnCareerTopic" | "addressMindsetChallenge";
 }
 
 // Ported verbatim from scripts/areas/salary.mjs, minus `marketData` — live web
@@ -172,6 +182,61 @@ export const MENTORSHIP_AREA: AreaConfig = {
   },
 };
 
+// Ported verbatim from scripts/areas/confidence.mjs. Reached differently from
+// every other area in production: it is NOT routed through updateCareerTopic
+// (there is no "confidence" entry in TOPIC_CATEGORIES) — the router calls
+// discussConfidenceArea directly, the same way it already calls
+// addressMindsetChallenge directly for general mindset/burnout content. See
+// the routing split in botema-coach.ts's instructions: confidence-shaped
+// content (comparing herself to others, not belonging, a stalled action from
+// self-doubt) goes here; burnout, workload, motivation and general anxiety
+// keep going to addressMindsetChallenge, unchanged.
+export const CONFIDENCE_AREA: AreaConfig = {
+  n: 6,
+  name: "Confidence & Imposter Syndrome",
+  topic: "mindset",
+  realQuestions: [
+    "I constantly feel like I don't belong in tech.",
+    "How do I handle moments when I feel less competent than my colleagues?",
+    "How do I build confidence speaking up in meetings or presenting my work?",
+    "How do I stop holding myself back from applying to roles I feel underqualified for?",
+    "How do I actually internalise my achievements instead of brushing them off?",
+  ],
+  realOrder: ["S1", "S2", "S3", "S4", "S5"],
+  realSource: "addressMindsetChallenge",
+  wrapUp: "C",
+  stageSummary: {
+    A: "working through how you feel about yourself",
+    B: "a decision stalled by that feeling",
+    C: "pulling together what you're going to do",
+  },
+  fallbackQuestion: "What feels true for you right now?",
+  supersedes: [],
+  stages: {
+    A: {
+      label: "Processing the narrative",
+      describes:
+        "A feeling being worked through, with no action currently stalled on it: comparing yourself to colleagues, not feeling like you belong, discounting your own achievements or other people's praise. Giveaway words: \"I feel like\", \"don't belong\", \"less competent\", \"brush off\", \"imposter\". If the message names a specific thing she is NOT doing because of the feeling — not applying, not speaking up, not putting herself forward — that's stage B instead, even if the feeling itself sounds the same.",
+      facets: ["S1", "S1b", "S2", "S5", "S5a", "G1", "G3", "G5", "G6", "G7", "G8", "G9", "G10", "S1a"],
+    },
+    B: {
+      label: "A stalled action",
+      describes:
+        "Self-doubt is the stated reason something concrete isn't happening: not speaking up in a meeting, not applying to a role, not accepting or asking for an opportunity. The distinguishing fact is a decision sitting behind the feeling, not just the feeling on its own. Giveaway words: \"holding myself back\", \"scared to apply\", \"won't speak up\", \"turned it down\", \"didn't put myself forward\".",
+      facets: ["S3", "S3b", "S3c", "S4", "G2", "G4", "S3a"],
+    },
+    C: {
+      label: "Wrapping up",
+      describes:
+        "The advice has landed and she is settling rather than asking. She agrees with it, thanks you for it, says she will try it, says it makes sense, or answers a closing check with a yes. Giveaway words: \"that makes sense\", \"okay, I'll try that\", \"thank you\", \"that helps\", \"yeah, I think so\", \"no, that's it\". Do NOT choose this because a message is short or vague — only because she is agreeing or closing. If she raises anything new, however small, or asks another question, she is back in A or B and this is not the stage.",
+      facets: [
+        "S1", "S1b", "S2", "S5", "S5a", "G1", "G3", "G5", "G6", "G7", "G8", "G9", "G10", "S1a",
+        "S3", "S3b", "S3c", "S4", "G2", "G4", "S3a",
+      ],
+    },
+  },
+};
+
 // One WORDALISE function per built area — see AREA_TOPIC_TO_FUNCTION_NAME
 // below, used by UpdateCareerTopic to decide where to chain, and by index.ts
 // to call the right one directly when an area is already open.
@@ -179,12 +244,14 @@ export const AREAS: Record<string, AreaConfig> = {
   salary: SALARY_AREA,
   getting_started: GETTING_STARTED_AREA,
   mentorship: MENTORSHIP_AREA,
+  mindset: CONFIDENCE_AREA,
 };
 
 export const AREA_TOPIC_TO_FUNCTION_NAME: Record<string, string> = {
   salary: "discussSalaryArea",
   getting_started: "discussGettingStartedArea",
   mentorship: "discussMentorshipArea",
+  mindset: "discussConfidenceArea",
 };
 
 export const WRAP_UP_LINE =
@@ -262,7 +329,13 @@ export interface Facet {
 
 export function buildFacets(area: AreaConfig): Record<string, Facet> {
   const f: Record<string, Facet> = {};
-  const real = (BOTEMA_EXAMPLES.adviseOnCareerTopic || []).filter((ex) => ex.topic === area.topic);
+  const pool = BOTEMA_EXAMPLES[area.realSource || "adviseOnCareerTopic"] || [];
+  // Most areas match by topic tag; Confidence matches by exact question text
+  // instead, because its real answers carry pre-v4 tags shared with an
+  // unrelated Wellbeing answer — see the note on AreaConfig.realQuestions.
+  const real = area.realQuestions
+    ? area.realQuestions.map((q) => pool.find((ex) => ex.question === q)).filter((ex): ex is typeof pool[number] => !!ex)
+    : pool.filter((ex) => ex.topic === area.topic);
   real.forEach((ex, i) => {
     const id = area.realOrder[i];
     if (id) f[id] = { id, question: ex.question, answer: ex.answer, source: "OTEMA" };

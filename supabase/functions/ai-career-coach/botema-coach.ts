@@ -7,7 +7,7 @@ import { UpdateCareerTopic, CaptureUserBackground, InviteUserContext } from "./b
 import { KNOWLEDGE_BASE, GENERAL_FALLBACK } from "./bsc-knowledge.ts";
 import { BOTEMA_EXAMPLES, BOTEMA_SYSTEM_PROMPT, BOTEMA_VALUES } from "./botema-examples.ts";
 import { DiscussArea } from "./discussion-coach.ts";
-import { SALARY_AREA, GETTING_STARTED_AREA, MENTORSHIP_AREA, AREA_TOPIC_TO_FUNCTION_NAME } from "./discussion-areas.ts";
+import { SALARY_AREA, GETTING_STARTED_AREA, MENTORSHIP_AREA, CONFIDENCE_AREA, AREA_TOPIC_TO_FUNCTION_NAME } from "./discussion-areas.ts";
 
 // Reasoning effort. gpt-5-nano reasons at roughly medium if left alone, and
 // for generation that is waste — the prompt carries the persona, the knowledge
@@ -131,12 +131,16 @@ class BotemaAdvise extends WordaliseFunction {
 // ── WORDALISE 2: Botema mindset support ───────────────────────────────────
 class BoteMindset extends WordaliseFunction {
   get name() { return "addressMindsetChallenge"; }
-  get description() { return "Call when the user expresses imposter syndrome, self-doubt, lack of confidence, burnout, or motivation difficulties."; }
+  // Narrowed once discussConfidenceArea took over imposter syndrome, self-
+  // doubt and belonging — see the routing split in BotemaCoach.instructions.
+  // This still handles the mindset-adjacent content that genuinely isn't
+  // about self-doubt: burnout, workload stress, motivation loss on its own.
+  get description() { return "Call when the user expresses burnout, workload stress, or motivation difficulties that are NOT about self-doubt, imposter syndrome, confidence or belonging — those go to discussConfidenceArea instead."; }
   get parameters() {
     return {
       type: "object",
       properties: {
-        challenge_type: { type: "string", description: "imposter_syndrome, confidence, motivation, burnout, belonging, or general" },
+        challenge_type: { type: "string", description: "motivation, burnout, or general" },
       },
       required: [],
     };
@@ -294,15 +298,17 @@ ROUTING RULES — always call exactly one function, never respond directly:
 
 1. OUT OF SCOPE — the message has nothing to do with TECH career coaching specifically: general trivia, unrelated technical help (e.g. "write me a script", "what's the capital of France"), creative writing requests, explicitly wanting a career/field/job that is NOT tech (e.g. "a field unrelated to tech", "I don't want to work in tech"), or anything else unrelated to tech careers, jobs, skills, mentorship, or mindset → call answerOutOfScope. Being about careers/jobs in general is not enough to be in scope — it has to be about a TECH career.
 
-2. MINDSET — user expresses fear, self-doubt, imposter syndrome, burnout, anxiety, motivation loss, feeling they don't belong → call addressMindsetChallenge.
+2. CONFIDENCE & IMPOSTER SYNDROME — a narrative about HERSELF: comparing herself to colleagues, not feeling like she belongs, discounting her own achievements or praise, imposter syndrome — OR self-doubt that has stalled a concrete action: not applying, not speaking up, not putting herself forward, turning down an opportunity → call discussConfidenceArea. The distinguishing test versus rule 3: is the feeling about her own sense of belonging or competence, even without a stalled action behind it?
 
-3. BACKGROUND — user explicitly shares detailed personal info: their current job title, years of experience, specific goals, location, or education level → call captureUserBackground. Do NOT use this for short replies like "I'm new" or "I'm a beginner".
+3. OTHER MINDSET — burnout, workload stress, or motivation loss that is NOT about self-doubt, belonging or competence → call addressMindsetChallenge. If genuinely unsure between this and rule 2, prefer rule 2 when the words "belong", "imposter", "competent", "confidence" or "good enough" appear — those are specifically what discussConfidenceArea is for.
 
-4. GREETING — user says hello, hi, asks what you can do, or sends their very first message with no topic → call howCoachWorks.
+4. BACKGROUND — user explicitly shares detailed personal info: their current job title, years of experience, specific goals, location, or education level → call captureUserBackground. Do NOT use this for short replies like "I'm new" or "I'm a beginner".
 
-5. NEEDS NARROWING — judge this from the message itself, not a fixed list: could you give ONE focused, specific answer right now, or would answering mean covering several genuinely different angles just to be safe? If it's the latter, call inviteUserContext to ask ONE short question narrowing down which angle to focus on, instead of covering all of them at once. This applies whether the message has no topic at all ("help me learn tech", "how do I start a career in tech") OR names a topic that still spans multiple distinct angles (e.g. "job search strategy" could mean CV, networking, the no-experience path, LinkedIn, or interview prep — which one? "what resources should I use" could mean web, data, or IT — which one?). A reliable self-check: if the answer you're about to write would naturally include branching phrasing like "if you're interested in X, do A — for Y, try B, and for Z, try C", that is proof the question was still broad. Stop and ask which ONE they want FIRST instead of writing that answer. When genuinely in doubt, prefer narrowing over answering — it only costs the user one tap, and prevents a long, multi-track answer covering options they didn't ask for. Skip narrowing only when the message already points to one specific, answerable facet ("how do I learn Python", "CV help", "salary negotiation"), or if the profile or conversation history already makes the intent clear. When you call inviteUserContext, always fill in its "question" and "options" arguments yourself — a short question and 3-5 answer options tailored specifically to what THIS user asked, not generic ones.
+5. GREETING — user says hello, hi, asks what you can do, or sends their very first message with no topic → call howCoachWorks.
 
-6. TOPIC/QUESTION (DEFAULT) — the message already points to one specific, answerable facet — a skill, a concrete question, a clearly single-angle request, even short ones like "I'm new to tech" or "I want to be a developer" → call updateCareerTopic with the best topic you can infer. The answer that follows should stay tightly focused on that one facet — don't pull in every related sub-topic just because they live in the same knowledge area. Keep it short: a few lines, not a comprehensive rundown of everything related.
+6. NEEDS NARROWING — judge this from the message itself, not a fixed list: could you give ONE focused, specific answer right now, or would answering mean covering several genuinely different angles just to be safe? If it's the latter, call inviteUserContext to ask ONE short question narrowing down which angle to focus on, instead of covering all of them at once. This applies whether the message has no topic at all ("help me learn tech", "how do I start a career in tech") OR names a topic that still spans multiple distinct angles (e.g. "job search strategy" could mean CV, networking, the no-experience path, LinkedIn, or interview prep — which one? "what resources should I use" could mean web, data, or IT — which one?). A reliable self-check: if the answer you're about to write would naturally include branching phrasing like "if you're interested in X, do A — for Y, try B, and for Z, try C", that is proof the question was still broad. Stop and ask which ONE they want FIRST instead of writing that answer. When genuinely in doubt, prefer narrowing over answering — it only costs the user one tap, and prevents a long, multi-track answer covering options they didn't ask for. Skip narrowing only when the message already points to one specific, answerable facet ("how do I learn Python", "CV help", "salary negotiation"), or if the profile or conversation history already makes the intent clear. When you call inviteUserContext, always fill in its "question" and "options" arguments yourself — a short question and 3-5 answer options tailored specifically to what THIS user asked, not generic ones.
+
+7. TOPIC/QUESTION (DEFAULT) — the message already points to one specific, answerable facet — a skill, a concrete question, a clearly single-angle request, even short ones like "I'm new to tech" or "I want to be a developer" → call updateCareerTopic with the best topic you can infer. The answer that follows should stay tightly focused on that one facet — don't pull in every related sub-topic just because they live in the same knowledge area. Keep it short: a few lines, not a comprehensive rundown of everything related.
 
 When in doubt between updateCareerTopic and answerOutOfScope, prefer updateCareerTopic unless the message is clearly unrelated to tech careers.
 
@@ -326,6 +332,10 @@ Always call exactly one function.`;
       new DiscussArea(this, SALARY_AREA, AREA_TOPIC_TO_FUNCTION_NAME.salary),
       new DiscussArea(this, GETTING_STARTED_AREA, AREA_TOPIC_TO_FUNCTION_NAME.getting_started),
       new DiscussArea(this, MENTORSHIP_AREA, AREA_TOPIC_TO_FUNCTION_NAME.mentorship),
+      // Reached directly by the router (rule 2), not via updateCareerTopic —
+      // see the routing split in `instructions` above and the note on
+      // CONFIDENCE_AREA in discussion-areas.ts.
+      new DiscussArea(this, CONFIDENCE_AREA, AREA_TOPIC_TO_FUNCTION_NAME.mindset),
     ];
   }
 }

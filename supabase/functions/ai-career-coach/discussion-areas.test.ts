@@ -3,6 +3,7 @@ import {
   SALARY_AREA,
   GETTING_STARTED_AREA,
   MENTORSHIP_AREA,
+  CONFIDENCE_AREA,
   buildFacets,
   mostRelevant,
   queryWords,
@@ -46,6 +47,18 @@ describe("buildFacets", () => {
       expect(facets[id]).toBeDefined();
       expect(facets[id].source).toBe("OTEMA");
     }
+  });
+
+  it("wires Confidence's 5 real answers by exact question text, from addressMindsetChallenge", () => {
+    const facets = buildFacets(CONFIDENCE_AREA);
+    for (const id of CONFIDENCE_AREA.realOrder) {
+      expect(facets[id]).toBeDefined();
+      expect(facets[id].source).toBe("OTEMA");
+    }
+    // Confirms it did NOT fall back to topic-tag matching on "mindset" against
+    // adviseOnCareerTopic (which has no such topic) or pick up the unrelated
+    // Wellbeing answer that shares a pre-v4 tag with one of these.
+    expect(facets.S1.question).toBe("I constantly feel like I don't belong in tech.");
   });
 
   it("only ever includes drafted facets that are review-approved", () => {

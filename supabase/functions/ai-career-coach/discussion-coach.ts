@@ -553,10 +553,20 @@ export class DiscussArea extends WordaliseFunction {
     // stripped reply.
     const somethingWasCut = text.capped || !text.deduped;
     const danglingBody = !!text.text && endsOnDanglingReference(text.text);
-    if (
-      somethingWasCut && (!text.text || isOnlyAQuestion(text.text) || danglingBody) &&
-      this.area.wrapUp && effectiveStage !== this.area.wrapUp
-    ) {
+    const bare = !text.text || isOnlyAQuestion(text.text) || danglingBody;
+    // Two shapes, not one. The first is transitioning INTO wrap-up from
+    // elsewhere, guards having cut something on the way. The second — found
+    // live on Confidence, classified stage C correctly on its own — is
+    // already AT the wrap-up stage and the model's own first attempt came
+    // back bare on its own account, nothing cut by any guard: "Does that
+    // sound like what you'll actually do next?" and nothing else, the exact
+    // shape stage C's rule exists to prevent. The original condition only
+    // covered the first shape; a bare wrap-up reply with nothing cut sailed
+    // straight through as the final answer.
+    const attemptingWrapUpRescue =
+      (somethingWasCut && bare && this.area.wrapUp && effectiveStage !== this.area.wrapUp) ||
+      (bare && this.area.wrapUp && effectiveStage === this.area.wrapUp);
+    if (attemptingWrapUpRescue) {
       state.wrappedUp = true;
       try {
         const again = await generate(this.area, this.area.wrapUp, question, history, facets, state.coveredFacets, state, priorReplies, this.azure);
@@ -569,7 +579,17 @@ export class DiscussArea extends WordaliseFunction {
           const finished = dropSecondQuestion(cleaned || "");
           if (finished && finished.trim() && !isOnlyAQuestion(finished)) text.text = finished;
         }
-      } catch { /* fall through to the empty-reply rescue below */ }
+      } catch { /* fall through below */ }
+      // The regeneration attempt itself can ALSO come back bare — found live
+      // right after fixing the first gap: turn 1 of a stall correctly
+      // regenerated with a concrete plan named, but the very next turn's
+      // regeneration produced ANOTHER bare question ("Is that the plan you
+      // want me to hold you to?") that isOnlyAQuestion() correctly refused to
+      // accept — leaving the ORIGINAL bare reply standing, since it's
+      // non-empty and the fallback below only catches emptiness. Two bare
+      // attempts in a row means force the honest fallback rather than show
+      // either one.
+      if (text.text && isOnlyAQuestion(text.text)) text.text = "";
     }
 
     if (text.text && echoesUser(text.text, question)) text.text = "";

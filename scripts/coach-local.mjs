@@ -2030,9 +2030,21 @@ async function main() {
     // asked what to actually do. Same root cause, same fix.
     const somethingWasCut = capped || !deduped || deduped !== openerFixed;
     const danglingBody = !!text && endsOnDanglingReference(text);
-    if (somethingWasCut && (!text || isOnlyAQuestion(text) || danglingBody) && WRAP_UP && placed.stage !== WRAP_UP) {
+    const bareReply = !text || isOnlyAQuestion(text) || danglingBody;
+    // Two shapes, not one. The first is transitioning INTO wrap-up from
+    // elsewhere, guards having cut something on the way — the case this
+    // rescue was originally built for. The second — found live on
+    // Confidence, area-tester 2026-09-14 — is already AT the wrap-up stage,
+    // classified correctly on its own, and the model's own first attempt
+    // came back bare with nothing cut by any guard: "Does that sound like
+    // what you'll actually do next?" and nothing else, the exact shape
+    // stage C's own rule exists to prevent. The original condition only
+    // covered the first shape.
+    const rescueIntoWrapUp = somethingWasCut && bareReply && WRAP_UP && placed.stage !== WRAP_UP;
+    const regenerateWrapUp = bareReply && WRAP_UP && placed.stage === WRAP_UP;
+    if (rescueIntoWrapUp || regenerateWrapUp) {
       const why = !text ? "nothing survived" : danglingBody ? "reply promised content it didn't contain" : "only a question survived";
-      console.log(C.amber(`  [${why} the guards — answering as a wrap-up instead]`));
+      console.log(C.amber(`  [${why} the guards — ${regenerateWrapUp ? "regenerating the wrap-up" : "answering as a wrap-up instead"}]`));
       // Set before the call, not after: if the regeneration also comes back
       // empty, the rescue below should offer to finish rather than serve the
       // area's fallback question, which is the thing this branch exists to
@@ -2050,6 +2062,17 @@ async function main() {
         const cleaned = capSentences(flattenInlineList(flattenEnumerations(regen)), 3).text;
         const finished = dropSecondQuestion(cleaned || "");
         if (finished && finished.trim() && !isOnlyAQuestion(finished)) text = finished;
+      }
+      // The regeneration itself can ALSO come back bare — found live right
+      // after fixing the first gap, on the very next turn of the same
+      // conversation: "Is that the plan you want me to hold you to?" and
+      // nothing else, correctly refused above, which left the ORIGINAL bare
+      // reply standing since it's non-empty and the fallback below only
+      // catches emptiness. Two bare attempts in a row means force the honest
+      // fallback rather than show either one.
+      if (text && isOnlyAQuestion(text)) {
+        console.log(C.amber("  [regeneration was also bare — forcing the wrap-up fallback]"));
+        text = "";
       }
     }
     // Before the empty-reply rescue below, so an echo falls through to it
