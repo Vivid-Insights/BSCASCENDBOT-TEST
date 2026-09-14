@@ -805,6 +805,19 @@ describe("mentionedByUser / stripInventedLocation", () => {
     const raw = "Nairobi's market favours generalists early on.";
     expect(stripInventedLocation(raw, "i am based in nairobi")).toBe(raw);
   });
+
+  it("removes the whole sentence cleanly even when an abbreviation sits next to the invented place", () => {
+    // Live regression, area-tester 2026-09-14: a naive split on every period
+    // treated "e.g." as a sentence end, so the sentence carrying the
+    // invented place got cut into fragments — only the middle fragment
+    // (matching a KNOWN_PLACES entry) was removed, leaving "A regional
+    // certification (e.g." dangling with an unclosed parenthesis. Using the
+    // same abbreviation-aware splitSentences() every other guard uses fixes
+    // the split itself.
+    const raw = "A regional certification (e.g. CISM in Kenya) helps a lot. Would that work for you?";
+    const out = stripInventedLocation(raw, "i am not sure where i want to end up");
+    expect(out).toBe("Would that work for you?");
+  });
 });
 
 describe("capSentencesFlagged", () => {

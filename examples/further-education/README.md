@@ -1,9 +1,9 @@
 # Coach scenario sweep
 
-Five conversations run through `scripts/coach-local.mjs` against live Azure (`gpt-5-nano`), five turns each.
+5 conversations run through `scripts/coach-local.mjs` against live Azure (`gpt-5-nano`), five turns each.
 Each exists to test one claim the storyboard makes about the area model.
 
-_Further Education · last run **2026-08-27 08:03 UTC** — regenerate with `npm run coach:scenarios -- --area=further-education`._
+_Further Education · last run **2026-09-14 08:13 UTC** — regenerate with `npm run coach:scenarios -- --area=further-education`._
 
 **5 of 5 scenarios passed all checks.**
 
@@ -17,11 +17,12 @@ _Further Education · last run **2026-08-27 08:03 UTC** — regenerate with `npm
 
 ## What this does and does not cover
 
-Covered: stage classification across A, B and C; all three leaving layers; the
-invented-figure behaviour; and that answers end on a question.
+Covered: stage classification across A, B, C; the leaving
+layers; how replies open and end; and that the coach does not repeat itself.
 
 Not covered: whether the *advice* is good. These check shape and routing, not
 quality — that judgment belongs to Otema, and the drafted answers behind many of
-these replies are still unreviewed.
+these replies are still unreviewed. A scenario passing does not mean the
+conversation went well — read the transcript.
 
 Nothing here writes to a database. State is in memory and discarded per run.

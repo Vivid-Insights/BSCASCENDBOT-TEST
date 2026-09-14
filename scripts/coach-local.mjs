@@ -846,7 +846,12 @@ const KNOWN_PLACES = [
 ];
 
 function stripInventedLocation(text, saidByUser) {
-  const sentences = text.split(/(?<=[.!?])\s+/);
+  // Was a naive split, bypassing splitSentences() (which merges a quote- or
+  // abbreviation-spanning period back together). Found live: a reply ending
+  // "...often lands better than a master alone. remote-for-abroad)?" — the
+  // sentence with the invented place was removed, but a trailing fragment
+  // from a mis-split parenthetical was left orphaned behind it.
+  const sentences = splitSentences(text);
   const invented = (s) => {
     const low = s.toLowerCase();
     return KNOWN_PLACES.some((p) => low.includes(p) && !mentionedByUser(p, saidByUser));

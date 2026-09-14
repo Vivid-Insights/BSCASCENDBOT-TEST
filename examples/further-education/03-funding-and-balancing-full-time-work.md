@@ -1,6 +1,6 @@
 # Wants scholarships, has weak savings, and also works full time
 
-_Run 2026-08-27 08:03 UTC · 5 turns · gpt-5-nano via Azure_
+_Run 2026-09-14 08:13 UTC · 5 turns · gpt-5-nano via Azure_
 
 **What this tests.** Stays in stage C throughout — both funding and balancing are logistics on an already-chosen path — and draws on both S6 and S7 rather than only answering the first question asked.
 
@@ -12,78 +12,85 @@ BSC Coach — local area harness
   Type freely. 'state' to inspect, 'quit' to stop.
 
   you > how do I fund further education in tech, are there scholarships for women
-  [stage C — User asked about funding options and scholarships for women in tech.]
+  [stage C — Funding logistics: scholarships and ways to finance tech education.]
   → enterDiscussionArea(2 · Further Education)
-  [drew on S6, S7 — 2 Otema, 0 drafted]
+  [no new facts about her — note left alone, no call made]
+  [second question dropped — one per reply]
+  [drew on S6, S6a, S6b — 1 Otema, 2 drafted]
+  [voice only: S7a, S7]
 
 Botema
-  Yes — there are scholarships for women in tech, and many are accessible to
-  African applicants if you show a clear plan and impact. Options include
-  Chevening (UK), AWS re/Start, the Ada Lovelace Institute funds, Women in
-  Tech funds, employer sponsorships, and government/university scholarships;
-  you can also consider shorter online certificates that cost less and lead to
-  quicker returns. What programme are you considering, and when do you want to
-  start?
+  Yes. There are scholarships for women in tech, but they’re competitive and
+  finite, so you should stack options: scholarships, employer sponsorship or
+  education budgets, government or private loans, and affordable online or
+  part-time programs. What programme are you considering?
 
   you > I don't have strong savings
-  [stage C — User expressed lack of savings and asked about funding/scholarships, which fits funding logistics in a certificate/master's pathway.]
+  [stage C — Funding constraint updated; explore affordable options.]
+  [validating opener dropped — she described herself, not something done to her]
   [repeated advice removed]
-  [implausible figure removed — outlier, mixed currency, or wrong period]
-  [drew on S6, S7 — 2 Otema, 0 drafted]
+  [second question dropped — one per reply]
+  [drew on S6, S6a, S7 — 2 Otema, 1 drafted]
+  [voice only: S6b, S7a]
 
 Botema
-  That’s real, and scholarships exist to cover costs beyond savings. What
-  country and program are you considering, and when would you like to start so
-  I can help you shortlist options?
+  I’d start with programmes that offer scholarships or low upfront costs, plus
+  options for employer sponsorship or payment plans, and pair that with free
+  or low-cost certifications to get momentum. What programme are you eyeing?
 
   you > what actually makes someone competitive for these scholarships
-  [stage C — User asked what makes someone competitive for scholarships.]
-  [drew on S6, S7 — 2 Otema, 0 drafted]
+  [stage C — This is a logistic question about scholarships (financing for further education) so it fits stage C; the user is asking what makes someone competitive for scholarships, a strategy question within funding area.]
+  [nothing recorded about her yet — writing the note anyway before it ages out]
+  [drew on S6, S6a, S7a — 1 Otema, 2 drafted]
+  [voice only: S7, S6b]
 
 Botema
-  Competitiveness comes from a clear Africa-focused impact story: solid
-  grades, concrete applied projects, and demonstrated leadership or mentorship
-  that shows you’re lifting others in tech. Funders also want alignment with
-  their mission, a credible plan for how you’ll use the credential, and proof
-  you can complete (timelines, references, eligibility). What program are you
-  aiming for, and what evidence do you already have of your impact and
-  readiness?
+  Competitiveness tends to hinge on concrete evidence of skill and impact: a
+  strong portfolio or projects with real results, clear alignment between your
+  goals and the scholarship’s mission, leadership or mentoring roles, and a
+  feasible plan for how you’ll use the training to benefit your community.
+  Financial need can help, but most scholarships still want merit plus a
+  compelling story of potential and commitment. What programme are you
+  targeting so I can tailor the angle you should highlight?
 
   you > I also work full time, would I need to quit
-  [stage C — The user asked about balancing full-time work with a potential further-education program and whether they would need to quit; this is a logistics/scheduling question within the ongoing discussion about scholarships and programs.]
-  [drew on S6, S7 — 2 Otema, 0 drafted]
+  [stage C — User is asking about balancing a full-time job with education finances and scheduling (whether they need to quit) — practical logistics of pursuing further education while employed.]
+  [second question dropped — one per reply]
+  [drew on S6, S6a, S7 — 2 Otema, 1 drafted]
+  [voice only: S7a, S6b]
 
 Botema
-  Not necessarily—you can study while you work if you choose the right
-  program. Look for online/part-time or hybrid options with asynchronous
-  content, and plan to commit roughly 8–12 hours per week; you can also
-  negotiate study leave or a learning budget with your employer, or start with
-  a shorter certificate. Which delivery mode would you prefer, and how many
-  hours per week can you realistically devote to study?
+  You don’t have to quit, plenty of funded or affordable options are designed
+  for working professionals (online/part-time, asynchronous, weekend cohorts).
+  Look for programs that offer flexible pacing and study leave or tuition
+  support from your employer, and pair that with scholarships to reduce
+  upfront costs. Does your target programme offer a part-time or online track?
 
   you > how do people usually balance both
-  [stage C — User asked about balancing work and study; this is a logistics question within the ongoing 'Further Education' discussion.]
-  [drew on S6, S7 — 2 Otema, 0 drafted]
+  [stage C — User asked about balancing work and study; this is a logistics question within Further Education.]
+  [second question dropped — one per reply]
+  [sentence cap fired — the model wrote a rundown]
+  [drew on S6, S7, S6a — 2 Otema, 1 drafted]
+  [voice only: S6b, S7a]
 
 Botema
-  People balance it by choosing something that fits real life:
-  online/part-time or hybrid with asynchronous content, and blocking 2–3 fixed
-  study slots per week (about 8–12 hours total). Treat it like a mini-project:
-  set milestones, weekly goals, and an accountability buddy or cohort; use
-  your employer’s study leave or learning budget if possible; and prepare for
-  connectivity issues by downloading materials for offline study. What does
-  your current week look like, and which program mode are you leaning toward?
+  Balancing both usually comes down to disciplined time-blocking, clear
+  boundaries, and choosing the right format. I’d prioritise online or
+  asynchronous options, protect a consistent study block (even 5–7 hours a
+  week adds up), and arrange study leave or an education budget with your
+  employer if possible. Does your target program offer an online/asynchronous
+  track?
 
   you > quit
 
   ── state ─────────────────────────────────────────────
   active_area     2 · Further Education
   covered_stages  C
-  touched_facets  S6, S7
+  touched_facets  S6, S6a, S6b, S7, S7a
   closed_areas    —
-  role/location   scholarship applicant (women in tech) / —
-  where she is    She is working full-time while exploring funding options for further education in tech. There is no information yet about her role, location, or current pay details.
-  trying to do    She wants to pursue a tech credential while staying in her job and asks how people usually balance both. She is seeking scholarships for women and wants to know what makes someone competitive for them and whether quitting is required. She has considered online/part-time or hybrid programs and is open to negotiating a study leave or a learning budget with her employer. She aims to find a realistic plan that allows 8–12 hours of study per week without sacrificing her job.
+  role/location   — / —
+  where she is    — She is a full-time professional exploring funded tech education options, seeking scholarships for women, with limited savings and interest in low-cost or employer-supported pathways.
+  trying to do    — She wants to pursue further tech education without quitting her job, leveraging scholarships or employer sponsorship, and needs to know how to balance time and finances. Her latest question asks how people typically balance full-time work with study, seeking practical strategies for time management, prioritization, and program formats that accommodate a working schedule. NONE
 
   Nothing was written to any database.
 ```

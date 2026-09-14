@@ -907,7 +907,15 @@ const KNOWN_PLACES = [
 ];
 
 export function stripInventedLocation(text: string, saidByUser: string): string {
-  const sentences = text.split(/(?<=[.!?])\s+/);
+  // Was a naive `text.split(/(?<=[.!?])\s+/)`, bypassing the shared
+  // splitSentences() helper (which merges a quote- or abbreviation-spanning
+  // period back together). Found live on Further Education: a reply ending
+  // "...often lands better than a master alone. remote-for-abroad)?" — the
+  // sentence containing the invented place got removed, but a trailing
+  // fragment from a mis-split parenthetical was left orphaned behind it.
+  // Using the same splitter every other guard in this chain uses fixes the
+  // split itself, not just this one guard's symptom of it.
+  const sentences = splitSentences(text);
   const invented = (s: string) => {
     const low = s.toLowerCase();
     return KNOWN_PLACES.some((p) => low.includes(p) && !mentionedByUser(p, saidByUser));
