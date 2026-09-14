@@ -5,6 +5,7 @@ import {
   MENTORSHIP_AREA,
   CONFIDENCE_AREA,
   CAREER_PATHS_AREA,
+  FURTHER_EDUCATION_AREA,
   buildFacets,
   mostRelevant,
   queryWords,
@@ -65,6 +66,14 @@ describe("buildFacets", () => {
   it("wires Career Paths' 8 real Otema answers to S1..S8, in order", () => {
     const facets = buildFacets(CAREER_PATHS_AREA);
     for (const id of CAREER_PATHS_AREA.realOrder) {
+      expect(facets[id]).toBeDefined();
+      expect(facets[id].source).toBe("OTEMA");
+    }
+  });
+
+  it("wires Further Education's 7 real Otema answers to S1..S7, in order", () => {
+    const facets = buildFacets(FURTHER_EDUCATION_AREA);
+    for (const id of FURTHER_EDUCATION_AREA.realOrder) {
       expect(facets[id]).toBeDefined();
       expect(facets[id].source).toBe("OTEMA");
     }

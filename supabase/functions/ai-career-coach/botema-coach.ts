@@ -7,7 +7,7 @@ import { UpdateCareerTopic, CaptureUserBackground, InviteUserContext } from "./b
 import { KNOWLEDGE_BASE, GENERAL_FALLBACK } from "./bsc-knowledge.ts";
 import { BOTEMA_EXAMPLES, BOTEMA_SYSTEM_PROMPT, BOTEMA_VALUES } from "./botema-examples.ts";
 import { DiscussArea } from "./discussion-coach.ts";
-import { SALARY_AREA, GETTING_STARTED_AREA, MENTORSHIP_AREA, CONFIDENCE_AREA, CAREER_PATHS_AREA, AREA_TOPIC_TO_FUNCTION_NAME } from "./discussion-areas.ts";
+import { SALARY_AREA, GETTING_STARTED_AREA, MENTORSHIP_AREA, CONFIDENCE_AREA, CAREER_PATHS_AREA, FURTHER_EDUCATION_AREA, AREA_TOPIC_TO_FUNCTION_NAME } from "./discussion-areas.ts";
 
 // Reasoning effort. gpt-5-nano reasons at roughly medium if left alone, and
 // for generation that is waste — the prompt carries the persona, the knowledge
@@ -333,6 +333,7 @@ Always call exactly one function.`;
       new DiscussArea(this, GETTING_STARTED_AREA, AREA_TOPIC_TO_FUNCTION_NAME.getting_started),
       new DiscussArea(this, MENTORSHIP_AREA, AREA_TOPIC_TO_FUNCTION_NAME.mentorship),
       new DiscussArea(this, CAREER_PATHS_AREA, AREA_TOPIC_TO_FUNCTION_NAME.career_paths),
+      new DiscussArea(this, FURTHER_EDUCATION_AREA, AREA_TOPIC_TO_FUNCTION_NAME.further_education),
       // Reached directly by the router (rule 2), not via updateCareerTopic —
       // see the routing split in `instructions` above and the note on
       // CONFIDENCE_AREA in discussion-areas.ts.
