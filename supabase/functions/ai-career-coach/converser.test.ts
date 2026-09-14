@@ -805,4 +805,13 @@ describe("capSentencesFlagged", () => {
     const { capped } = capSentencesFlagged(raw, 3);
     expect(capped).toBe(false);
   });
+
+  it("does not truncate mid-clause on an abbreviation like 'vs.' or 'e.g.'", () => {
+    // Live regression, area-tester 2026-09-14: "how the 30% raise is
+    // implemented (one-time vs." was treated as a complete sentence and cut
+    // off there, because the naive split sees any period as a sentence end.
+    const raw = "Read the key terms carefully: base salary, currency, how the raise is implemented (one-time vs. spread over the year), and the review date. Does that feel like enough to go on?";
+    const { text } = capSentencesFlagged(raw, 3);
+    expect(text).toContain("one-time vs. spread over the year");
+  });
 });

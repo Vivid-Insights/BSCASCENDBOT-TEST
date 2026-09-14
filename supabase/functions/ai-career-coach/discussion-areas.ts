@@ -55,6 +55,15 @@ export interface AreaConfig {
   // routed directly to its own function and its real answers live under
   // addressMindsetChallenge instead. Defaults to adviseOnCareerTopic.
   realSource?: "adviseOnCareerTopic" | "addressMindsetChallenge";
+  // Facets whose whole point is CORRECTING a specific assumption, where a
+  // prompt instruction alone (see the "corrects a specific assumption" rule
+  // in discussion-coach.ts) was tried and still didn't hold live — found on
+  // Mentorship's S2 by area-tester: asked whether cold-messaging on LinkedIn
+  // is weird, the reply said no, when S2's whole answer is that it rarely
+  // works. Keyed by facet ID; the pattern matches an opening sentence that
+  // endorses the exact thing the facet corrects, and that sentence gets
+  // dropped rather than shown, same mechanism as stripUnearnedValidation.
+  correctionFacets?: Record<string, RegExp>;
 }
 
 // Ported verbatim from scripts/areas/salary.mjs, minus `marketData` — live web
@@ -79,7 +88,7 @@ export const SALARY_AREA: AreaConfig = {
     A: {
       label: "Before there's an offer",
       describes:
-        "They are pricing themselves — working out what a role pays, or what they're worth coming from another field. No live negotiation, no employer at the table yet.",
+        "They are pricing themselves — working out what a role pays, or what they're worth coming from another field. No live negotiation, no employer at the table yet. NOT: discovering a pay gap with a colleague at her CURRENT job, or a manager who has said no — that is stage C, even if she has not yet had the conversation about it. Finding out a colleague earns more is a fact about her existing job, not a research question about the market.",
       facets: ["S1", "G2", "G10", "G10a", "G5"],
     },
     B: {
@@ -166,6 +175,25 @@ export const MENTORSHIP_AREA: AreaConfig = {
   },
   fallbackQuestion: "Where are you at with mentorship right now?",
   supersedes: [],
+  // Found by area-tester 2026-09-14: asked "is it weird to just message
+  // someone on LinkedIn", the model said no, cold messages can work — the
+  // opposite of S2's actual answer ("rarely works well — follow their posts
+  // and engage genuinely first, or ask for an introduction"). A prompt
+  // instruction was tried first and didn't hold; this is the code-level
+  // backstop.
+  correctionFacets: {
+    // Broadened after the first version missed a paraphrase live: "A cold
+    // LinkedIn message can work, but it usually fails if it's generic" —
+    // "cold" and "messag[e/ing]" were not adjacent ("cold LinkedIn message"),
+    // so the adjacency-based version didn't match. The lookahead branch below
+    // matches on the three words appearing anywhere in the same sentence
+    // instead of a fixed shape. It excludes a sentence that ALSO hedges with
+    // a negation ("but it usually fails", "rarely works") in the same
+    // breath — that reply already carries S2's actual caveat, just in its
+    // own words, and is not the unqualified endorsement this guard exists
+    // to catch ("not weird", "that's fine", no caveat at all).
+    S2: /\b(?:not weird|nothing weird|that(?:'s| is) (?:totally |completely )?fine|it(?:'s| is) (?:totally |completely )?fine|go ahead and (?:cold[- ]?)?messag\w*)\b|(?!.*\b(?:rarely|never|doesn'?t|does not|seldom|hardly|won'?t|wouldn'?t|fails?|failed|usually fails)\b)(?=.*\bcold\b)(?=.*\bmessag)(?=.*\bworks?\b)/i,
+  },
   stages: {
     A: {
       label: "Finding a mentor",

@@ -1,6 +1,6 @@
 # Eight months into a mentorship, worried she isn't updating enough between sessions
 
-_Run 2026-08-27 13:15 UTC · 5 turns · gpt-5-nano via Azure_
+_Run 2026-09-14 06:59 UTC · 5 turns · gpt-5-nano via Azure_
 
 **What this tests.** Draws on S5 and names follow-through/regular updates as what builds the trust that eventually turns into sponsorship-like advocacy.
 
@@ -12,73 +12,76 @@ BSC Coach — local area harness
   Type freely. 'state' to inspect, 'quit' to stop.
 
   you > I've been meeting my mentor for about eight months now
-  [stage B — User indicates they already have a mentor and are in ongoing relationship; the question is about how to leverage it in stage B.]
+  [stage B — Her message indicates she already has a mentor (stage B) rather than seeking a mentor (stage A) and doesn't express a desire to change or leave the mentorship area.]
   → enterDiscussionArea(4 · Mentorship)
   [no close example — voice only, advice from knowledge]
-  [drew on S3, S3a, S4 — 2 Otema, 1 drafted]
-  [voice only: S4a, S5, S6]
+  [second question dropped — one per reply]
+  [sentence cap fired — the model wrote a rundown]
+  [drew on S3, S5, S6 — 3 Otema, 0 drafted]
+  [voice only: S4, S4a, S3a]
 
 Botema
-  I would always recommend that you lock in a 12-week plan with your
-  mentor—one concrete outcome, three milestones to hit, and a brief progress
-  note you bring to every session. What would you pick as that 12-week
-  outcome, so you can frame it for your next meeting?
+  Eight months is a solid runway—you should be pulling more deliberate
+  momentum from those sessions. Do you have a formal goal plan and a sponsor
+  in play right now? Does that feel like something you could implement this
+  quarter?
 
   you > I worry I'm not updating them enough between sessions
-  [stage B — User is in ongoing mentorship and expresses concern about updating mentor between sessions; this is a continuation within B stage.]
-  [no close example — voice only, advice from knowledge]
+  [stage B — The user is continuing a mentorship discussion about maintaining the relationship and communication (stage B) rather than leaving.]
+  [no new facts about her — note left alone, no call made]
   [repeated advice removed]
-  [implausible figure removed — outlier, mixed currency, or wrong period]
-  [drew on S4a, S5, S6 — 2 Otema, 1 drafted]
-  [voice only: S3, S4, S3a]
+  [sentence cap fired — the model wrote a rundown]
+  [drew on S4, S4a, S3a — 1 Otema, 2 drafted]
+  [voice only: S3, S5, S6]
 
 Botema
-  That’s real—and it’s easy to let updates slip after eight months. I’d set a
-  standing weekly 5–10 minute update, sent before your next session, with four
-  bullets: what you did since the last touch, progress toward your 12-week
-  outcome, blockers or decisions you need, and what you’ll do next.
+  I hear that. Consistent updates matter, because your mentor’s time is
+  precious and you want them to vouch for you with something tangible. What
+  would your first update include?
 
   you > how do I keep this going long term without being annoying
-  [stage B — User has a mentor; asking how to sustain relationship without being annoying]
+  [stage B — The user is asking for long-term engagement within the mentorship area, not leaving it.]
+  [nothing recorded about her yet — writing the note anyway before it ages out]
+  [validating opener dropped — she described herself, not something done to her]
+  [repeated advice removed]
   [drew on S5, S3, S4 — 3 Otema, 0 drafted]
-  [voice only: S6, S3a, S4a]
+  [voice only: S3a, S6, S4a]
 
 Botema
-  That concern is real, but sustainability comes from predictable, brief,
-  outcome-focused updates. Set a light cadence you both buy into (for example
-  a monthly 15-minute check-in with a short pre-read) and use a simple
-  template: progress toward your 12-week outcome, blockers or decisions, and
-  next steps. After a couple cycles, ask for feedback and adjust—what cadence
-  would realistically fit your mentor’s schedule, and what update would you
-  tighten first?
+  I would set a light, predictable cadence (for example, a concise weekly or
+  biweekly update email with one win, one blocker, and one next step), plus a
+  quick post-session recap that tracks progress against your goals. What
+  update cadence do you think would fit your mentor’s schedule and your
+  current rhythm?
 
   you > does this actually turn into them vouching for me later
-  [stage B — The user asked if a mentorship can convert into sponsor advocacy and how to cultivate that.]
+  [stage B — The user is asking about long-term outcomes (sponsorship) within an ongoing mentor relationship, which fits Stage B.]
+  [no new facts about her — note left alone, no call made]
   [drew on S5, S3a, S4 — 2 Otema, 1 drafted]
-  [voice only: S6, S3, S4a]
+  [voice only: S4a, S3, S6]
 
 Botema
-  Yes, it can turn into sponsorship, but it’s earned, not automatic. Tie your
-  updates to real outcomes, hand them a tight win summary and a ready intro
-  pitch, and ask for targeted introductions or a short recommendation when the
-  right opportunity comes up. Have a direct talk with your mentor about what
-  would count as sponsorship for them and how they’d prefer to vouch—what
-  would be the first opportunity you want them to sponsor you for, and who
-  would it be with?
+  Short answer: yes, but only if your updates translate into real, visible
+  progress and you signal readiness for opportunity. Your mentor’s vouch will
+  come when they can point to tangible wins you’ve owned and when you’ve
+  earned spots to speak up for you in the right rooms. What concrete milestone
+  could you aim to have visible in the next 2–3 months?
 
   you > what should I be doing differently
-  [stage B — User asked for actionable changes to maximize impact with current mentor]
-  [repeated advice removed]
-  [implausible figure removed — outlier, mixed currency, or wrong period]
+  [stage B — User is already in a mentor relationship and asks for actionable adjustments to maximize impact.]
+  [no new facts about her — note left alone, no call made]
   [drew on S5, S3a, S4 — 2 Otema, 1 drafted]
-  [voice only: S4a, S6, S3]
+  [voice only: S6, S4a, S3]
 
 Botema
-  Do less general updates and more outcome-driven communication—treat each
-  touch as a step toward a real win you can show. Bring a short win report and
-  a concrete sponsorship ask to every session, and plan a quarterly
-  sponsorship check-in to decide who they’ll advocate for and what opportunity
-  it would be.
+  Here’s what I’d do differently: lock two to three concrete milestones that
+  your mentor can vouch for, build a one-page update template (win, blocker,
+  next step) you send between sessions, and make a direct sponsorship ask in a
+  specific upcoming room or project where you’ve demonstrated capability. I’d
+  also start inviting quick, results-focused feedback on each milestone so
+  you’re steering the narrative, not just reporting it. What feels the most
+  difficult part to start with: defining milestones, crafting updates, or
+  asking for sponsorship?
 
   you > quit
 
@@ -87,8 +90,9 @@ Botema
   covered_stages  B
   touched_facets  S3, S3a, S4, S4a, S5, S6
   closed_areas    —
-  role/location   mentor relationship / —
-  trying to do    She has been meeting her mentor for about eight months now, and she worries she isn't updating them enough between sessions. She wants this to continue long term without being annoying. She wonders whether regular updates and ongoing mentorship could eventually lead the mentor to vouch for her later. Now she asks what she should be doing differently to improve the arrangement.
+  role/location   — / —
+  where she is    — She is a professional in a mentorship relationship, eight months into regular meetings with a mentor, currently navigating how to maintain consistent engagement without overstepping. She has expressed concern about not updating them often enough between sessions and about becoming annoying while keeping the relationship productive.
+  trying to do    — She wants to sustain long-term, effective momentum with her mentor, ensuring timely updates that remain respectful of the mentor’s time. Her aim is to implement a steady update rhythm and a tangible sponsorship or endorsement, while avoiding becoming a nuisance. She has started exploring what an appropriate first update would include and how to structure ongoing communication.
 
   Nothing was written to any database.
 ```

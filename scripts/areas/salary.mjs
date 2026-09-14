@@ -76,7 +76,7 @@ export default {
     A: {
       label: "Before there's an offer",
       describes:
-        "They are pricing themselves — working out what a role pays, or what they're worth coming from another field. No live negotiation, no employer at the table yet.",
+        "They are pricing themselves — working out what a role pays, or what they're worth coming from another field. No live negotiation, no employer at the table yet. NOT: discovering a pay gap with a colleague at her CURRENT job, or a manager who has said no — that is stage C, even if she has not yet had the conversation about it. Finding out a colleague earns more is a fact about her existing job, not a research question about the market.",
       facets: ["S1", "G2", "G10", "G10a", "G5"],
     },
     B: {

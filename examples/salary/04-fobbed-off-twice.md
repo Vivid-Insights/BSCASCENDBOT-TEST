@@ -1,6 +1,6 @@
 # Told to wait for the review cycle, for the second year running
 
-_Run 2026-08-24 13:10 UTC · 5 turns · gpt-5-nano via Azure_
+_Run 2026-09-14 06:59 UTC · 5 turns · gpt-5-nano via Azure_
 
 **What this tests.** Stage C. Recognises a pattern rather than repeating last year's advice.
 
@@ -12,55 +12,54 @@ BSC Coach — local area harness
   Type freely. 'state' to inspect, 'quit' to stop.
 
   you > my manager told me to wait for the review cycle
-  [stage C — User states manager asked them to wait for the review cycle; this is a current employee negotiation scenario where the raise discussion should be initiated by the employee but is paused until review.]
+  [stage C — Update: current employer, discussing pay; awaiting performance review before any raise talk.]
   → enterDiscussionArea(9 · Salary & Negotiation)
+  [no new facts about her — note left alone, no call made]
+  [second question dropped — one per reply]
   [sentence cap fired — the model wrote a rundown]
-  [drew on G4c, S4c, G1 — 0 Otema, 3 drafted]
-  [voice only: S4, G1b, G4b, S4a]
+  [drew on G4c, G4b, G1 — 0 Otema, 3 drafted]
+  [voice only: S4, G1b, S4c, S4a]
 
 Botema
-  That happens a lot. “Wait for the review cycle” is a pause, not a decision.
-  Would you like me to tailor this to your exact role and the outcomes you can
-  realistically deliver?
+  That’s a real tactic I’ve seen many times here. If you’re told to wait, pin
+  down a concrete date and what you’ll have delivered by then, in writing.
+  Does that make sense for your context?
 
   you > she said exactly the same thing last year
-  [stage C — The user reports the manager delaying raises again and this is an active internal negotiation stage.]
-  [drew on G4c, G9a, G1a — 0 Otema, 3 drafted]
-  [voice only: S4c, G8, G4a, S4]
+  [stage C — User is in stage C and the new message confirms ongoing negotiation with current employer; no new subject outside area.]
+  [no new facts about her — note left alone, no call made]
+  [validating opener dropped — she described herself, not something done to her]
+  [repeated advice removed]
+  [drew on G4c, G9a, G4a — 0 Otema, 3 drafted]
+  [voice only: G4b, G8, G1a, S4]
 
 Botema
-  That pattern is real for many of us, and it’s a stall unless you pin it
-  down. I’d push for a concrete plan: agree on two measurable deliverables
-  you’ll complete by a fixed date, and a firm date to revisit compensation
-  with a market-based rationale, all in writing. What two deliverables could
-  you commit to that would demonstrate real impact before the next review, and
-  by when could you realistically finish them?
+  If she’s said the same thing again, push for a concrete milestone plan this
+  time: what you’ll deliver, by when, and the exact uplift if it hits those
+  milestones, all in writing. What would you put as the specific milestones
+  you can actually achieve by the next review?
 
   you > I did everything on the list she gave me
-  [stage C — User is already employed and reports completing prior deliverables; core issue is moving pay conversation forward with manager.]
-  [drew on G4c, G4a, G4b — 0 Otema, 3 drafted]
-  [voice only: G8, G1, G1b, G1a]
+  [stage C — The user completed the manager's requested milestones and is awaiting feedback/raise decision.]
+  [repeated-opener guard fired — a reused opening clause was dropped]
+  [repeated advice removed]
+  [drew on G4c, S4c, G1a — 0 Otema, 3 drafted]
+  [voice only: G4, G1, G4b, G4a]
 
 Botema
-  That’s real, and it’s not acceptable to stall after you’ve done the work. If
-  you’ve completed everything, push for a concrete outcome: a 30-minute review
-  to close the cycle, with (1) a firm date to revisit compensation and (2) a
-  written, market-based rationale or plan plus clear next steps or promotion
-  criteria. What was her response when you told her you finished the list, and
-  when can you push for that meeting?
+  If you could propose three concrete milestones you can meet by the next
+  cycle, what would they be?
 
   you > I don't want to be the person who complains
-  [stage C — The user is worried about perception of complaining, which is new constraint affecting negotiation approach; needs tactics to frame concerns constructively.]
+  [stage C — User is negotiating with a current manager; wants to avoid being seen as complaining while pursuing a pay rise.]
+  [no new facts about her — note left alone, no call made]
+  [validating opener dropped — she described herself, not something done to her]
   [repeated advice removed]
-  [implausible figure removed — outlier, mixed currency, or wrong period]
-  [drew on G4c, G9a, S4b — 0 Otema, 3 drafted]
-  [voice only: G1a, G1b, G9, G1]
+  [drew on G4c, G9a, G9 — 0 Otema, 3 drafted]
+  [voice only: G1, S4c, G4, G4b]
 
 Botema
-  That concern is real, but you’re not asking for a favour—you’re asking for
-  value to be recognised. How would you phrase it so it sounds businesslike in
-  your manager’s style, and what hints has she given before about timing when
-  you’ve pressed this?
+  Does that feel like something you could draft this week?
 
   you > am I being naive staying here
   [azure error: Azure 400: {"error":{"message":"The response was filtered due to the prompt triggering Azure OpenAI's content management]
@@ -76,8 +75,9 @@ Botema
   covered_stages  C
   touched_facets  S4, S4a, S4b, S4c, G1, G1a, G1b, G4, G4a, G4b, G4c, G4d, G8, G9, G9a
   closed_areas    —
-  role/location   employee negotiating with current employer / —
-  trying to do    She is waiting for the review cycle, as instructed by her manager. She has completed everything on the list her manager gave her. She doesn't want to be the person who complains.
+  role/location   Employee at current company (salary review) / —
+  where she is    — She is a professional in a role who has been waiting for a formal review cycle, with a manager directing patience as the path forward. No city or salary details provided; no new pay information given.
+  trying to do    — She wants to reach a concrete set of milestones and a clear pay or role uplift tied to those milestones, with documented commitments from her manager. She has done all the items on the manager’s list, but the next step and the exact implications of completing those tasks remain unclear. NONE
 
   Nothing was written to any database.
 ```
@@ -86,7 +86,7 @@ Botema
 
 - PASS — classified stage C
 - PASS — names the repetition as information about them
-- PASS — does not treat raising it as complaining
+- **FAIL** — does not treat raising it as complaining
 - PASS — most replies still end on a question
 - PASS — never asks her to disclose her own pay
 - PASS — no two replies open the same way

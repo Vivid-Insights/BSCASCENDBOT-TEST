@@ -1,6 +1,6 @@
 # Doesn't know anyone senior, wonders if a cold LinkedIn message is weird
 
-_Run 2026-08-27 13:15 UTC · 5 turns · gpt-5-nano via Azure_
+_Run 2026-09-14 06:59 UTC · 5 turns · gpt-5-nano via Azure_
 
 **What this tests.** Stays in stage A throughout — no mentor yet — draws on S1/S2, and steers away from cold-messaging toward a structured route rather than just answering 'no, go ahead and message them'.
 
@@ -12,62 +12,75 @@ BSC Coach — local area harness
   Type freely. 'state' to inspect, 'quit' to stop.
 
   you > how do I find a good mentor in tech
-  [stage A — User asked how to find a good mentor in tech (stage A question)]
+  [stage A — User asked for guidance on finding a mentor, which fits stage A (no mentor yet).]
   → enterDiscussionArea(4 · Mentorship)
+  [no new facts about her — note left alone, no call made]
   [sentence cap fired — the model wrote a rundown]
-  [drew on S1, S1a, S2 — 2 Otema, 1 drafted]
+  [drew on S1, S2, S1a — 2 Otema, 1 drafted]
 
 Botema
-  Mentors unlock momentum, especially for women in tech here. Start with
-  clarity: what do you want from a mentor—technical guidance, career
-  navigation, or sponsorship—and how soon do you want to move? What area would
-  you want to tackle first, and would you like me to point you to a program
-  you can join now?
+  You start with clarity: what exactly do you want help with (technical depth,
+  career navigation, introductions), and then look for someone who has done
+  what you want to do, not just someone senior. In my experience, the easiest
+  path is a structured program like BSC’s mentorship cohort, but you can also
+  reach out to people who recently walked your path and are willing to share
+  specifics. Start by engaging with their posts or talks, and ask for a short,
+  specific chat rather than a broad “can you mentor me.” Does that feel like
+  something you could start with this week?
 
   you > I don't really know anyone senior in my field
-  [stage A — User has no senior connections yet; needs guidance on how to find and approach potential mentors]
-  [drew on S1, S1a, S2 — 2 Otema, 1 drafted]
+  [stage A — User has no senior mentors in their network; asking for steps to find a mentor.]
+  [no new facts about her — note left alone, no call made]
+  [repeated advice removed]
+  [second question dropped — one per reply]
+  [sentence cap fired — the model wrote a rundown]
+  [drew on S1, S2, S1a — 2 Otema, 1 drafted]
 
 Botema
-  That’s real—and common here. I’d start with a structured route like BSC’s
-  mentorship cohort, or use local networks and meetups to get genuine
-  introductions for a short chat. Which path would you like to try first: BSC
-  mentorship, or a local-network intro?
+  That happens a lot. If you don’t know anyone senior yet, start with a
+  structured route like BSC’s mentorship cohort, and meanwhile identify 2–3
+  people who recently walked your path and are active in the communities
+  you’re in (Women in Tech groups, Slack channels, meetups, conference talks).
+  What field are you in?
 
   you > is it weird to just message someone on linkedin
-  [stage A — Question about outreach etiquette fits Stage A (finding a mentor).]
+  [stage A — User asks for outreach approach on LinkedIn, which fits stage A (no mentor yet) and needs guidance on contacting potential mentors.]
+  [nothing recorded about her yet — writing the note anyway before it ages out]
   [repeated advice removed]
-  [implausible figure removed — outlier, mixed currency, or wrong period]
   [sentence cap fired — the model wrote a rundown]
   [drew on S1, S2, S1a — 2 Otema, 1 drafted]
 
 Botema
-  Not weird at all. It’s how networks start here. Would you like me to tailor
-  this for any specific people you have in mind, or help you build a short
-  list of potential mentors in your field to reach out to?
+  Not weird if you’re respectful and specific. Cold messages work best when
+  you’ve done a little homework and ask for a short, concrete chat, not a long
+  mentorship ask. Does that feel doable this week?
 
   you > what should I actually say to them
-  [stage A — User asked for what to say in outreach to a potential mentor; this moves from general advice to actionable templates in A (no mentor yet)]
+  [stage A — User asked for concrete wording/templates to reach out to potential mentors, which is outreach guidance appropriate for stage A.]
+  [nothing recorded about her yet — writing the note anyway before it ages out]
   [drew on S1, S2, S1a — 2 Otema, 1 drafted]
 
 Botema
-  Here are Botema’s suggested words you can copy-paste. "Hi [Name], I’ve
-  followed your work in [area] and I’m building a career in [field]; could we
-  have 15 minutes this week for guidance on the next steps?" Would you be open
-  to that, and do you have a specific field or people in mind so I tailor it
-  further?
+  Keep it short, specific, and respectful. For example: “Hi [Name], I’ve been
+  following your work on [X] and found your approach to [specific detail]
+  really insightful. I’m early in my career and would value a 15-minute chat
+  to ask about how you navigated [path/decision]. Are you open to a quick call
+  sometime this or next week?” Does that feel doable for a first message to
+  someone you admire?
 
   you > what should I look for in general when picking someone
-  [stage A — User asked for criteria to evaluate potential mentors; this advances the mentorship setup stage (finding a mentor).]
-  [sentence cap fired — the model wrote a rundown]
+  [stage A — User asked for criteria for selecting a mentor; wants practical guidance to evaluate potential mentors.]
+  [nothing recorded about her yet — writing the note anyway before it ages out]
+  [repeated advice removed]
+  [second question dropped — one per reply]
   [drew on S1, S2, S1a — 2 Otema, 1 drafted]
 
 Botema
-  Key criteria: relevance to your goals, a track record of giving direct,
-  actionable feedback, and reliable availability. Also check their mentoring
-  style (short, frequent check-ins vs deep dives) and whether they can open
-  doors or introduce you to others. What are the two outcomes you want from a
-  mentor first?
+  Look for someone whose path mirrors where you want to go, who can give you
+  direct, actionable feedback, and who has the time and willingness to invest
+  in you. Don’t overlook near-peers who recently walked the same terrain, and
+  check that they’re genuinely active in your communities and can be honest
+  with you. What are your concrete goals right now?
 
   you > quit
 
@@ -76,8 +89,7 @@ Botema
   covered_stages  A
   touched_facets  S1, S1a, S2
   closed_areas    —
-  role/location   senior engineer / —
-  trying to do    She is trying to find a good mentor in tech. She does not know any senior people in her field. She is wondering if it's weird to message someone on LinkedIn. She asked for the exact words she should use to reach out to potential mentors. She is now looking for general criteria on what to look for when picking a mentor.
+  role/location   — / —
 
   Nothing was written to any database.
 ```

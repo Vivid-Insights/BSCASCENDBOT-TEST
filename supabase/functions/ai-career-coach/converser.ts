@@ -363,12 +363,23 @@ export function capSentencesFlagged(text: string, keep = 3): { text: string; cap
 // Splits on sentence boundaries without cutting inside a quotation. The model
 // often quotes a script for her to say — "Based on my research, I'm looking at
 // X" — and splitting inside it strands half a sentence in the output.
+// Found by area-tester: "how the 30% raise is implemented (one-time vs." got
+// treated as a complete sentence, splitting the reply mid-clause — the naive
+// split sees any period as a sentence end, abbreviations included. Checked
+// against the piece BEFORE the split point, not the raw text, so it only
+// catches an abbreviation that actually sits at a period the split fired on.
+const ABBREVIATION_TAIL = /\b(?:e\.g|i\.e|etc|vs|mr|mrs|ms|dr|prof|approx|no|fig|st)\.$/i;
+
+function endsWithAbbreviation(s: string): boolean {
+  return ABBREVIATION_TAIL.test(s.trim());
+}
+
 function splitSentences(text: string): string[] {
   const rough = text.split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter(Boolean);
   const out: string[] = [];
   for (const part of rough) {
     const previous = out[out.length - 1];
-    if (previous && hasOpenQuote(previous)) out[out.length - 1] = `${previous} ${part}`;
+    if (previous && (hasOpenQuote(previous) || endsWithAbbreviation(previous))) out[out.length - 1] = `${previous} ${part}`;
     else out.push(part);
   }
   return out;

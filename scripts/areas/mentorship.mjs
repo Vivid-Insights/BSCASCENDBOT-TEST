@@ -25,6 +25,26 @@ export default {
 
   supersedes: [],
 
+  // Found by area-tester 2026-09-14: asked "is it weird to just message
+  // someone on LinkedIn", the model said no, cold messages can work — the
+  // opposite of S2's actual answer ("rarely works well — follow their posts
+  // and engage genuinely first, or ask for an introduction"). A prompt
+  // instruction was tried first and didn't hold; this is the code-level
+  // backstop, checked in coach-local.mjs's guard chain.
+  correctionFacets: {
+    // Broadened after the first version missed a paraphrase live: "A cold
+    // LinkedIn message can work, but it usually fails if it's generic" —
+    // "cold" and "messag[e/ing]" were not adjacent ("cold LinkedIn message"),
+    // so the adjacency-based version didn't match. The lookahead branch below
+    // matches on the three words appearing anywhere in the same sentence
+    // instead of a fixed shape. It excludes a sentence that ALSO hedges with
+    // a negation ("but it usually fails", "rarely works") in the same
+    // breath — that reply already carries S2's actual caveat, just in its
+    // own words, and is not the unqualified endorsement this guard exists
+    // to catch ("not weird", "that's fine", no caveat at all).
+    S2: /\b(?:not weird|nothing weird|that(?:'s| is) (?:totally |completely )?fine|it(?:'s| is) (?:totally |completely )?fine|go ahead and (?:cold[- ]?)?messag\w*)\b|(?!.*\b(?:rarely|never|doesn'?t|does not|seldom|hardly|won'?t|wouldn'?t|fails?|failed|usually fails)\b)(?=.*\bcold\b)(?=.*\bmessag)(?=.*\bworks?\b)/i,
+  },
+
   stages: {
     A: {
       label: "Finding a mentor",

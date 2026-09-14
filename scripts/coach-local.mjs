@@ -590,12 +590,24 @@ function hasOpenQuote(s) {
   return straight % 2 === 1 || (s.match(/[“„]/g) || []).length > (s.match(/[”]/g) || []).length;
 }
 
+// Found by area-tester: "how the 30% raise is implemented (one-time vs." got
+// treated as a complete sentence, splitting the reply mid-clause — the naive
+// split sees any period as a sentence end, abbreviations included. Checked
+// against the piece BEFORE the split point, not the raw text, so it only
+// catches an abbreviation that actually sits at a period the split fired on.
+// Mirrors the same fix in converser.ts.
+const ABBREVIATION_TAIL = /\b(?:e\.g|i\.e|etc|vs|mr|mrs|ms|dr|prof|approx|no|fig|st)\.$/i;
+
+function endsWithAbbreviation(s) {
+  return ABBREVIATION_TAIL.test(s.trim());
+}
+
 function splitSentences(text) {
   const rough = text.split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter(Boolean);
   const out = [];
   for (const part of rough) {
     const prev = out[out.length - 1];
-    if (prev && hasOpenQuote(prev)) out[out.length - 1] = prev + " " + part;
+    if (prev && (hasOpenQuote(prev) || endsWithAbbreviation(prev))) out[out.length - 1] = prev + " " + part;
     else out.push(part);
   }
   return out;
@@ -1130,7 +1142,7 @@ const CLASSIFY_TOOL = [{
         // classifier is already reading the message; it can answer this.
         reportsExternalTreatment: {
           type: "boolean",
-          description: "Did she describe something OTHER PEOPLE did to her? True for: being interrupted or talked over, her idea repeated back as someone else's, being paid less than a colleague, being passed over, being called difficult, being assumed junior, being dismissed or excluded, a specific thing someone said or did to her. FALSE when she is describing herself — how she feels, what she avoids, what she does not believe, a habit of her own (going quiet, not applying, rechecking her work, not counting her wins, doubting praise). A feeling ABOUT other people is still false unless she reports what they actually did.",
+          description: "Did she describe something OTHER PEOPLE did to her? True for: being interrupted or talked over, her idea repeated back as someone else's, being paid less than a colleague, being passed over, being called difficult, being assumed junior, being dismissed or excluded, a specific thing someone said or did to her. FALSE when she is describing herself — how she feels, what she avoids, what she does not believe, a habit of her own (going quiet, not applying, rechecking her work, not counting her wins, doubting praise). A feeling ABOUT other people is still false unless she reports what they actually did. This is TRUE even when the same message ALSO asks a tactical question about what to do next ('a colleague earns more than me, how do I bring it up' is still a disclosure first) — the request for advice does not cancel out the disclosure sitting in front of it.",
         },
         newProfileFacts: {
           type: "boolean",
@@ -1518,12 +1530,33 @@ async function wordalise(message, stage, history, facets, search = null, used = 
     // example's opening CLAIM — the thing that reframes what she's afraid of
     // or asking — got mined for topic-adjacent tactics and dropped.
     `If the closest example ${EX} opens by stating a fact that reframes her situation or her fear — a promise is false, a feeling isn't a signal of unpreparedness, a number is really a floor not a ceiling — that fact is not optional colour. Keep it, in your own words, before you move to what to do.`,
+    // Same failure, a second shape: found by area-tester on Mentorship, asked
+    // "is it weird to just message someone on LinkedIn", the reply said no,
+    // that's fine — when the drawn example is a CORRECTION of exactly that
+    // assumption ("rarely works well — follow their posts and engage first").
+    // The reframe rule above covers a fact that recontextualises her fear;
+    // this covers an example that corrects a specific assumption she just
+    // stated. Both get mined for adjacent tactics and lost the same way.
+    `If the closest example ${EX} corrects a specific assumption she just stated — she assumed X is fine or X is a problem, and the example says the opposite — that correction must survive. Do not soften it into agreement with what she assumed; say what the example actually says, then help her act on it.`,
     // Found the same day on Getting Started: a full "which field should I
     // pick" conversation gave five turns of build-it-yourself advice — small
     // projects, free resources, a learning plan — and never once named a
     // person, though S1 (drawn on turn 1) explicitly says to talk to people
     // already in the field, and lifting as she climbs is a stated value.
     `Likewise, if the closest example ${EX} points her toward a person — a mentor, someone already in the field, a community, BSC's own programme — keep that pointer somewhere in your reply. Don't let the advice narrow down to resources and self-directed work alone.`,
+    // Found by area-tester across two areas, three separate times in one
+    // sweep: she names a specific fear or objection — being seen as
+    // "difficult" for raising pay, being seen as "complaining", whether a
+    // question is "weird" — and the reply answers the tactical question next
+    // to it while never engaging the fear itself, or repeats the same
+    // tactical question a third time after she's already named the real
+    // blocker. The tactic was not what she was stuck on.
+    "If her message names a specific fear, worry, or objection about how she or her request will be seen — being difficult, complaining, seeming rude, seeming underqualified — address THAT directly, in the first thing you say. A tactical answer to the question sitting next to it is not a substitute for engaging the fear itself.",
+    // Found the same sweep, on Mentorship: "a solid default is biweekly 60
+    // minutes for the first 2-3 months" — a specific, confident cadence with
+    // no basis in anything she was told or any drafted answer. NO_INVENTED_FIGURES
+    // already bans this for money; the same fabrication happens with time.
+    "The same honesty that applies to money applies to schedules and routines: never state a specific cadence, duration, or timeline as an established norm (a set number of minutes, a fixed number of weeks or months) unless it appears in the material you were given. Say what to work out together instead of asserting a figure you don't have.",
     // HOW YOU OPEN.
     //
     // The previous version of this rule named the failing phrase and banned
@@ -2013,6 +2046,24 @@ async function main() {
     const oneQuestion = dropSecondQuestion(text);
     if (oneQuestion !== text) console.log(C.amber("  [second question dropped — one per reply]"));
     text = oneQuestion;
+    // Code-level backstop for a fact that CORRECTS a specific assumption she
+    // raised — see AreaConfig.correctionFacets (only Mentorship's S2 so far).
+    // A prompt instruction was tried first and it still endorsed the exact
+    // thing the facet corrects, so this drops the offending opening sentence
+    // the same way stripUnearnedValidation does, and only when the relevant
+    // facet was actually drawn on this turn.
+    if (areaConfig.correctionFacets) {
+      const drawnIds = state.lastSelection.near.map((e) => e.id);
+      for (const facetId of drawnIds) {
+        const pattern = areaConfig.correctionFacets[facetId];
+        if (!pattern) continue;
+        const sentences = text.match(/[^.!?]+[.!?]*/g) || [];
+        if (!sentences.length || !pattern.test(sentences[0])) continue;
+        console.log(C.amber(`  [correction-endorsement guard fired — ${facetId}'s correction was being contradicted]`));
+        text = sentences.slice(1).join(" ").trim();
+        break;
+      }
+    }
     // Everything except the closing question was removed as already-said, so
     // she is being asked about advice she can no longer see. There is nothing
     // to repair in the text; the honest reply is the one the wrap-up stage

@@ -147,7 +147,7 @@ function classifyTool(area: AreaConfig) {
           },
           reportsExternalTreatment: {
             type: "boolean",
-            description: "Did she describe something OTHER PEOPLE did to her? True for: being interrupted or talked over, her idea repeated back as someone else's, being paid less than a colleague, being passed over, being called difficult, being assumed junior, being dismissed or excluded, a specific thing someone said or did to her. FALSE when she is describing herself — how she feels, what she avoids, what she does not believe, a habit of her own. A feeling ABOUT other people is still false unless she reports what they actually did.",
+            description: "Did she describe something OTHER PEOPLE did to her? True for: being interrupted or talked over, her idea repeated back as someone else's, being paid less than a colleague, being passed over, being called difficult, being assumed junior, being dismissed or excluded, a specific thing someone said or did to her. FALSE when she is describing herself — how she feels, what she avoids, what she does not believe, a habit of her own. A feeling ABOUT other people is still false unless she reports what they actually did. This is TRUE even when the same message ALSO asks a tactical question about what to do next ('a colleague earns more than me, how do I bring it up' is still a disclosure first) — the request for advice does not cancel out the disclosure sitting in front of it.",
           },
           newProfileFacts: {
             type: "boolean",
@@ -287,11 +287,24 @@ function buildAreaSystemPrompt(
     // don't know what I'm doing" got a tactics checklist even though the
     // drawn answer opens by saying nerves aren't a readout of preparedness.
     "If the closest example above opens by stating a fact that reframes her situation or her fear — a promise is false, a feeling isn't a signal of unpreparedness, a number is really a floor not a ceiling — that fact is not optional colour. Keep it, in your own words, before you move to what to do.",
+    // Same failure, a second shape: found by area-tester on Mentorship, asked
+    // "is it weird to just message someone on LinkedIn", the reply said no,
+    // that's fine — when the drawn example is a CORRECTION of exactly that
+    // assumption ("rarely works well — follow their posts and engage first").
+    "If the closest example above corrects a specific assumption she just stated — she assumed X is fine or X is a problem, and the example says the opposite — that correction must survive. Do not soften it into agreement with what she assumed; say what the example actually says, then help her act on it.",
     // Found the same day: a full "which field should I pick" conversation
     // gave nothing but build-it-yourself advice and never once named a
     // person, though the drawn example explicitly says to talk to people
     // already in the field, and lifting as she climbs is a stated value.
     "Likewise, if the closest example above points her toward a person — a mentor, someone already in the field, a community, BSC's own programme — keep that pointer somewhere in your reply. Don't let the advice narrow down to resources and self-directed work alone.",
+    // Found by area-tester across two areas, three separate times in one
+    // sweep: she names a specific fear or objection and the reply answers
+    // the tactical question next to it while never engaging the fear itself.
+    "If her message names a specific fear, worry, or objection about how she or her request will be seen — being difficult, complaining, seeming rude, seeming underqualified — address THAT directly, in the first thing you say. A tactical answer to the question sitting next to it is not a substitute for engaging the fear itself.",
+    // Found the same sweep, on Mentorship: a confident, specific cadence
+    // ("biweekly 60 minutes for the first 2-3 months") with no basis in
+    // anything she was told or any drafted answer.
+    "The same honesty that applies to money applies to schedules and routines: never state a specific cadence, duration, or timeline as an established norm unless it appears in the material you were given. Say what to work out together instead of asserting a figure you don't have.",
     VARY_YOUR_OPENING,
     priorReplies.length
       ? `You have already opened replies in this conversation with: ${priorReplies.map((r) => `"${r.split(/\s+/).slice(0, 6).join(" ")}…"`).join(", ")}. Do NOT begin this one like ANY of those — a different first word and a different shape, not the same construction with the noun swapped.`
@@ -524,6 +537,7 @@ export class DiscussArea extends WordaliseFunction {
     // would you like to focus on?" — a regression the harness this was
     // ported from never had, because it never had this check either.
     let text = this.runGuards(raw, placed, priorReplies, saidByUser);
+    if (text.text) text.text = this.stripCorrectionEndorsement(text.text, near.map((e) => e.id));
 
     // The whole reply turned out to be advice already given — a stall the
     // pre-generation check (Layer 3, above) couldn't see because the
@@ -629,5 +643,25 @@ export class DiscussArea extends WordaliseFunction {
     const oneQuestion = dropSecondQuestion(undangled);
 
     return { text: oneQuestion, capped: wasCapped, deduped: true };
+  }
+
+  // Code-level backstop for a fact that CORRECTS a specific assumption she
+  // raised — see AreaConfig.correctionFacets. A prompt instruction was tried
+  // first (the "corrects a specific assumption" rule above) and it still
+  // endorsed the exact thing the facet corrects, so this drops the offending
+  // opening sentence the same way stripUnearnedValidation does. Only touches
+  // the FIRST sentence, and only when the relevant facet was actually drawn
+  // on this turn — a narrow, targeted check rather than a general one.
+  private stripCorrectionEndorsement(text: string, drawnFacetIds: string[]): string {
+    const patterns = this.area.correctionFacets;
+    if (!patterns) return text;
+    for (const facetId of drawnFacetIds) {
+      const pattern = patterns[facetId];
+      if (!pattern) continue;
+      const sentences = text.match(/[^.!?]+[.!?]*/g) || [];
+      if (!sentences.length || !pattern.test(sentences[0])) continue;
+      return sentences.slice(1).join(" ").trim();
+    }
+    return text;
   }
 }

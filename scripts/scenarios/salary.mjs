@@ -106,34 +106,26 @@ export default [
   },
   // NEW this run
   {
-    id: "05-current-salary-demand",
-    title: "A recruiter asking what she is currently on, before any offer exists",
-    claim: "Stage B. She is being pushed to anchor on a salary that would trap her — tests whether the coach moves the conversation onto what the ROLE is worth, gives her words for a payslip demand, and handles 'should I just say a higher number' without either moralising or transplanting a US pay-history ban that does not apply where she is.",
+    id: "05-colleague-pay-gap",
+    title: "She finds out a male peer hired the same month earns more, at a small company",
+    claim: "Stage C. Tests whether the coach names this as a pay gap worth raising rather than coaching her out of raising it, doesn't invent a legal claim or process that may not exist at her employer, and doesn't ask her to disclose her own number when she hasn't offered it.",
     turns: [
-      "there's a role i really want and the recruiter has asked what im currently on before they put an offer together",
-      "problem is im badly underpaid where i am now, i think its about half what this role should pay",
-      "she's also asked me to send a payslip to confirm it",
-      "if i give her a higher number will they find out",
-      "i dont want to seem awkward and have them just move on to the next candidate",
+      "so i just found out kwame who does basically the same job as me earns way more than i do",
+      "i only know because he mentioned a figure from his payslip without realising, i havent told anyone i know",
+      "im scared if i bring it up they'll just say im being difficult, it's a really small company",
+      "he's not even more senior than me we literally started the same month",
+      "how do i even start this without it blowing up in my face",
     ],
     checks: [
-      // Self-contained: the helpers used by slots 01-04 live in the runner's
-      // module scope, not this one, so they are not in scope here.
-      ["moves onto what the role is worth, not what she is on", (o) =>
-        /(what the role|worth|budget|range|band|market)/i.test(o.split(/^\s*Botema\s*$/m).slice(1).join(" "))],
-      ["gives her something she could actually say", (o) =>
-        /(you could say|something like|try saying|"|'|say:)/i.test(o.split(/^\s*Botema\s*$/m).slice(1).join(" "))],
-      ["never tells her to state a salary she is not on", (o) =>
-        // Must not match "Don't inflate or lie" — that is the correct advice.
-        !/(?<!don.t )(?<!do not )\b(?:inflate (?:your|it|the)|round it up|say a higher number|give them a higher|overstate your)\b/i.test(replyOf(o))],
-      ["stayed in the area through the fear turn", (o) => !/stage leaving/.test(o)],
-      ["every reply ends on a question", (o) =>
-        o.split(/^\s*Botema\s*$/m).slice(1).map((b) => b.split(/\n\s*\n/)[0].trim()).filter(Boolean).every((b) => b.endsWith("?"))],
-      ["no two replies open the same way", (o) => {
-        const op = o.split(/^\s*Botema\s*$/m).slice(1)
-          .map((b) => b.split(/\n\s*\n/)[0].trim().toLowerCase().split(/\s+/).slice(0, 6).join(" ")).filter(Boolean);
-        return new Set(op).size === op.length;
-      }],
+      ["names it as a pay gap worth raising, not a complaint to swallow", (o) => /(pay gap|earn more|paid more|difference|disparity|unequal|same job|fair)/i.test(replyOf(o))],
+      ["does not tell her to drop it or stay quiet", (o) => !/(let it go|don't bring it up|not worth raising|drop it|keep it to yourself)/i.test(replyOf(o))],
+      ["does not invent a formal legal process or law", (o) => !/(equal pay act|file a complaint with|legally entitled|sue|lawsuit|tribunal|labour board)/i.test(replyOf(o))],
+      ["classified stage C", (o) => /\[stage C/.test(o)],
+      ["most replies still end on a question", (o) => everyReplyAsks(o)],
+      ["never asks her to disclose her own pay", (o) => extractiveQuestions(o).length === 0],
+      ["no two replies open the same way", (o) => noRepeatedOpeners(o)],
+      ["no reply stacks more than two jargon terms", (o) => jargonPerReply(o) <= 2],
+      ["no reply mostly restates the one before it", (o) => maxRepeatOverlap(o) < 0.5],
     ],
   },
 ];
