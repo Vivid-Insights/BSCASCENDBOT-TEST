@@ -520,6 +520,13 @@ const DANGLING_REFERENCE =
 const DANGLING_PROMISE =
   /\btry\s+(?:this|that|these|it)\b[^.!?]*\b(?:in order|first|below|next|like (?:this|so))\b/i;
 
+// A third shape, found live on Career Paths: a short heading-like fragment
+// closing the reply with nothing behind it — "What I'd do first.", "Here's
+// the plan." Length-capped so it doesn't match a real, longer sentence that
+// happens to open the same way. Mirrors the same addition in converser.ts.
+const DANGLING_HEADING =
+  /^(?:what i(?:'d|'ll| would| will)?\s*(?:recommend|suggest|do)?|here'?s (?:the|my|a|what)\b)[^.!?]{0,20}[.!]?\s*$/i;
+
 function dropDanglingQuestion(text, wasCapped) {
   if (!wasCapped) return text;
   const sentences = text.match(/[^.!?]+[.!?]*/g) || [];
@@ -542,7 +549,7 @@ function endsOnDanglingReference(text) {
   const body = sentences.filter((s) => !s.endsWith("?"));
   if (!body.length) return false;
   const last = body[body.length - 1];
-  return DANGLING_REFERENCE.test(last) || DANGLING_PROMISE.test(last);
+  return DANGLING_REFERENCE.test(last) || DANGLING_PROMISE.test(last) || DANGLING_HEADING.test(last);
 }
 
 // The second shape has no tell in the words at all: everything except the
@@ -1556,7 +1563,14 @@ async function wordalise(message, stage, history, facets, search = null, used = 
     // minutes for the first 2-3 months" — a specific, confident cadence with
     // no basis in anything she was told or any drafted answer. NO_INVENTED_FIGURES
     // already bans this for money; the same fabrication happens with time.
-    "The same honesty that applies to money applies to schedules and routines: never state a specific cadence, duration, or timeline as an established norm (a set number of minutes, a fixed number of weeks or months) unless it appears in the material you were given. Say what to work out together instead of asserting a figure you don't have.",
+    // Seen again the same sweep, on Career Paths — a four-tier fabricated
+    // schedule ("8-12 weeks to X; 6-8 weeks to Y; 3-6 months to Z", "6-8
+    // hours" a week) with no basis anywhere in the material, right after the
+    // rule above was written for the same failure on Mentorship. Restated
+    // more bluntly rather than reworded a third time: a multi-step timeline
+    // with specific week/hour counts is the shape to catch, not just a
+    // single number.
+    "The same honesty that applies to money applies to schedules and routines: never invent a timeline broken into specific stages with specific durations (\"8-12 weeks to X, then 6-8 weeks to Y\") or a specific weekly-hours commitment, unless it appears in the material you were given. A multi-step fabricated schedule is exactly as dishonest as an invented salary figure, even dressed up as a realistic-sounding plan. Say what to work out together instead.",
     // HOW YOU OPEN.
     //
     // The previous version of this rule named the failing phrase and banned
@@ -2138,6 +2152,19 @@ async function main() {
     // deliberate shape — about a quarter of the examples do it. The area's
     // fallback is kept for the one case that still needs rescuing: a reply
     // left empty after the guards have stripped it.
+    // Found live on Career Paths, an area with no wrap-up stage: the rescue
+    // above only ever runs when WRAP_UP exists, so a bare reply that
+    // survived this far — "What I'd do first." and nothing else, or a lone
+    // closing question once dropRepeatedSentences() stripped everything
+    // else as already-said — used to reach her unchanged, since this check
+    // only ever caught an EMPTY string. She asked point-blank "what's my
+    // actual first move" and got a bare question back. Checked fresh
+    // against whatever `text` is NOW, not any earlier bareness flag — a
+    // successful rescue above already replaced it with real content.
+    if (text && (isOnlyAQuestion(text) || endsOnDanglingReference(text))) {
+      console.log(C.amber("  [reply was substanceless — treating as nothing survived]"));
+      text = "";
+    }
     if (!text || !text.trim()) {
       // `wrappedUp` is set by the stall divert, but the classifier can put her
       // in the wrap-up stage on its own — and then the guards can still strip

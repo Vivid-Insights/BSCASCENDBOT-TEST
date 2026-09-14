@@ -36,7 +36,7 @@ export default {
     B: {
       label: "The roadmap for a chosen field",
       describes:
-        "A specific field is already named earlier in THIS conversation — software development, data/ML, UX/UI, cybersecurity, product management, cloud/DevOps, or a transition into tech project management. Once that field is on the table, EVERY later message about it stays in stage B — background constraints (\"I have no IT background\"), realism checks about a specific job title (\"is X a realistic first job\"), and timeline questions are all still about THAT field's roadmap, not a return to choosing. Only go back to stage A if she explicitly reopens the choice between fields.",
+        "A specific field is already named earlier in THIS conversation — software development, data/ML, UX/UI, cybersecurity, product management, cloud/DevOps, or a transition into tech project management. Once that field is on the table, EVERY later message about it stays in stage B — background constraints (\"I have no IT background\"), realism checks about a specific job title (\"is X a realistic first job\"), and timeline questions are all still about THAT field's roadmap, not a return to choosing. Only go back to stage A if she explicitly reopens the choice between fields — and that includes asking whether a DIFFERENT named field is easier, more realistic, or better suited to her constraints than the one on the table (\"is X easier to break into than Y\"), not just a flat \"which field should I pick\" restatement. Comparing a second field against the first is exactly the comparison stage A exists for, even mid-conversation.",
       facets: ["S1", "S2", "S3", "S4", "S4a", "S5", "S5a", "S6", "S7"],
     },
   },

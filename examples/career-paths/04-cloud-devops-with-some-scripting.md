@@ -1,6 +1,6 @@
 # Wants into cloud/DevOps, already has a little Python, needs a platform and a timeline
 
-_Run 2026-08-27 13:40 UTC · 5 turns · gpt-5-nano via Azure_
+_Run 2026-09-14 07:38 UTC · 5 turns · gpt-5-nano via Azure_
 
 **What this tests.** Draws on S6 (cloud/DevOps roadmap), and treats the existing scripting knowledge as a real head start rather than starting the roadmap from zero.
 
@@ -12,78 +12,82 @@ BSC Coach — local area harness
   Type freely. 'state' to inspect, 'quit' to stop.
 
   you > I want to get into cloud computing or DevOps
-  [stage A — User expressed interest in cloud computing or DevOps (multiple fields), which fits stage A in Career Paths & Roadmaps.]
+  [stage B — User named a specific field (cloud/DevOps) to pursue, so we stay in stage B and proceed with field-specific roadmap.]
   → enterDiscussionArea(3 · Career Paths & Roadmaps)
-  [no close example — voice only, advice from knowledge]
+  [no new facts about her — note left alone, no call made]
+  [second question dropped — one per reply]
   [sentence cap fired — the model wrote a rundown]
-  [drew on S8, S8a, G1 — 1 Otema, 2 drafted]
-  [voice only: G1a]
+  [drew on S6, S7, S5 — 3 Otema, 0 drafted]
+  [voice only: S4a, S5a, S1, S2]
 
 Botema
-  Cloud and DevOps are in high demand here and the skills travel well to both
-  local and remote roles. I would always recommend starting with Linux basics
-  and one cloud track; AWS is the most common in our markets and has a solid
-  free tier to learn on. How much time can you commit each week, and do you
-  have any Linux or scripting experience to build from?
+  Nice. Let’s anchor you in cloud/DevOps fast and realistically for Africa.
+  What’s your current comfort level with Linux, scripting, and Git?
 
   you > I already know a bit of Python scripting
-  [stage B — The user has Python scripting experience, which can accelerate automation, scripting, and tooling in cloud/DevOps. Tailor roadmap to leverage Python and related tooling.]
-  [repeated advice removed]
-  [implausible figure removed — outlier, mixed currency, or wrong period]
+  [stage B — User named cloud/DevOps and has Python scripting experience; this informs tailoring guidance.]
+  [repeated-opener guard fired — a reused opening clause was dropped]
+  [second question dropped — one per reply]
+  [sentence cap fired — the model wrote a rundown]
   [drew on S6, S2, S4a — 2 Otema, 1 drafted]
-  [voice only: S7, S4, S5a, S5]
+  [voice only: S3, S4, S5, S1]
 
 Botema
-  Nice — Python helps with automation. How many hours per week can you commit,
-  and do you have a Linux environment to practice on?
+  Python scripting helps you automate and glue things together. I’d push you
+  to solidify Linux basics, Git fluency, then pick one cloud (AWS is the most
+  widely used). How much time per week can you dedicate to practice?
 
   you > which cloud platform should I actually start with
-  [stage B — The user explicitly named cloud/DevOps as the field of interest and asked which platform to start with, moving the discussion into field-specific guidance.]
+  [stage B — The user has named a specific field (cloud/DevOps) and asked which platform to start with, which moves the conversation within stage B.]
+  [no new facts about her — note left alone, no call made]
+  [second question dropped — one per reply]
   [sentence cap fired — the model wrote a rundown]
-  [drew on S6, S4, S1 — 3 Otema, 0 drafted]
-  [voice only: S2, S7, S3, S4a]
+  [drew on S6, S4, S3 — 3 Otema, 0 drafted]
+  [voice only: S7, S4a, S1, S5]
 
 Botema
-  AWS. It’s the most widely used here, has the strongest free tier for
-  learning, and a clear path into cloud/DevOps roles. What kinds of companies
-  or roles are you targeting first so I can tailor the next steps?
+  AWS is the best start for most people here: widest adoption, strong free
+  tier, lots of learning resources, and solid entry paths. If you later need
+  enterprise-grade integration or data workloads specifically, you can branch
+  to Azure or GCP, but start with AWS. Does starting with AWS work for you?
 
   you > do I need a certification before applying anywhere
-  [stage B — User is pursuing a cloud/DevOps path and asks about certifications, moving the conversation forward in stage B.]
-  [repeated advice removed]
-  [implausible figure removed — outlier, mixed currency, or wrong period]
-  [drew on S6, S7, S2 — 3 Otema, 0 drafted]
-  [voice only: S5a, S5, S4a, S4]
+  [stage B — The user asked about certification timing within the cloud/DevOps path, a planning question in Stage B.]
+  [no new facts about her — note left alone, no call made]
+  [drew on S6, S2, S1 — 3 Otema, 0 drafted]
+  [voice only: S7, S4a, S5a, S3]
 
 Botema
-  Not strictly—entry roles will hire on your skills and portfolio even if you
-  don’t have a cert yet. I’d start with AWS Cloud Practitioner to prove cloud
-  basics, then build a concrete project (like a small app with a CI/CD
-  pipeline on AWS) and pursue deeper certs (Docker/Kubernetes) only after
-  you’ve got that hands-on track record.
+  Not strictly required, but a certification like AWS Cloud Practitioner can
+  help signals basics and boost your resume, especially if you’re early in
+  your cloud journey. I’d pair hands-on projects with the cert; once you’ve
+  built 2–3 cloud projects, you’ll be a stronger candidate even if you don’t
+  have the cert yet. Does that approach fit what you’re aiming for in the next
+  few months?
 
   you > what's realistic timeline-wise
-  [stage B — User asked for realistic timelines and milestones for Cloud/DevOps path after expressing interest in AWS focus.]
+  [stage B — User asked for a realistic timeline to become job-ready in cloud/DevOps after choosing AWS path.]
+  [no new facts about her — note left alone, no call made]
+  [repeated advice removed]
   [drew on S6, S2, S5a — 2 Otema, 1 drafted]
-  [voice only: S4a, S3, S4, S7]
+  [voice only: S4a, S7, S4, S5]
 
 Botema
-  Realistically, with 8–12 hours a week you’re looking at 9–12 months to land
-  a junior cloud/DevOps role, building 2–3 end-to-end projects (CI/CD on AWS,
-  containerized apps, IaC with Terraform) and adding a Cloud Practitioner cert
-  to show you’ve got the basics. If you can do 15–20 hours a week, you could
-  push that to 6–9 months. What’s your current weekly capacity, and do you
-  have a Linux box or cloud account you can practice on?
+  Realistic timeline: 8–12 weeks to solid Linux basics, Git, and light Python
+  automation; 6–8 weeks to complete AWS Cloud Practitioner while starting 2
+  cloud hands-on projects; 3–6 months to add Docker basics and a simple CI/CD
+  workflow, with another 3–4 months to pick up Kubernetes fundamentals if you
+  want to go deeper. It hinges on steady weekly practice (6–8 hours).
 
   you > quit
 
   ── state ─────────────────────────────────────────────
   active_area     3 · Career Paths & Roadmaps
-  covered_stages  A, B
-  touched_facets  S8, S8a, G1, G1a, S1, S2, S3, S4, S4a, S5, S5a, S6, S7
+  covered_stages  B
+  touched_facets  S1, S2, S3, S4, S4a, S5, S5a, S6, S7
   closed_areas    —
-  role/location   cloud/DevOps / —
-  trying to do    She wants a realistic timeline for getting into cloud computing or DevOps. She already knows a bit of Python scripting. She has asked whether a certification is necessary before applying to roles.
+  role/location   — / —
+  trying to do    — She wants to get into cloud computing or DevOps, and has noted that she already knows a bit of Python scripting. The new information is her Python scripting experience; no other barriers or steps have been specified yet. NONE for any other concrete obstacles or actions tried.
 
   Nothing was written to any database.
 ```

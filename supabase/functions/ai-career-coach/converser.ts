@@ -821,6 +821,16 @@ const DANGLING_REFERENCE =
 const DANGLING_PROMISE =
   /\btry\s+(?:this|that|these|it)\b[^.!?]*\b(?:in order|first|below|next|like (?:this|so))\b/i;
 
+// A third shape, found live on Career Paths: a short heading-like fragment
+// closing the reply with nothing behind it at all — "What I'd do first.",
+// "What I would recommend now.", "Here's the plan." — distinct from the two
+// above because it names no noun and makes no promise-word like "try"; it
+// just announces that content is coming and then the reply ends. The length
+// cap keeps this from matching a genuine, longer sentence that happens to
+// open the same way and actually carries content.
+const DANGLING_HEADING =
+  /^(?:what i(?:'d|'ll| would| will)?\s*(?:recommend|suggest|do)?|here'?s (?:the|my|a|what)\b)[^.!?]{0,20}[.!]?\s*$/i;
+
 export function dropDanglingQuestion(text: string, wasCapped: boolean): string {
   if (!wasCapped) return text;
   const sentences = text.match(/[^.!?]+[.!?]*/g) || [];
@@ -839,7 +849,7 @@ export function endsOnDanglingReference(text: string): boolean {
   const body = sentences.filter((s) => !s.endsWith("?"));
   if (!body.length) return false;
   const last = body[body.length - 1];
-  return DANGLING_REFERENCE.test(last) || DANGLING_PROMISE.test(last);
+  return DANGLING_REFERENCE.test(last) || DANGLING_PROMISE.test(last) || DANGLING_HEADING.test(last);
 }
 
 // The other shape has no tell in the words at all — everything except the

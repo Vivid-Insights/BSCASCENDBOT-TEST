@@ -743,6 +743,21 @@ describe("dropDanglingQuestion / endsOnDanglingReference", () => {
     expect(endsOnDanglingReference("I'd stick with a tiny routine. Try this in order.")).toBe(true);
     expect(endsOnDanglingReference("I'd stick with a tiny routine. Try box breathing before you speak.")).toBe(false);
   });
+
+  it("flags a short heading fragment with nothing after it", () => {
+    // Live regression, area-tester 2026-09-14 on Career Paths: "Nice choice.
+    // With a phone, you'll build the foundation first and plan access to a
+    // laptop or remote lab soon. What I'd do first." — the reply ends on a
+    // heading that promises content and then simply stops.
+    expect(endsOnDanglingReference("With a phone, plan access to a laptop soon. What I'd do first.")).toBe(true);
+    expect(endsOnDanglingReference("With a phone, plan access to a laptop soon. What I would recommend now.")).toBe(true);
+    expect(endsOnDanglingReference("With a phone, plan access to a laptop soon. Here's the plan.")).toBe(true);
+  });
+
+  it("does not flag a genuine, longer sentence that happens to open the same way", () => {
+    expect(endsOnDanglingReference("What I would recommend is that you start with Python fundamentals and build one small project a week.")).toBe(false);
+    expect(endsOnDanglingReference("Here's the plan for your first month: focus on syntax, then build a tiny CLI tool.")).toBe(false);
+  });
 });
 
 describe("isOnlyAQuestion", () => {

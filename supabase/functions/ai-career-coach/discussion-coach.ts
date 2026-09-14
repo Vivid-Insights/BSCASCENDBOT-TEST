@@ -304,7 +304,9 @@ function buildAreaSystemPrompt(
     // Found the same sweep, on Mentorship: a confident, specific cadence
     // ("biweekly 60 minutes for the first 2-3 months") with no basis in
     // anything she was told or any drafted answer.
-    "The same honesty that applies to money applies to schedules and routines: never state a specific cadence, duration, or timeline as an established norm unless it appears in the material you were given. Say what to work out together instead of asserting a figure you don't have.",
+    // Seen again the same sweep, on Career Paths — a four-tier fabricated
+    // schedule with no basis anywhere in the material.
+    "The same honesty that applies to money applies to schedules and routines: never invent a timeline broken into specific stages with specific durations (\"8-12 weeks to X, then 6-8 weeks to Y\") or a specific weekly-hours commitment, unless it appears in the material you were given. A multi-step fabricated schedule is exactly as dishonest as an invented salary figure, even dressed up as a realistic-sounding plan. Say what to work out together instead.",
     VARY_YOUR_OPENING,
     priorReplies.length
       ? `You have already opened replies in this conversation with: ${priorReplies.map((r) => `"${r.split(/\s+/).slice(0, 6).join(" ")}…"`).join(", ")}. Do NOT begin this one like ANY of those — a different first word and a different shape, not the same construction with the noun swapped.`
@@ -608,7 +610,19 @@ export class DiscussArea extends WordaliseFunction {
 
     if (text.text && echoesUser(text.text, question)) text.text = "";
 
+    // Found live on Career Paths, an area with no wrap-up stage: the
+    // rescue/regeneration above only ever runs `if (this.area.wrapUp)`, so
+    // for an area without one, a bare reply that survived this far — "What
+    // I'd do first." and nothing else, or a lone closing question once
+    // dropRepeatedSentences() stripped everything else as already-said —
+    // used to reach her unchanged, because this final check only ever
+    // caught an EMPTY string, not a substanceless one. She asked point-blank
+    // "what's my actual first move" and got a bare question back. Re-checked
+    // fresh against whatever text.text is NOW (not the `bare` computed
+    // before the rescue attempt above) — a successful regeneration already
+    // replaced it with real content, and that must not get wiped here.
     let finalText = text.text;
+    if (finalText && (isOnlyAQuestion(finalText) || endsOnDanglingReference(finalText))) finalText = "";
     if (!finalText || !finalText.trim()) {
       finalText = (state.wrappedUp || effectiveStage === this.area.wrapUp) ? WRAP_UP_LINE : this.area.fallbackQuestion;
     }
