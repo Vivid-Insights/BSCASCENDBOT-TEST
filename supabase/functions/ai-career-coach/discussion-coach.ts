@@ -294,7 +294,17 @@ function buildAreaSystemPrompt(
     // that's fine — when the drawn example is a CORRECTION of exactly that
     // assumption ("rarely works well — follow their posts and engage first").
     "If the closest example above corrects a specific assumption she just stated — she assumed X is fine or X is a problem, and the example says the opposite — that correction must survive. Do not soften it into agreement with what she assumed; say what the example actually says, then help her act on it.",
-    // Found the same day: a full "which field should I pick" conversation
+    // Found by area-tester on Job Search, 2026-09-16: she named a real,
+    // documented pattern (an all-male interview panel, repeated silence
+    // afterward), the coach correctly validated it as real — then, the
+    // instant she second-guessed herself the very next turn ("actually wait
+    // no, I'm probably overthinking this"), the coach silently dropped the
+    // validation and pivoted to generic interview-technique coaching, never
+    // re-anchoring what it had just told her. That is letting her talk
+    // herself out of something true rather than standing with her.
+    "If you have already told her something is real, valid, or not just in her head, and a LATER message has her doubt or take that back herself, do not quietly go along with the retraction. Name that you're not changing your read just because she's doubting herself, hold the validation you already gave her, and address the self-doubt directly as its own thing — don't let it silently overwrite what you said.",
+    // Found the same day as the correction-survives rule above: a full
+    // "which field should I pick" conversation
     // gave nothing but build-it-yourself advice and never once named a
     // person, though the drawn example explicitly says to talk to people
     // already in the field, and lifting as she climbs is a stated value.

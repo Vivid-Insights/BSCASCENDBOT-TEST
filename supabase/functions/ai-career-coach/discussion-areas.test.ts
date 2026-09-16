@@ -7,6 +7,7 @@ import {
   CONFIDENCE_AREA,
   CAREER_PATHS_AREA,
   FURTHER_EDUCATION_AREA,
+  JOB_SEARCH_AREA,
   buildFacets,
   mostRelevant,
   queryWords,
@@ -75,6 +76,37 @@ describe("buildFacets", () => {
     expect(WELLBEING_AREA.stages.B.facets).toContain("S4");
     expect(WELLBEING_AREA.stages.A.facets).toContain("S3a");
     expect(WELLBEING_AREA.stages.B.facets).toContain("S3a");
+  });
+
+  it("wires Job Search's 4 real answers by exact question text, from adviseOnCareerTopic", () => {
+    const facets = buildFacets(JOB_SEARCH_AREA);
+    for (const id of JOB_SEARCH_AREA.realOrder) {
+      expect(facets[id]).toBeDefined();
+      expect(facets[id].source).toBe("OTEMA");
+    }
+    // Confirms it did NOT fall back to topic-tag matching on "cv_job_search"
+    // against adviseOnCareerTopic, which would also pick up the unrelated
+    // Interview Prep answer (Q43) sharing that same pre-v4 tag.
+    expect(facets.S1.question).toBe("How do I write a CV that stands out for tech roles?");
+  });
+
+  it("keeps Q43 (interview prep) out of Job Search's real answers", () => {
+    const facets = buildFacets(JOB_SEARCH_AREA);
+    const questions = Object.values(facets).filter((f) => f.source === "OTEMA").map((f) => f.question);
+    expect(questions).not.toContain("How do I prepare for a technical interview?");
+  });
+
+  it("cross-lists G2 and G3 into both of Job Search's stages", () => {
+    // Found necessary live (area-tester, 2026-09-16): both facets' own
+    // content spans both stages — G2 (career-break re-entry) needs
+    // explaining the gap on the CV/LinkedIn (stage A) as much as a search
+    // strategy (stage B); G3 (confidential search) covers the LinkedIn
+    // "open to work" toggle specifically (stage A) as much as broader
+    // outreach discretion (stage B).
+    expect(JOB_SEARCH_AREA.stages.A.facets).toContain("G2");
+    expect(JOB_SEARCH_AREA.stages.B.facets).toContain("G2");
+    expect(JOB_SEARCH_AREA.stages.A.facets).toContain("G3");
+    expect(JOB_SEARCH_AREA.stages.B.facets).toContain("G3");
   });
 
   it("wires Confidence's 5 real answers by exact question text, from addressMindsetChallenge", () => {

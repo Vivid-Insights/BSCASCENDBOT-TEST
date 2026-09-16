@@ -279,6 +279,7 @@ const AREAS_BUILT = [
   "further-education",
   "mentorship",
   "wellbeing",
+  "job-search",
 ];
 
 if (!AREAS_BUILT.includes(AREA_SLUG)) {
@@ -1551,6 +1552,15 @@ async function wordalise(message, stage, history, facets, search = null, used = 
     // this covers an example that corrects a specific assumption she just
     // stated. Both get mined for adjacent tactics and lost the same way.
     `If the closest example ${EX} corrects a specific assumption she just stated — she assumed X is fine or X is a problem, and the example says the opposite — that correction must survive. Do not soften it into agreement with what she assumed; say what the example actually says, then help her act on it.`,
+    // Found by area-tester on Job Search, 2026-09-16: she named a real,
+    // documented pattern (an all-male interview panel, repeated silence
+    // afterward), the coach correctly validated it as real — then, the
+    // instant she second-guessed herself the very next turn ("actually wait
+    // no, I'm probably overthinking this"), the coach silently dropped the
+    // validation and pivoted to generic interview-technique coaching, never
+    // re-anchoring what it had just told her. That is letting her talk
+    // herself out of something true rather than standing with her.
+    `If you have already told her something is real, valid, or not just in her head, and a LATER message has her doubt or take that back herself, do not quietly go along with the retraction. Name that you're not changing your read just because she's doubting herself, hold the validation you already gave her, and address the self-doubt directly as its own thing — don't let it silently overwrite what you said.`,
     // Found the same day on Getting Started: a full "which field should I
     // pick" conversation gave five turns of build-it-yourself advice — small
     // projects, free resources, a learning plan — and never once named a

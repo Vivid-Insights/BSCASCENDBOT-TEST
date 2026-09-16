@@ -375,6 +375,52 @@ export const CONFIDENCE_AREA: AreaConfig = {
   },
 };
 
+// Ported verbatim from scripts/areas/job-search.mjs. Q43 ("How do I prepare
+// for a technical interview?") shares the same pre-v4 topic tag
+// (cv_job_search) as this area's 4 real answers but is excluded — matched by
+// exact question text, same mechanism as Confidence — per an already-
+// resolved decision (ISSUE-011 in the storyboard's issue log, resolved 15
+// Aug by David): it seeds a separate future area, Interview Preparation.
+// G2 and G3 are cross-listed into both stages: both facets' own content
+// spans both (re-entering after a career break needs explaining the gap on
+// the CV/LinkedIn as much as a search strategy; searching confidentially
+// means specific LinkedIn settings as much as broader outreach), found
+// necessary live the same way Wellbeing's S2/S4 and Career Paths' own
+// comparative-field classification turned out to be soft.
+export const JOB_SEARCH_AREA: AreaConfig = {
+  n: 7,
+  name: "Job Search & Applications",
+  topic: "cv_job_search",
+  realQuestions: [
+    "How do I write a CV that stands out for tech roles?",
+    "What is the most effective job search strategy in tech?",
+    "How do I get a tech job without prior industry experience?",
+    "How should I use LinkedIn to support my job search in tech?",
+  ],
+  realOrder: ["S1", "S2", "S3", "S4"],
+  wrapUp: null,
+  stageSummary: {
+    A: "your materials — the CV and the LinkedIn profile",
+    B: "your approach — strategy, and the no-experience circumstance",
+  },
+  fallbackQuestion: "Where are you at with the job search right now?",
+  supersedes: [],
+  stages: {
+    A: {
+      label: "Your materials",
+      describes:
+        "The CV or the LinkedIn profile — the concrete assets she puts in front of people. Giveaway words: \"CV\", \"resume\", \"LinkedIn\", \"profile\". A CV or LinkedIn question is A even mid-search, even if she's also asked strategy questions in the same conversation. Building a PROJECT or portfolio to compensate for no industry experience is NOT this stage, even though it's also something concrete — it's a strategy for getting in the door (stage B, S3/S3a/S3b), not a finished asset the way a CV or LinkedIn profile already is.",
+      facets: ["S1", "S4", "S4a", "G2", "G3"],
+    },
+    B: {
+      label: "Your approach",
+      describes:
+        "The broader question of how she's actually going about the search — general strategy (networking, visibility, application volume), or the specific circumstance of having no industry experience yet, including building a project or portfolio from scratch to compensate for it. Giveaway words: \"strategy\", \"applying\", \"no experience\", \"no response\", \"how many\", \"what should I build\". A question about volume, access, discretion, or a barrier to searching at all is B even before a CV or LinkedIn profile exists. This area STOPS at getting an interview scheduled — it does not cover how to perform in the interview itself (answer framing, mock-interview technique, what to expect in the format): that is Interview Preparation, a separate area not built yet. If a question is squarely about interview-answering technique, say briefly that this area covers getting her there, not the interview itself, rather than inventing interview-coaching content with no basis in anything you were given.",
+      facets: ["S2", "S2a", "S2b", "S3", "S3a", "S3b", "G1", "G2", "G3"],
+    },
+  },
+};
+
 // One WORDALISE function per built area — see AREA_TOPIC_TO_FUNCTION_NAME
 // below, used by UpdateCareerTopic to decide where to chain, and by index.ts
 // to call the right one directly when an area is already open.
@@ -386,6 +432,7 @@ export const AREAS: Record<string, AreaConfig> = {
   mindset: CONFIDENCE_AREA,
   career_paths: CAREER_PATHS_AREA,
   further_education: FURTHER_EDUCATION_AREA,
+  cv_job_search: JOB_SEARCH_AREA,
 };
 
 export const AREA_TOPIC_TO_FUNCTION_NAME: Record<string, string> = {
@@ -396,6 +443,7 @@ export const AREA_TOPIC_TO_FUNCTION_NAME: Record<string, string> = {
   mindset: "discussConfidenceArea",
   career_paths: "discussCareerPathsArea",
   further_education: "discussFurtherEducationArea",
+  cv_job_search: "discussJobSearchArea",
 };
 
 export const WRAP_UP_LINE =

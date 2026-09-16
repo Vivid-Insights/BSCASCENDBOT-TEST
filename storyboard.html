@@ -970,6 +970,7 @@
       <button class="sub-tab-btn" onclick="switchSubTab('area4', this)"><span class="sn">04</span>Mentorship</button>
       <button class="sub-tab-btn" onclick="switchSubTab('area5', this)"><span class="sn">05</span>Wellbeing &amp; Balance</button>
       <button class="sub-tab-btn" onclick="switchSubTab('area6', this)"><span class="sn">06</span>Confidence</button>
+      <button class="sub-tab-btn" onclick="switchSubTab('area7', this)"><span class="sn">07</span>Job Search &amp; Applications</button>
     </div>
 
     <div id="sub-area9" class="sub-panel active">
@@ -3117,6 +3118,204 @@
             <div class="ff-top"><span class="facet-id">G4</span><h4>Already tried the obvious move, failed</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">responds to <span class="chip">S3a</span></span></div>
             <p class="ff-q">I already said something like that last time and they just talked over me again.</p>
             <p class="ff-a">Raising it once and having nothing change is its own information — it tells you this isn't going to fix itself through good faith alone. That's usually the point to start writing it down as it happens, factually, and decide whether to go over that person's head or bring in someone with more standing, like HR or a mentor. Who else here actually has the standing to make this land?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="sub-area7" class="sub-panel">
+      <div class="section">
+        <div class="section-title">Area Flow · Area 7</div>
+        <h2 class="section-heading">Inside Job Search &amp; Applications <span class="st proposed">PROPOSED</span></h2>
+        <p class="prompt-intro">One classification call per message places the user in one of two stages; the stage scopes which of Otema's 4 real answers, plus 8 drafted facets, the model is shown; the model writes the reply from that material. Runs end-to-end in the local harness and has been through a live area-tester pass; not yet wired into the live edge function.</p>
+        <div class="banner spec">
+          <strong>Resolved 15 Aug (ISSUE-011): Job Search and Interview Preparation are separate areas, not one.</strong> All 5 of Otema's job-search-bank answers (Q41-45) originally shared one pre-v4 topic tag (<code>cv_job_search</code>), but Q43 ("How do I prepare for a technical interview?") is thematically Interview Preparation's, not this area's — David decided the two stay split. This area takes Q41, 42, 44, 45; Q43 alone seeds Area 8 once it's built. Matched by exact question text (<code>realQuestions</code>), the same mechanism Confidence uses, rather than by topic tag, so this area never silently pulls in the interview-prep answer.
+        </div>
+        <div class="banner spec">
+          <strong>Two stages: your materials, versus your approach.</strong> A covers the concrete assets she prepares and puts in front of people — the CV, the LinkedIn profile. B covers the broader question of how she's actually going about the search — general strategy, and the specific circumstance of having no industry experience yet. A CV or LinkedIn question is A even mid-search; a question about strategy, volume, or access is B even before either asset exists.
+        </div>
+        <div class="banner info">
+          <strong>Three standalone gaps found in the dead-end pass, one already documented as expected.</strong> Nothing here addressed discrimination or bias during the search itself — a foundational scenario for this audience given BSC's own intersectional-advocacy stance, and already flagged as expected content before this pass even ran. Nothing addressed re-entering tech after a career break (maternity leave, caregiving, illness, layoff) — a materially different population from S3's "never worked in the field at all" premise. And nothing addressed searching confidentially while still employed, despite that being the normal situation for most job seekers, not the exception. <strong>G1</strong>, <strong>G2</strong>, and <strong>G3</strong> below close these.
+        </div>
+        <div class="banner spec">
+          <strong>Seven examples per reply: the three closest, plus up to four drawn at random from the stage.</strong> Same mechanism as every other area, run here on this area's own numbers. Stage A holds 5 facets (2 real, 3 drafted); stage B holds 9 (2 real, 7 drafted). If neither of Otema's real answers wins a close slot in stage A, the leftover after removing the 3 closest is exactly the 2 real ones — both are shown, not just likely to be: her voice is <strong>guaranteed</strong> to appear. In stage B, removing the closest 3 from 9 leaves 6, of which 2 are hers; drawing 4 of those 6 at random includes at least one of her answers <strong>93%</strong> of the time (1 minus the chance all 4 drawn are from the 4 non-real facets left: 1/15).
+          <br><br>
+          A used example is down-weighted by <code>0.35</code> rather than removed, so a facet can resurface in a later turn once it's clearly the best fit again — the same repetition allowance Salary's section explains in full, including why that number changed on 29 Aug and what was measured to choose it. This area has no wrap-up stage, so unlike Confidence's stage C there is no exception to carve out — the arithmetic above applies to every turn.
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · Shape</div><h2 class="section-heading">The Shape of the Area</h2>
+        <div class="key">
+          <p class="key-intro"><strong>Reading the codes:</strong> <span class="chip">S</span> is one of Otema's four real answers, numbered in question-bank order (S1–S4 = Q41, 42, 44, 45). <span class="chip">G</span> is a standalone drafted gap facet with no real-answer parent. Response-branch facets (S2a, S2b, S3a, S3b, S4a) are their own cards further down.</p>
+          <div class="key-grid">
+            <div><span class="chip">S1</span> Writing a CV that stands out (Q41)</div>
+            <div><span class="chip">S2</span> Most effective job search strategy (Q42)</div>
+            <div><span class="chip">S3</span> Getting a tech job with no industry experience (Q44)</div>
+            <div><span class="chip">S4</span> Using LinkedIn to support the search (Q45)</div>
+            <div><span class="chip">G1</span> Discrimination or bias in the hiring process</div>
+            <div><span class="chip">G2</span> Re-entering tech after a career break</div>
+            <div><span class="chip">G3</span> Searching confidentially while still employed</div>
+          </div>
+        </div>
+        <div class="flow-note">All 4 real facets belong to Otema. <strong>G1, G2, and G3 are standalone gap topics</strong> with no real-answer parent, all surfaced in the dead-end pass below. Two lower-priority findings (a documented exit for "I don't know what role yet" — added below as a leaving-table row rather than a facet, since S1's closer is otherwise a refining one — and a standalone gap for having zero professional network to ask for a referral) were also found and are deferred past this first build, same treatment other areas have given lower-severity findings.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · Facets</div><h2 class="section-heading">The 4 Facets and Where Each Leads</h2>
+        <p class="prompt-intro">Edges are read off the actual closing questions. All 4 are <span class="src real">OTEMA</span>'s real questionnaire answers.</p>
+
+        <div class="stage-band"><span class="sb-id">Stage A</span><h3>Your materials</h3><span class="sb-note">the CV and the LinkedIn profile — the concrete assets she puts in front of people</span></div>
+        <div class="facet-grid">
+          <div class="facet real">
+            <div class="facet-top"><span class="facet-id">S1</span><h4>Writing a CV that stands out</h4><span class="src real">OTEMA</span></div>
+            <p class="closer">"What role are you currently targeting?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">S4</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet real">
+            <div class="facet-top"><span class="facet-id">S4</span><h4>Using LinkedIn to support the search</h4><span class="src real">OTEMA</span></div>
+            <p class="closer">"What does your profile look like right now?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">S1</span><span class="chip">S2</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G2</span><h4>Re-entering tech after a career break</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">cross-listed — also in Stage B</span></div>
+            <p class="closer">"How long has the break been, and in what?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G3</span><h4>Searching confidentially while still employed</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">cross-listed — also in Stage B</span></div>
+            <p class="closer">"Is it your manager specifically you're keeping this from, or the wider company?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+        </div>
+        <div class="flow-note"><strong>G2 and G3 are cross-listed into both stages, found necessary live (area-tester, 2026-09-16).</strong> Both facets' own content spans both: re-entering after a career break needs explaining the gap on the CV/LinkedIn specifically (here, Stage A) as much as it needs a search strategy (Stage B); searching confidentially covers the LinkedIn "open to work" toggle specifically (Stage A) as much as broader outreach discretion (Stage B). The classifier split on direct follow-ups for both across live runs despite explicit tie-break text in the stage description — the same soft-classification-boundary conclusion reached elsewhere (Career Paths' comparative-field fix, Wellbeing's S2/S4) — so both are made reachable from either stage rather than fought with more prompt wording.</div>
+
+        <div class="stage-band"><span class="sb-id">Stage B</span><h3>Your approach</h3><span class="sb-note">the broader strategy — general, or specific to having no industry experience yet</span></div>
+        <div class="facet-grid">
+          <div class="facet real">
+            <div class="facet-top"><span class="facet-id">S2</span><h4>Most effective job search strategy</h4><span class="src real">OTEMA</span></div>
+            <p class="closer">"What does your online presence look like right now?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">S3</span><span class="chip">S4</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet real">
+            <div class="facet-top"><span class="facet-id">S3</span><h4>Getting a tech job with no industry experience</h4><span class="src real">OTEMA</span></div>
+            <p class="closer">"What have you built so far?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">S2</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G1</span><h4>Discrimination or bias in the hiring process</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"Has this happened once, or does it feel like a pattern across more than one place you've applied?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G2</span><h4>Re-entering tech after a career break</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">cross-listed — also in Stage A</span></div>
+            <p class="closer">"How long has the break been, and in what?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G3</span><h4>Searching confidentially while still employed</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">cross-listed — also in Stage A</span></div>
+            <p class="closer">"Is it your manager specifically you're keeping this from, or the wider company?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · Response branches</div>
+        <h2 class="section-heading">What Happens After the Question <span class="st proposed">PROPOSED</span></h2>
+        <div class="banner info"><strong>Five dead ends closed with response branches.</strong> S2's closer has no branch for application silence after actually applying — the single highest-frequency gap found, and the cheapest to close: the exact facts already sit unused as grounding prose in <code>bsc-knowledge.ts</code>'s <code>cv_job_search</code> block (referral-fill rates, typical applications-per-interview, follow-up timing) and just needed turning into an answer. S3's closer has two gaps: no branch for genuinely not knowing what to build at all (distinct from having something but not knowing how to use it), and no branch for having no spare time or capacity to build anything while working full-time. S4's closer has no branch for discomfort with self-promotion and visibility as a practice, distinct from self-doubt about competence (which the leaving table already routes to Confidence). All five are drafted into <code>botema-generated-examples.ts</code>, <code>unreviewed</code>, same gate as everything else here.</div>
+        <div class="facet-grid">
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">S2a</span><h4>Applied and heard nothing back</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">responds to <span class="chip">S2</span></span></div>
+            <p class="closer">"How many have you sent, and mostly cold, or through people you actually know?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">S2b</span><h4>No data or device to keep a presence active</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">responds to <span class="chip">S2</span></span></div>
+            <p class="closer">"Is it mainly data, a device, or time that's short right now?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">S3a</span><h4>No idea what to build at all</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">responds to <span class="chip">S3</span></span></div>
+            <p class="closer">"Is there a problem close to you that a small tool could actually help with?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">S3b</span><h4>No time to build while working full-time</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">responds to <span class="chip">S3</span></span></div>
+            <p class="closer">"Is there a weekend or two you could actually ring-fence for this in the next month?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">S4a</span><h4>Discomfort with self-promotion, not self-doubt</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">responds to <span class="chip">S4</span></span></div>
+            <p class="closer">"Is the sticking point worrying people will judge it, or feeling you don't have anything worth sharing yet?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · Leaving</div><h2 class="section-heading">When to Suggest a Different Area</h2>
+        <p class="prompt-intro">The Flow C hand-off, triggered from inside the area rather than by the user asking.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>What's happening</th><th>What it actually means</th><th>Offer instead</th></tr></thead>
+            <tbody>
+              <tr><td>An interview gets scheduled and the live question becomes preparing for it</td><td>The search has produced a result; the job now is the interview itself</td><td><strong>Area 8</strong> · Interview Preparation</td></tr>
+              <tr><td>An offer comes in and the question turns to pay</td><td>The search is over for this round; the live question is negotiation</td><td><strong>Area 9</strong> · Salary &amp; Negotiation</td></tr>
+              <tr><td>Self-doubt about being good enough to apply becomes the main subject</td><td>A confidence problem wearing a job-search question's clothes</td><td><strong>Area 6</strong> · Confidence &amp; Imposter Syndrome</td></tr>
+              <tr><td>Exhaustion or burnout from the volume of rejection/silence becomes the main subject</td><td>A wellbeing problem, not a strategy question</td><td><strong>Area 5</strong> · Wellbeing &amp; Balance</td></tr>
+              <tr><td>S1's closer reveals she doesn't actually know what role she's targeting yet</td><td>A CV written with no role in mind reads as vague, not broad — the real question is upstream of this area</td><td><strong>Area 3</strong> · Career Paths &amp; Roadmaps</td></tr>
+              <tr><td>Two turns with no new information, or a facet revisited with nothing added</td><td>The area is done, whether or not every facet was covered</td><td>Sum up and offer the remaining areas</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · To build</div><h2 class="section-heading">What This Needs</h2>
+        <div class="grid-2">
+          <div class="scope-card can">
+            <div class="scope-head">Already true</div>
+            <div class="scope-body">
+              <div class="scope-item"><strong>Runs end-to-end in the local harness</strong><div class="example"><code>npm run coach -- --area=job-search</code>, and <code>npm run coach:scenarios -- --area=job-search</code> — 5/5 scenarios passing</div></div>
+              <div class="scope-item"><strong>A live area-tester pass, fixes applied</strong><div class="example">Found and closed: the validation of a real, named pattern (G1) silently giving way once she doubted herself a turn later — now a general rule in <code>discussion-coach.ts</code>/<code>coach-local.mjs</code>, applies to every area; interview-answering technique (STAR-method framing) leaking into Stage B despite belonging to the not-yet-built Interview Preparation area — Stage B's own describes text now excludes it explicitly; "do you want me to help you set that up" — added to <code>NEVER_OFFER_TO_ACT</code>'s named phrasings</div></div>
+              <div class="scope-item"><strong>Extra grounding knowledge already written</strong><div class="example"><code>bsc-knowledge.ts</code>'s <code>cv_job_search</code> block: ATS keyword matching, referral rates, portfolio/open-source routes for no-experience candidates, LinkedIn optimisation, and application-volume/follow-up norms — the source for S2a's answer</div></div>
+            </div>
+          </div>
+          <div class="scope-card cant">
+            <div class="scope-head">Doesn't exist yet</div>
+            <div class="scope-body">
+              <div class="scope-item"><strong>Wired into the live edge function</strong><div class="example">Harness-verified only as of this pass</div></div>
+              <div class="scope-item"><strong>Confirmation that G1's specific "keep a record" advice reliably surfaces</strong><div class="example">area-tester found one turn where G1 was marked as drawn on but its actual advice didn't appear in the reply — flagged for a closer look, not yet root-caused</div></div>
+              <div class="scope-item"><strong>Otema's review of the 8 drafted facets</strong><div class="example">Required before any of them can be served — the gate <code>approvedGeneratedExamples()</code> enforces</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · Full text</div><h2 class="section-heading">All Answers in Full</h2>
+        <p class="prompt-intro">The complete question and answer behind every facet above, in ID order — all of them Otema's real words from the questionnaire.</p>
+        <div class="full-list">
+          <div class="full-facet real">
+            <div class="ff-top"><span class="facet-id">S1</span><h4>Writing a CV that stands out</h4><span class="src real">OTEMA</span></div>
+            <p class="ff-q">How do I write a CV that stands out for tech roles?</p>
+            <p class="ff-a">Lead with a summary tied to the specific role, quantify your achievements, and swap a long skills list for two to four real projects with live links. Keep it to one page unless you have five-plus years, and leave out anything irrelevant like marital status. What role are you currently targeting?</p>
+          </div>
+          <div class="full-facet real">
+            <div class="ff-top"><span class="facet-id">S2</span><h4>Most effective job search strategy</h4><span class="src real">OTEMA</span></div>
+            <p class="ff-q">What is the most effective job search strategy in tech?</p>
+            <p class="ff-a">Networking and referrals deliver the highest yield, and visibility helps too — share your projects on LinkedIn or GitHub before you even apply, so recruiters already have a sense of you going into the interview. What does your online presence look like right now?</p>
+          </div>
+          <div class="full-facet real">
+            <div class="ff-top"><span class="facet-id">S3</span><h4>Getting a tech job with no industry experience</h4><span class="src real">OTEMA</span></div>
+            <p class="ff-q">How do I get a tech job without prior industry experience?</p>
+            <p class="ff-a">Projects are your best bet — build something real for a small business or NGO so you have an actual client reference, and look into fellowships built for career switchers. What have you built so far?</p>
+          </div>
+          <div class="full-facet real">
+            <div class="ff-top"><span class="facet-id">S4</span><h4>Using LinkedIn to support the search</h4><span class="src real">OTEMA</span></div>
+            <p class="ff-q">How should I use LinkedIn to support my job search in tech?</p>
+            <p class="ff-a">Keep your profile aligned to your target role's keywords, post regularly about what you're building, and reach out for short informational chats rather than only applying cold. After you apply somewhere, connecting with someone on that team with a short note goes a long way. What does your profile look like right now?</p>
           </div>
         </div>
       </div>

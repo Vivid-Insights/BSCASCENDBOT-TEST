@@ -471,6 +471,89 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       reviewStatus: "unreviewed", drafted: "2026-09-14",
     },
 
+    // ── Area 7 · Job Search & Applications ────────────────────────────────
+    // Eight gaps identified 2026-09-16 in the storyboard's dead-end
+    // discovery pass, before this area had ever been built anywhere. Three
+    // (G1, G2, G3) are standalone: nothing in Otema's 4 real answers covers
+    // discrimination or bias during the search, re-entering tech after a
+    // career break, or searching confidentially while still employed. G1 in
+    // particular was judged severe enough to close before wiring the area in
+    // at all — it directly touches BSC's own intersectional-advocacy stance.
+    // The other five are response branches off S2, S3, and S4. S2a is the
+    // highest-priority and cheapest of the eight: the underlying facts
+    // (referral-fill rates, applications-per-interview, follow-up timing)
+    // already existed as unused grounding prose in bsc-knowledge.ts's
+    // cv_job_search block and just needed turning into an actual answer.
+    {
+      question: "I've applied to over 40 jobs and heard nothing back from any of them.",
+      answer:
+        "Silence after applying is normal, not a sign you did something wrong — even a strong search usually takes ten to twenty applications for every interview, and most roles get filled through a referral or before they're ever posted publicly at all, so a cold application is always competing against that. If it's been a week or two with nothing back, a short, polite follow-up to whoever posted the role is reasonable and sometimes moves you up the pile. How many of those were cold applications versus through someone you actually know?",
+      topic: "cv_job_search", area: 7, facet: "S2a", respondsTo: "S2",
+      userSaid: "I've applied to over 40 jobs and heard nothing back from any of them",
+      gap: "Application silence/ghosting at volume — S2's real answer talks about strategy (networking, visibility) but never addresses what to make of silence or what's a normal ratio, despite this being the highest-frequency real-world outcome of following that exact strategy",
+      reviewStatus: "unreviewed", drafted: "2026-09-16",
+    },
+    {
+      question: "I don't really have reliable data or a laptop to keep an online presence active.",
+      answer:
+        "That's a real constraint, not a small one — keeping a profile constantly updated and posting regularly takes connectivity and time that not everyone has spare, and the general advice quietly assumes both. If data or a device is the limit, it's worth getting the profile itself right once and checking in when you can, rather than trying to post on a regular schedule you can't actually sustain. Is it mainly data, a device, or time that's short for you right now?",
+      topic: "cv_job_search", area: 7, facet: "S2b", respondsTo: "S2",
+      userSaid: "I don't have reliable data or a laptop to keep an online presence active",
+      gap: "S2's and S4's advice (regular posting, an active presence) quietly assumes connectivity and a device — this is the case where that assumption doesn't hold",
+      reviewStatus: "unreviewed", drafted: "2026-09-16",
+    },
+    {
+      question: "Nothing yet — I honestly don't know what I'd even build.",
+      answer:
+        "Start smaller than 'a real client project' — pick a small, everyday problem you or someone around you actually has, and build the plainest possible version of a fix for it. It doesn't need to be original; it needs to exist and be yours. Once there's something real, finding a small business or NGO to build the next one for gets much easier because you have something to point to. Is there a problem close to you that a small tool could actually help with?",
+      topic: "cv_job_search", area: 7, facet: "S3a", respondsTo: "S3",
+      userSaid: "I don't know what I'd even build",
+      gap: "S3's real answer assumes a project already exists or a direction is clear — this is the case where there's no idea at all to start from",
+      reviewStatus: "unreviewed", drafted: "2026-09-16",
+    },
+    {
+      question: "I'm working full-time already and don't have evenings free to build anything.",
+      answer:
+        "That's a real limit, and the honest answer is that it'll be slower, not that it's off the table — small, contained pieces of work you can finish in a weekend or a few evenings a month add up over time, even at an uneven pace. It doesn't need to be a big project to count as real experience you can point to. Is there a weekend or two you could actually ring-fence for this in the next month, even just once?",
+      topic: "cv_job_search", area: 7, facet: "S3b", respondsTo: "S3",
+      userSaid: "I'm working full-time and don't have evenings free to build anything",
+      gap: "S3's real answer assumes free time and capacity to build a side project — this is the case where a full-time job already takes that",
+      reviewStatus: "unreviewed", drafted: "2026-09-16",
+    },
+    {
+      question: "I don't really like putting myself out there like that — self-promotion isn't really me.",
+      answer:
+        "That discomfort is common, and it's usually not really about whether the work is impressive enough — it's visibility itself that feels like showing off. Framing a post as sharing what you're learning, rather than announcing an achievement, tends to feel less exposed, and it doesn't need to be finished to be worth posting. Is the actual sticking point worrying people will judge it, or feeling you don't have anything worth sharing yet?",
+      topic: "cv_job_search", area: 7, facet: "S4a", respondsTo: "S4",
+      userSaid: "I don't like putting myself out there, self-promotion isn't really me",
+      gap: "S4's real answer assumes willingness to post regularly — this is discomfort with self-promotion as a practice, distinct from self-doubt about competence (which the leaving table already routes to Confidence)",
+      reviewStatus: "unreviewed", drafted: "2026-09-16",
+    },
+    {
+      question: "I think I'm being screened out of interviews because of my name or where I'm from, not my qualifications.",
+      answer:
+        "That's not something to explain away, and if it's what's actually happening, it's worth naming plainly rather than assuming it's you. Worth keeping a private record of anything concrete as it happens — a comment, a pattern of being screened out despite meeting the requirements — because patterns are easier to see written down than remembered. Has this happened once, or does it feel like a pattern across more than one place you've applied?",
+      topic: "cv_job_search", area: 7, facet: "G1",
+      gap: "Discrimination or bias during the hiring process — none of the 4 real answers address it, despite it being a foundational scenario for this audience given BSC's own intersectional-advocacy stance",
+      reviewStatus: "unreviewed", drafted: "2026-09-16",
+    },
+    {
+      question: "I'm trying to get back into tech after being out for a couple of years on maternity leave. Not sure where to even start.",
+      answer:
+        "Coming back after a break is its own thing, not the same as starting from nothing — you already have the experience; the real question is what's moved on since you were last in it, and saying the gap plainly rather than skirting around it. A short refresher project alongside the search does double duty: it catches you up on what's changed and gives you something current to point to, on your CV and on LinkedIn alike. How long has the break been, and in what?",
+      topic: "cv_job_search", area: 7, facet: "G2",
+      gap: "Re-entering tech after a career break (maternity leave, caregiving, illness, layoff) — a materially different population from S3's 'never worked in the field at all' premise, and central to BSC's access/inclusion focus",
+      reviewStatus: "unreviewed", drafted: "2026-09-16",
+    },
+    {
+      question: "I'm searching quietly while still employed — my current employer doesn't know I'm looking.",
+      answer:
+        "Searching quietly is normal and doesn't have to clash with the usual advice — turn off the 'open to work' badge or limit it to recruiters only, be careful who you tell at your current company, and keep networking conversations one-to-one rather than public posts. It slows visibility slightly but protects what you already have while you look. Is it your manager specifically you're keeping this from, or the wider company?",
+      topic: "cv_job_search", area: 7, facet: "G3",
+      gap: "Searching confidentially while still employed — every real answer assumes an openly visible search (public posting, broad outreach), despite this being the normal situation for most job seekers, not the exception",
+      reviewStatus: "unreviewed", drafted: "2026-09-16",
+    },
+
     // ── Area 9 · Salary & Negotiation ─────────────────────────────────────
     // Four gaps identified 2026-08-14: none of these are in the 57-question
     // bank, and neither KNOWLEDGE_BASE.salary nor her real examples cover them.
