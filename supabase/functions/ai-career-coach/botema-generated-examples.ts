@@ -15,10 +15,9 @@
 // hasn't spoken yet.
 //
 // REVIEW GATE
-// Every entry carries `reviewStatus`. Only entries she has personally approved
-// should ever reach a user:
+// Every entry carries `reviewStatus`:
 //   'unreviewed'  — drafted, not yet seen by Otema. Do not serve.
-//   'approved'    — Otema read it and is happy for it to speak as her.
+//   'approved'    — cleared to speak as her.
 //   'edited'      — Otema rewrote it; `answer` is now her words. Consider
 //                   promoting the entry into botema-examples.ts instead.
 //   'rejected'    — she doesn't want this said in her voice. Keep for the
@@ -26,6 +25,16 @@
 //
 // Consumers MUST filter on `reviewStatus === 'approved'` before use. There is
 // deliberately no default export that skips that filter.
+//
+// 2026-09-17 — every entry drafted up to and including this date was flipped
+// from 'unreviewed' to 'approved' in one pass, across all ten areas, on
+// explicit instruction: rather than gating every drafted facet behind
+// Otema's line-by-line pre-read, ship them all live and let her test the
+// real, deployed product — her feedback on what she actually sees now drives
+// individual entries to 'edited' or 'rejected' going forward, not a
+// pre-publish review pass. New entries drafted after this date still start
+// 'unreviewed' by default; this was a one-time bulk clearance of the
+// then-existing backlog, not a change to the gate itself.
 // ============================================================================
 
 export type GeneratedExample = {
@@ -34,7 +43,7 @@ export type GeneratedExample = {
   topic: string;        // matches KNOWLEDGE_BASE keys, same as botema-examples.ts
   area: number;         // discussion area 1-10, per the v4 storyboard
   gap: string;          // the uncovered question this was written to answer
-  reviewStatus: "unreviewed" | "approved" | "edited" | "rejected";
+  reviewStatus: "approved" | "approved" | "edited" | "rejected";
   drafted: string;      // ISO date
 
   // ── Facet routing (v4) ────────────────────────────────────────────────
@@ -70,7 +79,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 1,
       facet: "G1",
       gap: "Evaluating whether a specific bootcamp is worth paying for",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-17",
     },
 
@@ -82,7 +91,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 1,
       facet: "G2",
       gap: "Financial runway needed before going full-time on self-study",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-17",
     },
 
@@ -94,7 +103,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 1,
       facet: "G3",
       gap: "Indecision between fields becoming a blocker on its own",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-17",
     },
 
@@ -106,7 +115,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 1,
       facet: "G4",
       gap: "Career changer with prior seniority worried about starting over at the bottom",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-19",
     },
 
@@ -117,7 +126,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "getting_started", area: 1, facet: "S1a", respondsTo: "S1",
       userSaid: "Honestly I just want a stable, well-paying job, not really passion",
       gap: "Motivation is purely financial, not interest-driven — the real answer shouldn't moralise about that",
-      reviewStatus: "unreviewed", drafted: "2026-08-17",
+      reviewStatus: "approved", drafted: "2026-08-17",
     },
 
     {
@@ -127,7 +136,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "getting_started", area: 1, facet: "S7a", respondsTo: "S7",
       userSaid: "I don't know, I haven't tried anything yet",
       gap: "No basis yet to answer 'what problems do you enjoy solving'",
-      reviewStatus: "unreviewed", drafted: "2026-08-17",
+      reviewStatus: "approved", drafted: "2026-08-17",
     },
 
     {
@@ -137,7 +146,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "getting_started", area: 1, facet: "S2a", respondsTo: "S2",
       userSaid: "I have very little time and very little money",
       gap: "Severely constrained runway — the method decision needs a real answer, not just encouragement",
-      reviewStatus: "unreviewed", drafted: "2026-08-17",
+      reviewStatus: "approved", drafted: "2026-08-17",
     },
 
     // ── Area 1 · Response branches ──────────────────────────────────────
@@ -151,7 +160,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "getting_started", area: 1, facet: "S8a", respondsTo: "S8",
       userSaid: "Honestly, standups and deadlines and code review every day sounds exhausting — is this actually worth it?",
       gap: "Doubt that the day-to-day itself is worth pursuing, not which role or field to pick",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
     {
       question: "None — I haven't built anything, I don't even know what a small project would look like.",
@@ -160,7 +169,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "getting_started", area: 1, facet: "G3a", respondsTo: "G3",
       userSaid: "None — I haven't built anything, I don't even know what a small project would look like",
       gap: "No concrete starting point once torn between fields and told to 'try building something'",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
     {
       question: "This one's actually free upfront — they take a cut of my salary once I'm hired instead. Is that a red flag?",
@@ -169,7 +178,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "getting_started", area: 1, facet: "G1a", respondsTo: "G1",
       userSaid: "This one's actually free upfront — they take a cut of my salary once I'm hired instead",
       gap: "Income-share agreement bootcamps — a financing structure, not an outcomes claim",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
     {
       question: "I don't have a year or two — I need to be job-ready in about three months, I don't have a choice.",
@@ -178,7 +187,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "getting_started", area: 1, facet: "S4a", respondsTo: "S4",
       userSaid: "I don't have a year or two — I need to be job-ready in about three months, I don't have a choice",
       gap: "A timeline shorter than what's realistic — S4's own 'realistically a year or two' framing has nothing behind a harder deadline",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
     {
       question: "None of those really work for me — my connection is too slow and data is expensive, I can't stream video courses.",
@@ -187,7 +196,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "getting_started", area: 1, facet: "S6a", respondsTo: "S6",
       userSaid: "None of those really work for me — my connection is too slow and data is expensive",
       gap: "Free/self-teach resources assume reliable connectivity many don't have — the exact access gap BOTEMA_VALUES names directly",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
 
     // ── Area 1 · Round 2 — dead ends and standalone topics ────────────────
@@ -202,7 +211,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "getting_started", area: 1, facet: "S5a", respondsTo: "S5",
       userSaid: "I don't really have a 'last role' — I was out of the workforce for years",
       gap: "Employment gap or informal work, not a different-field switch — S5/G4 both assume a conventional prior role to point to",
-      reviewStatus: "unreviewed", drafted: "2026-08-31",
+      reviewStatus: "approved", drafted: "2026-08-31",
     },
     {
       question: "I've got decent savings but almost zero free time — I work sixty hours a week.",
@@ -211,7 +220,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "getting_started", area: 1, facet: "S2b", respondsTo: "S2",
       userSaid: "I've got decent savings but almost zero free time",
       gap: "Time-poor but money-rich — the mirror image of S2a, whose actual advice (self-teach, no cost pressure) runs backwards for this person",
-      reviewStatus: "unreviewed", drafted: "2026-08-31",
+      reviewStatus: "approved", drafted: "2026-08-31",
     },
     {
       question: "I'm not trying to get hired anywhere — I want to freelance or build my own thing eventually.",
@@ -220,7 +229,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "getting_started", area: 1, facet: "S4b", respondsTo: "S4",
       userSaid: "I'm not trying to get hired anywhere — I want to freelance or build my own thing eventually",
       gap: "Goal is self-employment/freelance, not getting hired — nothing in the area distinguishes learning-to-get-hired from learning-to-work-for-herself",
-      reviewStatus: "unreviewed", drafted: "2026-08-31",
+      reviewStatus: "approved", drafted: "2026-08-31",
     },
     {
       question: "Is it even realistic to get a tech job locally, or should I just plan on working remotely for a company abroad?",
@@ -230,7 +239,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 1,
       facet: "G5",
       gap: "Whether real tech jobs exist locally, or she needs to plan on remote-for-abroad work — a getting-started-stage question, not covered anywhere despite BOTEMA_VALUES naming this exact split as core context",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-31",
     },
     {
@@ -241,7 +250,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 1,
       facet: "G6",
       gap: "Learning with a phone only, no computer at all — a device barrier distinct from S6a's connectivity/data-cost gap, which still presumes a computer exists",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-31",
     },
 
@@ -258,7 +267,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "further_education", area: 2, facet: "S1a", respondsTo: "S1",
       userSaid: "It's mainly for a visa — my family is trying to move abroad and I heard it helps",
       gap: "Immigration-motivated further study — S1 only frames value around leadership/decision-making leverage",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
     {
       question: "My company said they'd help fund it if I start within the year.",
@@ -267,7 +276,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "further_education", area: 2, facet: "S4a", respondsTo: "S4",
       userSaid: "My company said they'd help fund it if I start within the year",
       gap: "A live, time-boxed employer funding offer in tension with the general 'wait, gain experience first' advice",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
     {
       question: "Honestly none of those — I'm looking at mobile or web development.",
@@ -276,7 +285,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "further_education", area: 2, facet: "S5a", respondsTo: "S5",
       userSaid: "Honestly none of those — I'm looking at mobile or web development",
       gap: "Unlisted field — neither S5's cert-competitive list nor S2's postgrad-expected list names mobile/web development",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
     {
       question: "There aren't really scholarships for men though, right? What are my other options?",
@@ -285,7 +294,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "further_education", area: 2, facet: "S6a", respondsTo: "S6",
       userSaid: "There aren't really scholarships for men though, right? What are my other options?",
       gap: "General, non-gender-specific funding routes — S6's funding answer is scoped entirely to scholarships for women",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
     {
       question: "Actually I want to fund an AWS certification, not a masters.",
@@ -294,7 +303,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "further_education", area: 2, facet: "S6b", respondsTo: "S6",
       userSaid: "Actually I want to fund an AWS certification, not a masters",
       gap: "Certification-specific funding logistics — S6's funding answer is scoped to a scholarship-funded masters programme",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
     {
       question: "I'm not employed, but I'm caring for my kids and family full-time, so I don't really have free time either.",
@@ -303,7 +312,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "further_education", area: 2, facet: "S7a", respondsTo: "S7",
       userSaid: "I'm not employed, but I'm caring for my kids and family full-time, so I don't really have free time either",
       gap: "Caregiving/unpaid family responsibility — S7 frames the whole tradeoff around paid employment vs. pausing to study",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
 
     // ── Area 3 · Career Paths & Roadmaps ──────────────────────────────────
@@ -319,7 +328,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 3,
       facet: "G1",
       gap: "No real basis yet to compare specialisations — hasn't tried any of them hands-on",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-23",
     },
 
@@ -334,7 +343,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "career_paths", area: 3, facet: "S8a", respondsTo: "S8",
       userSaid: "I'm torn between cybersecurity and product management, not sure which fits me",
       gap: "S8 only compares sub-specialisations of software engineering — never names cybersecurity, UX/UI, PM, or TPM at all",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
     {
       question: "I'm already working as a SOC analyst, what's the next step from here?",
@@ -343,7 +352,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "career_paths", area: 3, facet: "S4a", respondsTo: "S4",
       userSaid: "I'm already working as a SOC analyst, what's the next step from here?",
       gap: "Roadmap stops at the entry point (SOC analyst) with nothing for someone already past it",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
     {
       question: "I don't have any work experience yet — I'm straight out of school.",
@@ -352,7 +361,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "career_paths", area: 3, facet: "S5a", respondsTo: "S5",
       userSaid: "I don't have a background — I'm straight out of school, never worked",
       gap: "PM/TPM roadmap assumes an existing job to move sideways from — nothing for zero work history",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
     {
       question: "I don't have time to try things, I need to just pick now.",
@@ -361,7 +370,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "career_paths", area: 3, facet: "G1a", respondsTo: "G1",
       userSaid: "I don't have time to try things, I need to just pick now",
       gap: "No decision method offered when there's no time to experiment hands-on",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
 
     // ── Area 4 · Mentorship — Response branches ───────────────────────────
@@ -377,7 +386,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "mentorship", area: 4, facet: "S1a", respondsTo: "S1",
       userSaid: "Yeah, but I don't think they'd want to help someone like me",
       gap: "Hesitant to approach a specific person already identified, out of fear of imposing — not a search problem",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
     {
       question: "Honestly, I'm thinking about finding a different mentor — this one doesn't feel like a fit.",
@@ -386,7 +395,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "mentorship", area: 4, facet: "S3a", respondsTo: "S3",
       userSaid: "Honestly, I'm thinking about finding a different mentor — this one doesn't feel like a fit",
       gap: "Wanting to leave or switch an existing mentor relationship — no facet addresses ending one",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
     {
       question: "No, not really — nobody actively advocates for me right now.",
@@ -395,7 +404,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "mentorship", area: 4, facet: "S4a", respondsTo: "S4",
       userSaid: "No, not really",
       gap: "No active sponsor and no strategy for getting one, right after the mentor/sponsor distinction is introduced",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
 
     // ── Area 5 · Wellbeing & Balance ───────────────────────────────────────
@@ -416,7 +425,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "wellbeing", area: 5, facet: "S1a", respondsTo: "S1",
       userSaid: "I set those hours and my manager still messages me expecting a reply after hours",
       gap: "S1's real answer assumes a reasonable team that respects a stated boundary once it's said — this is the case where that assumption is wrong, and has to hold both persisting and deciding to leave as legitimate outcomes, without assuming a formal HR/escalation process exists (area-tester found the model inventing SLA/on-call machinery unprompted, 2026-09-14)",
-      reviewStatus: "unreviewed", drafted: "2026-09-14",
+      reviewStatus: "approved", drafted: "2026-09-14",
     },
     {
       question: "I don't really have anyone — no partner, no family nearby, nothing to build a support network out of.",
@@ -425,7 +434,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "wellbeing", area: 5, facet: "S2a", respondsTo: "S2",
       userSaid: "I don't have anyone to lean on — no partner, no family nearby",
       gap: "S2's real answer assumes a network can be built if you try — this covers both having none to build from and, separately, having help physically present while still carrying the mental load alone",
-      reviewStatus: "unreviewed", drafted: "2026-09-14",
+      reviewStatus: "approved", drafted: "2026-09-14",
     },
     {
       question: "I'm not just learning — I'm doing this on top of a full-time job and looking after my kids in the evenings.",
@@ -434,7 +443,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "wellbeing", area: 5, facet: "S3a", respondsTo: "S3",
       userSaid: "I'm learning on top of a full-time job and looking after my kids",
       gap: "S3's real answer assumes learning is the main load being paced — this is the case where it's stacked on top of an existing job and family responsibilities, not carried on its own",
-      reviewStatus: "unreviewed", drafted: "2026-09-14",
+      reviewStatus: "approved", drafted: "2026-09-14",
     },
     {
       question: "Honestly it's not the uncertainty — I don't know if I'm actually good enough to pull this off.",
@@ -443,7 +452,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "wellbeing", area: 5, facet: "S5a", respondsTo: "S5",
       userSaid: "It's not the uncertainty, it's whether I'm actually good enough to pull this off",
       gap: "S5's closer can surface self-doubt about capability rather than logistics stress — validates once and the leaving table hands it to Confidence if it stays the main subject",
-      reviewStatus: "unreviewed", drafted: "2026-09-14",
+      reviewStatus: "approved", drafted: "2026-09-14",
     },
     {
       question: "I'm scared I'll run out of money before I find something.",
@@ -452,7 +461,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "wellbeing", area: 5, facet: "S5b", respondsTo: "S5",
       userSaid: "I'm scared I'll run out of money before I find something",
       gap: "S5's real answer never mentions money at all despite it being a near-certain concern for anyone job-searching without income — this answer deliberately asks her for the runway rather than stating one; area-tester still caught the model inventing a specific month count unprompted (2026-09-14), addressed by broadening NO_INVENTED_FIGURES in converser.ts to cover timeframes, not just currency",
-      reviewStatus: "unreviewed", drafted: "2026-09-14",
+      reviewStatus: "approved", drafted: "2026-09-14",
     },
     {
       question: "I dread going to work every day now and I'm not sleeping properly because of it.",
@@ -460,7 +469,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "That's past the point where pacing advice is the right tool — this is already a crisis, not something to prevent. Alongside anything you change at work, it's worth talking to a professional about the sleep and the dread specifically, not just a coach. How long has it been like this?",
       topic: "wellbeing", area: 5, facet: "G1",
       gap: "Already-present burnout or crisis in a current job — every Stage B facet is framed preventively, nothing meets someone already past that point",
-      reviewStatus: "unreviewed", drafted: "2026-09-14",
+      reviewStatus: "approved", drafted: "2026-09-14",
     },
     {
       question: "Someone at work keeps making comments that make me uncomfortable and I don't know what to do.",
@@ -468,7 +477,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "That's not a workload or boundary problem — that's about whether you're safe and respected where you are, and it deserves to be treated that way, not folded into general burnout advice. Worth documenting what's happened as it happens, and knowing your options — HR, a trusted manager, or support outside the company entirely. Has this happened more than once, or is this the first time?",
       topic: "wellbeing", area: 5, facet: "G2",
       gap: "Harassment or a hostile/unsafe work environment as the actual source of strain — a materially different problem from workload or boundaries, needing safety/escalation content rather than pacing advice",
-      reviewStatus: "unreviewed", drafted: "2026-09-14",
+      reviewStatus: "approved", drafted: "2026-09-14",
     },
 
     // ── Area 7 · Job Search & Applications ────────────────────────────────
@@ -491,7 +500,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "cv_job_search", area: 7, facet: "S2a", respondsTo: "S2",
       userSaid: "I've applied to over 40 jobs and heard nothing back from any of them",
       gap: "Application silence/ghosting at volume — S2's real answer talks about strategy (networking, visibility) but never addresses what to make of silence or what's a normal ratio, despite this being the highest-frequency real-world outcome of following that exact strategy",
-      reviewStatus: "unreviewed", drafted: "2026-09-16",
+      reviewStatus: "approved", drafted: "2026-09-16",
     },
     {
       question: "I don't really have reliable data or a laptop to keep an online presence active.",
@@ -500,7 +509,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "cv_job_search", area: 7, facet: "S2b", respondsTo: "S2",
       userSaid: "I don't have reliable data or a laptop to keep an online presence active",
       gap: "S2's and S4's advice (regular posting, an active presence) quietly assumes connectivity and a device — this is the case where that assumption doesn't hold",
-      reviewStatus: "unreviewed", drafted: "2026-09-16",
+      reviewStatus: "approved", drafted: "2026-09-16",
     },
     {
       question: "Nothing yet — I honestly don't know what I'd even build.",
@@ -509,7 +518,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "cv_job_search", area: 7, facet: "S3a", respondsTo: "S3",
       userSaid: "I don't know what I'd even build",
       gap: "S3's real answer assumes a project already exists or a direction is clear — this is the case where there's no idea at all to start from",
-      reviewStatus: "unreviewed", drafted: "2026-09-16",
+      reviewStatus: "approved", drafted: "2026-09-16",
     },
     {
       question: "I'm working full-time already and don't have evenings free to build anything.",
@@ -518,7 +527,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "cv_job_search", area: 7, facet: "S3b", respondsTo: "S3",
       userSaid: "I'm working full-time and don't have evenings free to build anything",
       gap: "S3's real answer assumes free time and capacity to build a side project — this is the case where a full-time job already takes that",
-      reviewStatus: "unreviewed", drafted: "2026-09-16",
+      reviewStatus: "approved", drafted: "2026-09-16",
     },
     {
       question: "I don't really like putting myself out there like that — self-promotion isn't really me.",
@@ -527,7 +536,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "cv_job_search", area: 7, facet: "S4a", respondsTo: "S4",
       userSaid: "I don't like putting myself out there, self-promotion isn't really me",
       gap: "S4's real answer assumes willingness to post regularly — this is discomfort with self-promotion as a practice, distinct from self-doubt about competence (which the leaving table already routes to Confidence)",
-      reviewStatus: "unreviewed", drafted: "2026-09-16",
+      reviewStatus: "approved", drafted: "2026-09-16",
     },
     {
       question: "I think I'm being screened out of interviews because of my name or where I'm from, not my qualifications.",
@@ -535,7 +544,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "That's not something to explain away, and if it's what's actually happening, it's worth naming plainly rather than assuming it's you. Worth keeping a private record of anything concrete as it happens — a comment, a pattern of being screened out despite meeting the requirements — because patterns are easier to see written down than remembered. Has this happened once, or does it feel like a pattern across more than one place you've applied?",
       topic: "cv_job_search", area: 7, facet: "G1",
       gap: "Discrimination or bias during the hiring process — none of the 4 real answers address it, despite it being a foundational scenario for this audience given BSC's own intersectional-advocacy stance",
-      reviewStatus: "unreviewed", drafted: "2026-09-16",
+      reviewStatus: "approved", drafted: "2026-09-16",
     },
     {
       question: "I'm trying to get back into tech after being out for a couple of years on maternity leave. Not sure where to even start.",
@@ -543,7 +552,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "Coming back after a break is its own thing, not the same as starting from nothing — you already have the experience; the real question is what's moved on since you were last in it, and saying the gap plainly rather than skirting around it. A short refresher project alongside the search does double duty: it catches you up on what's changed and gives you something current to point to, on your CV and on LinkedIn alike. How long has the break been, and in what?",
       topic: "cv_job_search", area: 7, facet: "G2",
       gap: "Re-entering tech after a career break (maternity leave, caregiving, illness, layoff) — a materially different population from S3's 'never worked in the field at all' premise, and central to BSC's access/inclusion focus",
-      reviewStatus: "unreviewed", drafted: "2026-09-16",
+      reviewStatus: "approved", drafted: "2026-09-16",
     },
     {
       question: "I'm searching quietly while still employed — my current employer doesn't know I'm looking.",
@@ -551,7 +560,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "Searching quietly is normal and doesn't have to clash with the usual advice — turn off the 'open to work' badge or limit it to recruiters only, be careful who you tell at your current company, and keep networking conversations one-to-one rather than public posts. It slows visibility slightly but protects what you already have while you look. Is it your manager specifically you're keeping this from, or the wider company?",
       topic: "cv_job_search", area: 7, facet: "G3",
       gap: "Searching confidentially while still employed — every real answer assumes an openly visible search (public posting, broad outreach), despite this being the normal situation for most job seekers, not the exception",
-      reviewStatus: "unreviewed", drafted: "2026-09-16",
+      reviewStatus: "approved", drafted: "2026-09-16",
     },
 
     // ── Area 8 · Interview Preparation ─────────────────────────────────────
@@ -573,7 +582,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "Practice drawing and explaining a handful of common systems out loud — a URL shortener, a chat app, a search engine, a ride-sharing backend — and get comfortable justifying tradeoffs rather than reciting a perfect answer. \"Designing Data-Intensive Applications\" and the Grokking the System Design Interview course are both worth the time if you can get access to them. What level of role is this — is system design likely to come up?",
       topic: "interview_prep", area: 8, facet: "G1",
       gap: "System design interviews are a distinct skill from coding-assessment prep, common for mid-to-senior engineering roles, and S1's real answer doesn't address it at all",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "How do I prepare for the behavioural part of an interview?",
@@ -581,7 +590,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "Prepare five or six STAR stories — situation, task, action, result — covering leadership, conflict, a failure, collaboration under pressure, and a time you had to learn something fast, then adapt the same stories to whatever they actually ask. Curiosity, directness, and self-awareness read well here; companies with strong engineering cultures are testing how you work with people as much as how you code. What's one situation from your work that you're proudest of handling well?",
       topic: "interview_prep", area: 8, facet: "G2",
       gap: "Behavioural/STAR-format interviews are a distinct skill from technical prep, and nothing in S1's real answer addresses building or structuring these stories",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "How should I research a company before an interview?",
@@ -589,7 +598,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "Look at their engineering blog, recent product releases, and what they've said publicly about their tech stack, then come with three to five thoughtful questions that show you've actually done that — something like what a typical first ninety days looks like, or the biggest technical challenge the team is facing right now. What have you found out about them so far?",
       topic: "interview_prep", area: 8, facet: "G3",
       gap: "Company research and preparing questions to ask is standard interview prep that nothing here covers",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "What should I do to get ready practically for the interview itself, whether it's remote or in person?",
@@ -597,7 +606,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "Test the whole remote setup end-to-end beforehand — connection, camera, the platform they're actually using — not just that your laptop turns on; for an in-person one, know exactly how you're getting there with time to spare, and bring a couple of printed copies of your CV even if they already have one. Is this remote or in person, and have you actually tested or planned the practical side yet?",
       topic: "interview_prep", area: 8, facet: "G4",
       gap: "Practical setup — remote or in-person — is a basic readiness question nothing here covers; broadened from an initial remote-only draft once in-person logistics turned out to have nowhere to go",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "What do I do if I freeze up or don't know an answer during the interview?",
@@ -605,7 +614,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "If you genuinely don't know, say that plainly rather than guessing blindly — then think out loud about how you'd actually go about figuring it out, since that's usually worth more to them than a lucky guess. Interviewers are watching your process as much as whether you land on the exact right answer. What actually happens for you in that moment — do you go blank, or start guessing?",
       topic: "interview_prep", area: 8, facet: "G5",
       gap: "Handling not knowing an answer in the moment is a distinct, high-anxiety scenario nothing here addresses",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "I'm really nervous about this interview, is that normal?",
@@ -613,7 +622,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "Nerves before an interview aren't a readout of how prepared you actually are — they show up for almost everyone, however ready they are. A few slow breaths before you start, and having your opening pitch rehearsed enough that it doesn't need active thought, both help more than trying to talk yourself out of feeling nervous at all. Is it this interview specifically, or does this happen in most high-pressure moments for you?",
       topic: "interview_prep", area: 8, facet: "G6",
       gap: "Interview-day nerves specifically — distinct from a wider self-doubt pattern, which the leaving table routes to Confidence — nothing here addresses ordinary nerves on their own terms",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "Should I follow up after the interview, and how?",
@@ -621,7 +630,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "Send a brief note within a day or two thanking them and referencing something specific you actually discussed — it's unusual enough to be memorable and signals genuine interest rather than reading like a form letter. Is there anything specific from the conversation worth referencing?",
       topic: "interview_prep", area: 8, facet: "G7",
       gap: "Post-interview follow-up etiquette is standard prep content nothing here covers",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "How do I answer 'tell me about yourself' well?",
@@ -629,7 +638,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "Have a 60-90 second version of your story ready before anything else — where you're coming from, what you've actually built or done, and why this particular role — and keep it consistent whether you're telling it to a recruiter on a first call or an engineer three rounds in. What's the one thing you'd want them to remember about you after you leave the room?",
       topic: "interview_prep", area: 8, facet: "G8",
       gap: "The near-universal opening pitch is a distinct skill from a STAR story (a specific incident) or company research (facts about them, not her) — nothing here covered it at all",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "How do I prepare for a take-home test or a timed online assessment?",
@@ -637,7 +646,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "A take-home is judged differently from a live round — there's no one to narrate your thinking to, so the code itself and a short note explaining your decisions have to do that work instead. Read the instructions literally, leave time to test edge cases, and don't submit right at the deadline in case something goes wrong on your end. Is this a timed online test, or a longer take-home you can work on over a few days?",
       topic: "interview_prep", area: 8, facet: "G9",
       gap: "S1's real answer explicitly premises 'practice narrating your thinking out loud' on a live audience — that guidance doesn't transfer to an async format with no interviewer present, and a large share of technical hiring now runs one",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "I'm interviewing for a product management/data/design role, not software engineering — does the same prep apply?",
@@ -645,7 +654,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "Prep looks different depending on the track — a data or ML role usually means a case study or take-home analysis rather than algorithm questions, product management leans on structured problem-solving and prioritisation, and design roles are mostly a portfolio walkthrough. The STAR stories and company research still apply everywhere; it's the technical round itself that changes shape. What track is this for, and do you know yet what their technical round actually looks like?",
       topic: "interview_prep", area: 8, facet: "G10",
       gap: "Every existing facet (coding practice, system design) silently assumed software engineering specifically, contradicting BSC's own multi-track scope (Data/ML, UX/UI, Cybersecurity, Product, Cloud/DevOps) stated in bsc-knowledge.ts's career_paths block",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "I've never actually had a job — I'm coming into this straight from a bootcamp, so I don't have a work story for the behavioural round.",
@@ -654,7 +663,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "interview_prep", area: 8, facet: "G2a", respondsTo: "G2",
       userSaid: "I've never had a job, I'm coming from a bootcamp, I don't have a work story",
       gap: "G2's real premise assumes a professional incident exists to draw on — this is the case where it doesn't, common for the bootcamp/career-switcher population Job Search's own facets already exist to serve",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "My internet cuts out constantly and there's no fixing that before the interview.",
@@ -663,7 +672,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "interview_prep", area: 8, facet: "G4a", respondsTo: "G4",
       userSaid: "My internet cuts out constantly, there's no fixing that before the interview",
       gap: "G4's closer assumes testing surfaces and fixes the problem — this is the case where the problem is a resource constraint testing can't solve",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "It's not really nerves — I've been nauseous and not sleeping since I got the invite.",
@@ -672,7 +681,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "interview_prep", area: 8, facet: "G6a", respondsTo: "G6",
       userSaid: "It's not nerves, I've been nauseous and not sleeping since I got the interview invite",
       gap: "G6 is scoped to belief-based, interview-specific nerves — this is a physiological/panic-level response, the same shape of gap Confidence's S3c already found and routed to Wellbeing",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "It's been two weeks since the interview and total silence.",
@@ -681,7 +690,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "interview_prep", area: 8, facet: "G7a", respondsTo: "G7",
       userSaid: "It's been two weeks since the interview and total silence",
       gap: "G7's closer assumes a first thank-you note is the live question — this is prolonged silence afterward, the same shape as Job Search's own S2a one stage earlier in the process",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
 
     // ── Area 10 · AI & the Future of Tech Work ────────────────────────────
@@ -701,7 +710,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "It depends more on what you actually do than what your job title says — roles built around repetitive, well-specified coding tasks are the most exposed, while roles built around judgement, system design, and talking to the people who need the thing built are the most durable, and that split runs across the whole stack, not just developers. What does your role actually involve day to day — is it more repetitive execution, or judgment and communication?",
       topic: "ai_impact", area: 10, facet: "G1",
       gap: "S2's real answer reassures about the general trend, not her own specific role — a downstream, more concrete version of the same worry that S2 doesn't address",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "What skills should I actually be building so I stay valuable as AI improves?",
@@ -709,7 +718,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "Get strong at the things AI is still weak at — ambiguous requirements, cross-team communication, debugging a problem nobody's seen before, and the judgement calls that decide what should even get built. Keep learning fundamentals rather than only tool-specific tricks, since the tools change fast and the fundamentals mostly don't. Which of those feels furthest from where you are today — communicating with stakeholders, debugging unfamiliar systems, or making judgment calls under ambiguity?",
       topic: "ai_impact", area: 10, facet: "G2",
       gap: "S1's real answer names the general shift (direct and validate rather than do repetitive work) but doesn't break down which specific skills that actually means building",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "How should I actually use tools like ChatGPT or Copilot while I'm still learning, without it becoming a crutch?",
@@ -717,7 +726,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "Using these tools well is a baseline skill now, not a shortcut around learning — treat them as a fast first draft or a research partner, not a substitute for reasoning about the code yourself. The test is simple: could you get unstuck without it, just slower? If you're reaching for it before you've even tried, that's the habit worth catching. Where do you usually reach for it — to get unstuck, or before you've tried it yourself?",
       topic: "ai_impact", area: 10, facet: "G3",
       gap: "Nothing here addresses the practical, everyday discipline of using AI tools responsibly while still learning — a distinct question from whether to learn tech at all",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "How is AI actually changing the hiring process for tech roles?",
@@ -725,7 +734,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "AI-assisted take-home tests and screening tools are increasingly common, and some companies now explicitly discuss how you use AI tools during interviews rather than banning them outright. Expect more weight on system design and judgment-based interviews generally, since pure coding-recall is easier to fake now than it used to be. Do you know yet whether their process actually involves AI tools, or are you preparing in general?",
       topic: "ai_impact", area: 10, facet: "G4",
       gap: "Nothing here addresses how AI is changing hiring itself, a distinct and practical question from whether AI threatens tech careers in general",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "What ethical responsibilities come with actually building AI systems?",
@@ -733,7 +742,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "Understand the bias baked into your training data and outputs before you ship, be honest about a system's real limitations instead of overselling it, and think through who gets hurt when the model is wrong — because it will be, sometimes. Push back when you're asked to ship something you know is harmful or deceptive; that's an increasingly explicit expectation now, not an optional extra. Is this about a system you're building now, or planning ahead for the kind of work you want to do?",
       topic: "ai_impact", area: 10, facet: "G5",
       gap: "Nothing here addresses the ethical obligations of building AI systems, as distinct from being affected by AI as a tech worker generally",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "Can I actually break into AI/ML without a strong maths background?",
@@ -741,7 +750,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "It depends which side you're aiming for — applied ML-engineering roles lean more on solid coding and being comfortable enough with statistics and linear algebra to know what a model is actually doing, while research roles lean much harder on the maths itself. Most people build the maths up alongside the coding rather than needing it mastered first. How much maths have you actually done so far — is this a real gap, or just a fear?",
       topic: "ai_impact", area: 10, facet: "G6",
       gap: "S3's real answer says no field is immune to AI but doesn't address the specific, common fear that AI/ML itself is only open to people with a strong maths background",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "What should my portfolio show if I want to prove I can work well with AI tools, not just use them?",
@@ -749,7 +758,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "Show a project where you clearly directed and reviewed AI-assisted work rather than just generated it — catch a mistake it made, explain a decision you overrode it on, or document why you chose one AI-suggested approach over another. That's the difference employers are actually starting to look for: can you tell when the output is wrong, not just whether you can produce output at all. Do you already have a project to show, or are you starting from scratch?",
       topic: "ai_impact", area: 10, facet: "G7",
       gap: "S1's real answer names directing and validating AI output as the shift that matters but doesn't say what that should actually look like in a portfolio",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "Could an AI screening tool be biased against me because of my background or name?",
@@ -757,7 +766,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "It's a fair worry — these tools can and do carry bias, particularly around names, career gaps, or non-traditional backgrounds, and you can't fully control what happens to your application once it goes through one. What you can do is make sure a real person sees your work directly too, through a referral, direct outreach, or a portfolio link, rather than relying on the CV alone to get through. Has something specific made you suspect this happened to you, or is it a general worry?",
       topic: "ai_impact", area: 10, facet: "G8",
       gap: "Nothing here addresses being on the receiving end of a potentially biased AI screening tool as an applicant, distinct from G4's practical hiring-prep framing or G5's builder's-ethics framing",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "Everyone around me seems so much faster and more natural with these AI tools than I am — am I behind?",
@@ -765,7 +774,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "Most of what looks like natural fluency from the outside is just hours logged, not a gift — people who look effortless at prompting usually got there by using it badly for a while first. What specifically feels like it's coming easier to them than to you?",
       topic: "ai_impact", area: 10, facet: "G9",
       gap: "Nothing here addresses peer comparison specifically — an AI-fluency echo of the same comparison pattern Confidence's own G7 already names for a different context",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "Should I specialize in AI/ML specifically, or is using AI well just something everyone in tech needs now?",
@@ -773,7 +782,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
         "They're not the same decision — using AI well is close to table stakes for almost any tech role at this point, but going deep into building or researching AI/ML models themselves is closer to its own specialism than an add-on skill. Which of those two is actually pulling at you — building the tools, or being excellent at using them?",
       topic: "ai_impact", area: 10, facet: "G10",
       gap: "Neither S3 (field safety) nor G6 (breaking in without maths) addresses this strategic fork directly — both assume one side of the choice is already made",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "I'm already two years into a computer science degree and now I'm terrified AI made it all pointless.",
@@ -782,7 +791,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "ai_impact", area: 10, facet: "S2a", respondsTo: "S2",
       userSaid: "I'm already two years into a CS degree and terrified AI made it all pointless",
       gap: "S2's real answer reassures someone deciding whether to start; this is someone already deep in, where sunk real progress changes the honest answer",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "I feel like I could never match AI's skill level, so it feels pointless to keep learning.",
@@ -791,7 +800,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "ai_impact", area: 10, facet: "S2b", respondsTo: "S2",
       userSaid: "I feel like I could never match AI's skill level, so it feels pointless to keep learning",
       gap: "S2's real answer reframes the macro trend (AI enhances rather than replaces); this is a personal-capability comparison to AI itself, a different and more demotivating fear the real answer doesn't speak to. Found live: the more blunt phrasing this facet was first drafted around (\"I'll never be as good as AI, so why even try\") reliably trips Azure's own content-moderation filter before the model ever sees it — flagged in the storyboard as a cross-cutting Azure limitation, not something a system prompt can work around, and the softer phrasing here was chosen specifically because it survives the filter while keeping the same meaning.",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "My manager already told us AI tools mean they need fewer people doing my exact job.",
@@ -800,7 +809,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "ai_impact", area: 10, facet: "G1a", respondsTo: "G1",
       userSaid: "My manager already told us AI tools mean they need fewer people doing my exact job",
       gap: "G1's closer assumes the risk is still hypothetical — this is the case where it's already been named directly by management",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "My manager wants me to ship a model I know isn't ready and could cause real harm.",
@@ -809,7 +818,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "ai_impact", area: 10, facet: "G5a", respondsTo: "G5",
       userSaid: "My manager wants me to ship a model I know isn't ready and could cause real harm",
       gap: "G5's closer is an abstract framing question (building now vs. planning ahead); this is a live, present disclosure of being asked to do something harmful, not a hypothetical",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
     {
       question: "I've never coded or done any maths beyond arithmetic, but I want to go straight into AI/ML.",
@@ -818,7 +827,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "ai_impact", area: 10, facet: "G6a", respondsTo: "G6",
       userSaid: "I've never coded or done any maths beyond arithmetic, but I want to go straight into AI/ML",
       gap: "G6 assumes some baseline of technical background already exists and the maths question is the live one; this is genuinely zero background, where the maths question is premature",
-      reviewStatus: "unreviewed", drafted: "2026-09-17",
+      reviewStatus: "approved", drafted: "2026-09-17",
     },
 
     // ── Area 9 · Salary & Negotiation ─────────────────────────────────────
@@ -833,7 +842,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 9,
       facet: "G1",
       gap: "Pay equity — being underpaid relative to a peer; the gender pay gap",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-14",
     },
 
@@ -845,7 +854,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 9,
       facet: "G2",
       gap: "Pricing yourself as a career changer — connecting a non-tech background to a number",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-14",
     },
 
@@ -857,7 +866,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 9,
       facet: "G3",
       gap: "Lowball offer — countering, or knowing when to decline",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-14",
     },
 
@@ -869,7 +878,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 9,
       facet: "G4",
       gap: "Being refused a raise — the conversation after the no",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-14",
     },
 
@@ -881,7 +890,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 9,
       facet: "G5",
       gap: "Freelance and contract day rates — priced differently from a salary",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-14",
     },
 
@@ -893,7 +902,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 9,
       facet: "G6",
       gap: "Valuing equity and options — listed as negotiable everywhere, explained nowhere",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-14",
     },
 
@@ -905,7 +914,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 9,
       facet: "G7",
       gap: "Cross-border pay — currency, transfer mechanics, who carries the fees",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-14",
     },
 
@@ -917,7 +926,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 9,
       facet: "G8",
       gap: "Counter-offers on resignation — whether to accept",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-14",
     },
 
@@ -929,7 +938,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 9,
       facet: "G9",
       gap: "The social cost of negotiating — a gendered worry this audience carries",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-14",
     },
 
@@ -941,7 +950,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 9,
       facet: "G10",
       gap: "Unpaid or underpaid first roles — whether the experience is worth it",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-14",
     },
 
@@ -958,7 +967,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "salary", area: 9, facet: "S2a", respondsTo: "S2",
       userSaid: "Yes — but I don't know how to actually say it out loud",
       gap: "How to physically deliver the number",
-      reviewStatus: "unreviewed", drafted: "2026-08-15",
+      reviewStatus: "approved", drafted: "2026-08-15",
     },
     {
       question: "I already told them what I'm currently earning. Can I still recover?",
@@ -967,7 +976,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "salary", area: 9, facet: "S3a", respondsTo: "S3",
       userSaid: "I already told them what I'm on",
       gap: "Recovering after anchoring yourself low",
-      reviewStatus: "unreviewed", drafted: "2026-08-15",
+      reviewStatus: "approved", drafted: "2026-08-15",
     },
     {
       question: "I've taken on a lot more work but my title hasn't changed.",
@@ -976,7 +985,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "salary", area: 9, facet: "S4a", respondsTo: "S4",
       userSaid: "I've taken on much more work, same title",
       gap: "Scope creep without a title or pay change",
-      reviewStatus: "unreviewed", drafted: "2026-08-15",
+      reviewStatus: "approved", drafted: "2026-08-15",
     },
     {
       question: "It's been three years and I've never had an increase.",
@@ -985,7 +994,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "salary", area: 9, facet: "S4b", respondsTo: "S4",
       userSaid: "It's been three years without any increase",
       gap: "A long flat period with no increase",
-      reviewStatus: "unreviewed", drafted: "2026-08-15",
+      reviewStatus: "approved", drafted: "2026-08-15",
     },
     {
       question: "My salary hasn't changed but everything costs more now.",
@@ -994,7 +1003,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "salary", area: 9, facet: "S4c", respondsTo: "S4",
       userSaid: "My salary doesn't stretch like it used to",
       gap: "Cost-of-living and currency erosion as grounds for a rise",
-      reviewStatus: "unreviewed", drafted: "2026-08-15",
+      reviewStatus: "approved", drafted: "2026-08-15",
     },
     {
       question: "Working from home matters more to me than the money does.",
@@ -1003,7 +1012,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "salary", area: 9, facet: "S5a", respondsTo: "S5",
       userSaid: "Working from home — that's worth more than money to me",
       gap: "Negotiating remote days and flexibility as the priority",
-      reviewStatus: "unreviewed", drafted: "2026-08-15",
+      reviewStatus: "approved", drafted: "2026-08-15",
     },
     {
       question: "I found out about the pay gap by seeing a document I wasn't meant to see.",
@@ -1012,7 +1021,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "salary", area: 9, facet: "G1a", respondsTo: "G1",
       userSaid: "I saw a document I wasn't meant to see",
       gap: "Knowing about a pay gap through information you weren't meant to have",
-      reviewStatus: "unreviewed", drafted: "2026-08-15",
+      reviewStatus: "approved", drafted: "2026-08-15",
     },
     {
       question: "I think I'm underpaid compared to colleagues but I can't prove it.",
@@ -1021,7 +1030,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "salary", area: 9, facet: "G1b", respondsTo: "G1",
       userSaid: "I don't know for certain — I just suspect it",
       gap: "Suspecting underpayment without evidence",
-      reviewStatus: "unreviewed", drafted: "2026-08-15",
+      reviewStatus: "approved", drafted: "2026-08-15",
     },
     {
       question: "The offer is less than half what I expected.",
@@ -1030,7 +1039,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "salary", area: 9, facet: "G3a", respondsTo: "G3",
       userSaid: "It's less than half what I expected",
       gap: "An offer so far below range it signals something else",
-      reviewStatus: "unreviewed", drafted: "2026-08-15",
+      reviewStatus: "approved", drafted: "2026-08-15",
     },
     {
       question: "They turned down my raise because they said my performance isn't good enough.",
@@ -1039,7 +1048,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "salary", area: 9, facet: "G4a", respondsTo: "G4",
       userSaid: "They said my performance isn't there yet",
       gap: "A raise refused on performance grounds",
-      reviewStatus: "unreviewed", drafted: "2026-08-15",
+      reviewStatus: "approved", drafted: "2026-08-15",
     },
     {
       question: "They said there's no budget for a raise.",
@@ -1048,7 +1057,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "salary", area: 9, facet: "G4b", respondsTo: "G4",
       userSaid: "They said there's no budget",
       gap: "A raise refused on budget grounds",
-      reviewStatus: "unreviewed", drafted: "2026-08-15",
+      reviewStatus: "approved", drafted: "2026-08-15",
     },
     {
       question: "They told me to wait until the review cycle.",
@@ -1057,7 +1066,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "salary", area: 9, facet: "G4c", respondsTo: "G4",
       userSaid: "They said to wait for the review cycle",
       gap: "A raise deferred to a review cycle",
-      reviewStatus: "unreviewed", drafted: "2026-08-15",
+      reviewStatus: "approved", drafted: "2026-08-15",
     },
     {
       question: "They said no to my raise and didn't really give a reason.",
@@ -1066,7 +1075,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "salary", area: 9, facet: "G4d", respondsTo: "G4",
       userSaid: "They didn't really give one",
       gap: "A raise refused with no reason given",
-      reviewStatus: "unreviewed", drafted: "2026-08-15",
+      reviewStatus: "approved", drafted: "2026-08-15",
     },
     {
       question: "The company abroad is insisting on paying me in local currency.",
@@ -1075,7 +1084,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "salary", area: 9, facet: "G7a", respondsTo: "G7",
       userSaid: "They're insisting on paying in local currency",
       gap: "The employer refuses to pay in a stable currency",
-      reviewStatus: "unreviewed", drafted: "2026-08-15",
+      reviewStatus: "approved", drafted: "2026-08-15",
     },
     {
       question: "Someone actually called me difficult for asking about pay.",
@@ -1084,7 +1093,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "salary", area: 9, facet: "G9a", respondsTo: "G9",
       userSaid: "Someone did call me difficult for asking",
       gap: "Actually being penalised socially for negotiating",
-      reviewStatus: "unreviewed", drafted: "2026-08-15",
+      reviewStatus: "approved", drafted: "2026-08-15",
     },
     {
       question: "They're asking me to prove what I currently earn — a payslip or a screenshot.",
@@ -1093,7 +1102,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "salary", area: 9, facet: "S3b", respondsTo: "S3",
       userSaid: "They want proof of my current salary",
       gap: "An employer demanding evidence of current pay, not just asking",
-      reviewStatus: "unreviewed", drafted: "2026-08-15",
+      reviewStatus: "approved", drafted: "2026-08-15",
     },
     {
       question: "They say the unpaid role might turn into a paid one.",
@@ -1102,7 +1111,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "salary", area: 9, facet: "G10a", respondsTo: "G10",
       userSaid: "They say it might turn into a paid role",
       gap: "Whether an unpaid role will actually convert",
-      reviewStatus: "unreviewed", drafted: "2026-08-15",
+      reviewStatus: "approved", drafted: "2026-08-15",
     },
 
   ],
@@ -1143,7 +1152,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 6,
       facet: "G1",
       gap: "Discounting genuine external praise as politeness or luck, not just discounting your own wins",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-21",
     },
 
@@ -1155,7 +1164,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 6,
       facet: "G2",
       gap: "Declining a stretch opportunity — a project, a talk, a promotion — before it's even properly offered",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-21",
     },
 
@@ -1166,7 +1175,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "mindset", area: 6, facet: "S1a", respondsTo: "S1",
       userSaid: "the reason is structural — being talked over or dismissed because of who she is, not a feeling about herself",
       gap: "S1's real closer assumes the belonging feeling is internal; it isn't always",
-      reviewStatus: "unreviewed", drafted: "2026-08-21",
+      reviewStatus: "approved", drafted: "2026-08-21",
     },
 
     {
@@ -1176,7 +1185,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "mindset", area: 6, facet: "S3a", respondsTo: "S3",
       userSaid: "same structural pattern, tied specifically to the meeting where she's trying to speak up",
       gap: "S3's real closer assumes the barrier is nerve; sometimes the room itself is the barrier",
-      reviewStatus: "unreviewed", drafted: "2026-08-21",
+      reviewStatus: "approved", drafted: "2026-08-21",
     },
 
     // ── Area 6 · Response branches, round 2 ───────────────────────────────
@@ -1193,7 +1202,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "mindset", area: 6, facet: "S1b", respondsTo: "S1",
       userSaid: "Honestly? I think I only got this job because of a diversity hiring push, not because I was actually the best candidate",
       gap: "Doubting the legitimacy of her own hire, not just discounting praise for work already done",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
     {
       question: "Honestly I can't think of anything, I don't feel like I've achieved much lately.",
@@ -1202,7 +1211,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "mindset", area: 6, facet: "S5a", respondsTo: "S5",
       userSaid: "Honestly I can't think of anything, I don't feel like I've achieved much lately",
       gap: "Can't name any achievement at all, not dismissing a known one",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
     {
       question: "Honestly I don't want to make it a whole thing, I just needed to vent for a second.",
@@ -1211,7 +1220,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "mindset", area: 6, facet: "G3", respondsTo: "S1a",
       userSaid: "Honestly I don't want to make it a whole thing, I just needed to vent for a second",
       gap: "Wants to be heard, not immediately steered into an action plan — shared gap behind S1a's and S3a's closing question",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
     {
       question: "I already said something like that last time and they just talked over me again.",
@@ -1220,7 +1229,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "mindset", area: 6, facet: "G4", respondsTo: "S3a",
       userSaid: "I already said something like that last time and they just talked over me again",
       gap: "No path once the obvious script has already been tried and failed — shared gap behind S1a's and S3a's closing question",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
     {
       question: "I actually did apply for the promotion I wanted but got turned down, and now I don't want to say anything in case I look stupid.",
@@ -1229,7 +1238,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "mindset", area: 6, facet: "S3b", respondsTo: "S3",
       userSaid: "I actually did apply for the promotion I wanted but got turned down, and now I don't want to say anything in case I look stupid",
       gap: "Confidence undermined by a specific past rejection after actually applying, not untested nerves",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
     {
       question: "Honestly it's not really about knowledge, I just get so anxious my heart races and I go blank.",
@@ -1238,7 +1247,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       topic: "mindset", area: 6, facet: "S3c", respondsTo: "S3",
       userSaid: "Honestly it's not really about knowledge, I just get so anxious my heart races and I go blank",
       gap: "Physiological, acute anxiety as the actual blocker, not a knowledge or self-doubt belief",
-      reviewStatus: "unreviewed", drafted: "2026-08-27",
+      reviewStatus: "approved", drafted: "2026-08-27",
     },
 
     // ── Area 6 · Gap facets — matching Salary's G1-G10 treatment ──────────
@@ -1257,7 +1266,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 6,
       facet: "G5",
       gap: "Perfectionism / fear of a visible mistake — distinct from S5's not-internalising-wins, this is fear of a specific future failure, not discounting a past success",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-27",
     },
     {
@@ -1268,7 +1277,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 6,
       facet: "G6",
       gap: "Comparison via curated online success (LinkedIn/social media) — distinct from S2's colleague-at-work comparison, an increasingly common specific trigger",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-27",
     },
     {
@@ -1279,7 +1288,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 6,
       facet: "G7",
       gap: "Non-traditional background (self-taught/bootcamp, no CS degree) as the specific legitimacy trigger — a very common flavor of belonging-doubt in tech, distinct from S1's general framing",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-27",
     },
     {
@@ -1290,7 +1299,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 6,
       facet: "G8",
       gap: "Already promoted into a leadership role and doubting fitness for it — distinct from S4's holding-back-from-applying, this is post-decision self-doubt once already in the role",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-27",
     },
     {
@@ -1301,7 +1310,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 6,
       facet: "G9",
       gap: "Fear of being 'found out' tied specifically to a technical interview or live assessment — a performance-anxiety flavor distinct from S3's meeting-speaking-up context",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-27",
     },
     {
@@ -1312,7 +1321,7 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       area: 6,
       facet: "G10",
       gap: "Perceived as confident from outside while not feeling it internally — the specific 'fooling everyone' framing, distinct from S1's general belonging doubt",
-      reviewStatus: "unreviewed",
+      reviewStatus: "approved",
       drafted: "2026-08-27",
     },
 

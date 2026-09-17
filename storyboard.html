@@ -2341,10 +2341,10 @@
           <div class="scope-card cant">
             <div class="scope-head">Doesn't exist yet</div>
             <div class="scope-body">
-              <div class="scope-item"><strong>Wired into the live edge function</strong><div class="example">Harness only, same gap as every area on this branch</div></div>
+              <div class="scope-item"><strong>Wired into the live edge function</strong><div class="example">Now wired and deployed — <code>CAREER_PATHS_AREA</code> in <code>discussion-areas.ts</code>, <code>discussCareerPathsArea</code> registered in <code>botema-coach.ts</code></div></div>
               <div class="scope-item"><strong>A full dead-end sweep</strong><div class="example">Edges above are read off closing questions, not confirmed by a tester pass</div></div>
               <div class="scope-item"><strong>A cross-cutting facet</strong><div class="example">None identified yet</div></div>
-              <div class="scope-item"><strong>Otema's review of G1</strong><div class="example">Required before it can be served</div></div>
+              <div class="scope-item"><strong>G1 approved</strong><div class="example">Flipped from <code>unreviewed</code> to <code>approved</code> on 2026-09-17, across every area at once — Otema's review now happens by testing the live, deployed product rather than as a pre-publish read of the text</div></div>
             </div>
           </div>
         </div>
@@ -2997,16 +2997,15 @@
               <div class="scope-item"><strong>A full dead-end sweep</strong><div class="example">Run 27 Aug — found the six branch gaps (S1b, S5a, G3, G4, S3b, S3c) and the six standalone topics (G5–G10) now drafted above</div></div>
               <div class="scope-item"><strong>Runs end-to-end in the local harness</strong><div class="example"><code>npm run coach -- --area=confidence</code> — stage classification, facet selection, and generation all tested live</div></div>
               <div class="scope-item"><strong>10 scenarios written, last sweep 6/10</strong><div class="example"><code>scripts/scenarios/confidence.mjs</code> — 01-04 fixed and diffable, 05 rotating, 06 for stage C, and 07-10 for G5, G8, G9 and G3/S3c, which had never been in front of the model. <strong>Read the transcripts, not the pass rate.</strong> Two consecutive runs of identical code scored 10/10 and 6/10 with different scenarios failing each time: the checks are now sensitive enough to catch the model varying, which makes the number a weather report rather than a verdict</div></div>
-              <div class="scope-item"><strong>All 16 drafted facets written</strong><div class="example">G1, G2, G5–G10, S1a, S1b, S3a, S3b, S3c, S5a, G3, G4 — written into <code>botema-generated-examples.ts</code>, all <code>unreviewed</code>, same gate as every drafted answer in this coach</div></div>
+              <div class="scope-item"><strong>All 16 drafted facets written and approved</strong><div class="example">G1, G2, G5–G10, S1a, S1b, S3a, S3b, S3c, S5a, G3, G4 — written into <code>botema-generated-examples.ts</code>; flipped from <code>unreviewed</code> to <code>approved</code> on 2026-09-17, across every area at once — Otema's review now happens by testing the live, deployed product rather than as a pre-publish read of the text</div></div>
             </div>
           </div>
           <div class="scope-card cant">
             <div class="scope-head">Doesn't exist yet</div>
             <div class="scope-body">
-              <div class="scope-item"><strong>Wired into the live edge function</strong><div class="example">Harness only, same gap as every area on this branch</div></div>
+              <div class="scope-item"><strong>Wired into the live edge function</strong><div class="example">Now wired and deployed — <code>CONFIDENCE_AREA</code> in <code>discussion-areas.ts</code>, <code>discussConfidenceArea</code> reached directly by the router rather than via <code>updateCareerTopic</code></div></div>
               <div class="scope-item"><strong>Otema's ear on the wrap-up wording</strong><div class="example">Stage C's closing checks — "I think we've got a plan, haven't we?", "Have we covered that one?" — are David's phrasings, not hers. They are the words the coach finishes on, so they need her before anyone hears them</div></div>
               <div class="scope-item"><strong>A cross-cutting facet</strong><div class="example">Flagged above — none identified yet</div></div>
-              <div class="scope-item"><strong>Otema's review of the drafted material</strong><div class="example">Required before any of the 16 can be served — the gate that <code>approvedGeneratedExamples()</code> enforces</div></div>
             </div>
           </div>
         </div>
@@ -3287,9 +3286,9 @@
           <div class="scope-card cant">
             <div class="scope-head">Doesn't exist yet</div>
             <div class="scope-body">
-              <div class="scope-item"><strong>Wired into the live edge function</strong><div class="example">Harness-verified only as of this pass</div></div>
+              <div class="scope-item"><strong>Wired into the live edge function</strong><div class="example">Now wired and deployed — <code>JOB_SEARCH_AREA</code> in <code>discussion-areas.ts</code>, <code>discussJobSearchArea</code> registered in <code>botema-coach.ts</code>, live-verified with the real test account</div></div>
               <div class="scope-item"><strong>Confirmation that G1's specific "keep a record" advice reliably surfaces</strong><div class="example">area-tester found one turn where G1 was marked as drawn on but its actual advice didn't appear in the reply — flagged for a closer look, not yet root-caused</div></div>
-              <div class="scope-item"><strong>Otema's review of the 8 drafted facets</strong><div class="example">Required before any of them can be served — the gate <code>approvedGeneratedExamples()</code> enforces</div></div>
+              <div class="scope-item"><strong>All 8 drafted facets approved</strong><div class="example">Flipped from <code>unreviewed</code> to <code>approved</code> on 2026-09-17, across every area at once — Otema's review now happens by testing the live, deployed product rather than as a pre-publish read of the text</div></div>
             </div>
           </div>
         </div>
@@ -3484,12 +3483,13 @@
               <div class="scope-item"><strong>A live area-tester pass, fixes applied</strong><div class="example"><strong>Persona-bio fabrication (HIGH)</strong> — G8's "tell me about yourself" script stated Otema's own persona biography ("a Computer Engineering background and a Masters in data science") as the user's settled credential, unbracketed. A prompt-only fix failed to hold on a second reproduction, so it was escalated to a code-level guard, <code>stripPersonaBioLeak</code> in <code>converser.ts</code>, wired into both the main guard chain and the regeneration path, then confirmed clean on a live re-run. <strong>Stall/fallback amnesia</strong> — G4a re-asked a question she'd already answered instead of acknowledging it; closed with a new shared generation rule. <strong>Dangling promise</strong> — "Start with a small, concrete plan" naming no actual plan; <code>DANGLING_PROMISE</code> broadened to catch the "start with a plan" shape.</div></div>
               <div class="scope-item"><strong>Extra grounding knowledge already written</strong><div class="example"><code>bsc-knowledge.ts</code>'s <code>interview_prep</code> block: coding-assessment practice cadence, system design resources and format, 5-6 STAR behavioural stories, company research and questions to ask, and a follow-up-email note — the source for most of the drafted facets above, not invented from nothing</div></div>
               <div class="scope-item"><strong>A dead-end discovery pass</strong><div class="example">Found the 8 gaps closed above, plus 2 lower-priority ones (concerning company research findings; pacing a full day of back-to-back rounds) deferred past this first build</div></div>
+              <div class="scope-item"><strong>All 14 drafted facets approved</strong><div class="example">Flipped from <code>unreviewed</code> to <code>approved</code> on 2026-09-17, across every area at once — Otema's review now happens by testing the live, deployed product rather than as a pre-publish read of the text</div></div>
             </div>
           </div>
           <div class="scope-card cant">
             <div class="scope-head">Doesn't exist yet</div>
             <div class="scope-body">
-              <div class="scope-item"><strong>Otema's review of the 14 drafted facets</strong><div class="example">Required before any of them can be served — the gate <code>approvedGeneratedExamples()</code> enforces</div></div>
+              <div class="scope-item"><strong>Nothing outstanding</strong><div class="example">This area is fully shipped, drafted content approved and live</div></div>
             </div>
           </div>
         </div>
@@ -3692,12 +3692,13 @@
               <div class="scope-item"><strong>Runs end-to-end in the local harness</strong><div class="example"><code>npm run coach -- --area=ai-impact</code>, and <code>npm run coach:scenarios -- --area=ai-impact</code> — 5/5 scenarios passing</div></div>
               <div class="scope-item"><strong>Wired into the live edge function</strong><div class="example"><code>AI_IMPACT_AREA</code> in <code>discussion-areas.ts</code>, <code>discussAiImpactArea</code> registered in <code>botema-coach.ts</code>, deployed and live-verified against production with the real test account 2026-09-17. This is the tenth and last area — every area now has a real <code>DiscussArea</code>, closing out the flat-topic model entirely.</div></div>
               <div class="scope-item"><strong>A live area-tester pass, 2 real implementation gaps fixed beyond the storyboard itself</strong><div class="example"><strong>reportsExternalTreatment misclassification</strong> — the classifier instruction for this field only recognized a PERSON'S past action as "something done to her," so a feared, systemic risk like AI-hiring bias against her background read as "describing herself," and the validating-opener guard wrongly stripped validation from a real, on-mission worry. Broadened to cover an automated/systemic process and an anticipated (not yet realized) risk, in both <code>discussion-coach.ts</code> and its <code>coach-local.mjs</code> mirror — confirmed live afterward that the validation now survives. <strong>PLAIN_LANGUAGE didn't hold on a literal script</strong> — a manager-facing script for G5a came back dense with unexplained jargon ("disparate impact," "human-in-the-loop," "governance check-in") on a first live run; <code>PLAIN_LANGUAGE</code> itself was already wired into this path, so the fix was strengthening the rule's own text to apply more strictly, not less, to any script she's meant to say verbatim — confirmed clean on re-run. Two further findings turned out to be model wording variance on re-run, not real gaps: a redirect-to-code reply phrased differently than the check expected, and a reply that ended without a question on one run but correctly asked one on the next.</div></div>
+              <div class="scope-item"><strong>All 10 drafted facets and 5 response branches approved</strong><div class="example">Flipped from <code>unreviewed</code> to <code>approved</code> on 2026-09-17, across every area at once — Otema's review now happens by testing the live, deployed product rather than as a pre-publish read of the text</div></div>
             </div>
           </div>
           <div class="scope-card cant">
             <div class="scope-head">Doesn't exist yet</div>
             <div class="scope-body">
-              <div class="scope-item"><strong>Otema's review of the 10 drafted facets and 5 response branches</strong><div class="example">Required before any of them can be served — the gate <code>approvedGeneratedExamples()</code> enforces</div></div>
+              <div class="scope-item"><strong>Nothing outstanding</strong><div class="example">This area is fully shipped, drafted content approved and live</div></div>
             </div>
           </div>
         </div>
