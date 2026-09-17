@@ -684,6 +684,143 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       reviewStatus: "unreviewed", drafted: "2026-09-17",
     },
 
+    // ── Area 10 · AI & the Future of Tech Work ────────────────────────────
+    // The tenth and last area. G1-G7 are the first-cut facets built from
+    // bsc-knowledge.ts's ai_impact block; G8-G10 are three of the five
+    // highest-severity gaps the storyboard's own dead-end discovery pass
+    // found on top of those (bias in AI hiring/screening tools, comparing
+    // herself to AI-fluent peers, and the specialize-vs-baseline-skill
+    // fork). S2a, S2b, G1a, G5a, and G6a are response branches closing the
+    // other five — S2a and G1a/G5a/G6a were dead ends behind existing
+    // closers, S2b closes personal-capability comparison to AI itself,
+    // likely the single most common reaction behind S2, one of only three
+    // real answers this area has.
+    {
+      question: "Is my specific job actually at risk of being automated by AI?",
+      answer:
+        "It depends more on what you actually do than what your job title says — roles built around repetitive, well-specified coding tasks are the most exposed, while roles built around judgement, system design, and talking to the people who need the thing built are the most durable, and that split runs across the whole stack, not just developers. What does your role actually involve day to day — is it more repetitive execution, or judgment and communication?",
+      topic: "ai_impact", area: 10, facet: "G1",
+      gap: "S2's real answer reassures about the general trend, not her own specific role — a downstream, more concrete version of the same worry that S2 doesn't address",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "What skills should I actually be building so I stay valuable as AI improves?",
+      answer:
+        "Get strong at the things AI is still weak at — ambiguous requirements, cross-team communication, debugging a problem nobody's seen before, and the judgement calls that decide what should even get built. Keep learning fundamentals rather than only tool-specific tricks, since the tools change fast and the fundamentals mostly don't. Which of those feels furthest from where you are today — communicating with stakeholders, debugging unfamiliar systems, or making judgment calls under ambiguity?",
+      topic: "ai_impact", area: 10, facet: "G2",
+      gap: "S1's real answer names the general shift (direct and validate rather than do repetitive work) but doesn't break down which specific skills that actually means building",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "How should I actually use tools like ChatGPT or Copilot while I'm still learning, without it becoming a crutch?",
+      answer:
+        "Using these tools well is a baseline skill now, not a shortcut around learning — treat them as a fast first draft or a research partner, not a substitute for reasoning about the code yourself. The test is simple: could you get unstuck without it, just slower? If you're reaching for it before you've even tried, that's the habit worth catching. Where do you usually reach for it — to get unstuck, or before you've tried it yourself?",
+      topic: "ai_impact", area: 10, facet: "G3",
+      gap: "Nothing here addresses the practical, everyday discipline of using AI tools responsibly while still learning — a distinct question from whether to learn tech at all",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "How is AI actually changing the hiring process for tech roles?",
+      answer:
+        "AI-assisted take-home tests and screening tools are increasingly common, and some companies now explicitly discuss how you use AI tools during interviews rather than banning them outright. Expect more weight on system design and judgment-based interviews generally, since pure coding-recall is easier to fake now than it used to be. Do you know yet whether their process actually involves AI tools, or are you preparing in general?",
+      topic: "ai_impact", area: 10, facet: "G4",
+      gap: "Nothing here addresses how AI is changing hiring itself, a distinct and practical question from whether AI threatens tech careers in general",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "What ethical responsibilities come with actually building AI systems?",
+      answer:
+        "Understand the bias baked into your training data and outputs before you ship, be honest about a system's real limitations instead of overselling it, and think through who gets hurt when the model is wrong — because it will be, sometimes. Push back when you're asked to ship something you know is harmful or deceptive; that's an increasingly explicit expectation now, not an optional extra. Is this about a system you're building now, or planning ahead for the kind of work you want to do?",
+      topic: "ai_impact", area: 10, facet: "G5",
+      gap: "Nothing here addresses the ethical obligations of building AI systems, as distinct from being affected by AI as a tech worker generally",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "Can I actually break into AI/ML without a strong maths background?",
+      answer:
+        "It depends which side you're aiming for — applied ML-engineering roles lean more on solid coding and being comfortable enough with statistics and linear algebra to know what a model is actually doing, while research roles lean much harder on the maths itself. Most people build the maths up alongside the coding rather than needing it mastered first. How much maths have you actually done so far — is this a real gap, or just a fear?",
+      topic: "ai_impact", area: 10, facet: "G6",
+      gap: "S3's real answer says no field is immune to AI but doesn't address the specific, common fear that AI/ML itself is only open to people with a strong maths background",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "What should my portfolio show if I want to prove I can work well with AI tools, not just use them?",
+      answer:
+        "Show a project where you clearly directed and reviewed AI-assisted work rather than just generated it — catch a mistake it made, explain a decision you overrode it on, or document why you chose one AI-suggested approach over another. That's the difference employers are actually starting to look for: can you tell when the output is wrong, not just whether you can produce output at all. Do you already have a project to show, or are you starting from scratch?",
+      topic: "ai_impact", area: 10, facet: "G7",
+      gap: "S1's real answer names directing and validating AI output as the shift that matters but doesn't say what that should actually look like in a portfolio",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "Could an AI screening tool be biased against me because of my background or name?",
+      answer:
+        "It's a fair worry — these tools can and do carry bias, particularly around names, career gaps, or non-traditional backgrounds, and you can't fully control what happens to your application once it goes through one. What you can do is make sure a real person sees your work directly too, through a referral, direct outreach, or a portfolio link, rather than relying on the CV alone to get through. Has something specific made you suspect this happened to you, or is it a general worry?",
+      topic: "ai_impact", area: 10, facet: "G8",
+      gap: "Nothing here addresses being on the receiving end of a potentially biased AI screening tool as an applicant, distinct from G4's practical hiring-prep framing or G5's builder's-ethics framing",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "Everyone around me seems so much faster and more natural with these AI tools than I am — am I behind?",
+      answer:
+        "Most of what looks like natural fluency from the outside is just hours logged, not a gift — people who look effortless at prompting usually got there by using it badly for a while first. What specifically feels like it's coming easier to them than to you?",
+      topic: "ai_impact", area: 10, facet: "G9",
+      gap: "Nothing here addresses peer comparison specifically — an AI-fluency echo of the same comparison pattern Confidence's own G7 already names for a different context",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "Should I specialize in AI/ML specifically, or is using AI well just something everyone in tech needs now?",
+      answer:
+        "They're not the same decision — using AI well is close to table stakes for almost any tech role at this point, but going deep into building or researching AI/ML models themselves is closer to its own specialism than an add-on skill. Which of those two is actually pulling at you — building the tools, or being excellent at using them?",
+      topic: "ai_impact", area: 10, facet: "G10",
+      gap: "Neither S3 (field safety) nor G6 (breaking in without maths) addresses this strategic fork directly — both assume one side of the choice is already made",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "I'm already two years into a computer science degree and now I'm terrified AI made it all pointless.",
+      answer:
+        "Two years in, you're not starting from nothing — you already have real, transferable groundwork, and that doesn't evaporate because the field is shifting. The skills this degree is actually building — problem-solving, systems thinking, learning new tools fast — are exactly what carries you through a shift like this one, not the specific syntax you're learning today. How far in are you already?",
+      topic: "ai_impact", area: 10, facet: "S2a", respondsTo: "S2",
+      userSaid: "I'm already two years into a CS degree and terrified AI made it all pointless",
+      gap: "S2's real answer reassures someone deciding whether to start; this is someone already deep in, where sunk real progress changes the honest answer",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "I feel like I could never match AI's skill level, so it feels pointless to keep learning.",
+      answer:
+        "You're not competing with AI on speed or memory — nobody wins that, including people who've been doing this for twenty years. What you're actually building is the judgement to direct it and catch when it's wrong, and that comes from practice, not raw talent you either have or don't. What's making you feel behind before you've even started?",
+      topic: "ai_impact", area: 10, facet: "S2b", respondsTo: "S2",
+      userSaid: "I feel like I could never match AI's skill level, so it feels pointless to keep learning",
+      gap: "S2's real answer reframes the macro trend (AI enhances rather than replaces); this is a personal-capability comparison to AI itself, a different and more demotivating fear the real answer doesn't speak to. Found live: the more blunt phrasing this facet was first drafted around (\"I'll never be as good as AI, so why even try\") reliably trips Azure's own content-moderation filter before the model ever sees it — flagged in the storyboard as a cross-cutting Azure limitation, not something a system prompt can work around, and the softer phrasing here was chosen specifically because it survives the filter while keeping the same meaning.",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "My manager already told us AI tools mean they need fewer people doing my exact job.",
+      answer:
+        "That's a real, specific signal, not a hypothetical one, and it deserves a direct answer rather than general reassurance about AI overall. Whether anything's actually been decided yet changes what to do next — one is a live threat to act on, the other is still worth watching closely without panicking. Has anything been decided yet, or is this still just talk?",
+      topic: "ai_impact", area: 10, facet: "G1a", respondsTo: "G1",
+      userSaid: "My manager already told us AI tools mean they need fewer people doing my exact job",
+      gap: "G1's closer assumes the risk is still hypothetical — this is the case where it's already been named directly by management",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "My manager wants me to ship a model I know isn't ready and could cause real harm.",
+      answer:
+        "That's worth taking seriously as exactly the kind of pushback the work sometimes requires — you're allowed to say a system isn't ready, in writing, with your specific concern named plainly rather than softened. Whether you've already raised it changes what the next step actually is. Have you raised this with anyone yet, or has it just been sitting with you?",
+      topic: "ai_impact", area: 10, facet: "G5a", respondsTo: "G5",
+      userSaid: "My manager wants me to ship a model I know isn't ready and could cause real harm",
+      gap: "G5's closer is an abstract framing question (building now vs. planning ahead); this is a live, present disclosure of being asked to do something harmful, not a hypothetical",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "I've never coded or done any maths beyond arithmetic, but I want to go straight into AI/ML.",
+      answer:
+        "Before the maths question is even worth answering, the more useful one is whether you've started coding at all — AI/ML sits on top of general programming ability, not instead of it, so that's genuinely the first step regardless of how the maths eventually shakes out. Before the maths question — have you actually started learning to code yet, in anything?",
+      topic: "ai_impact", area: 10, facet: "G6a", respondsTo: "G6",
+      userSaid: "I've never coded or done any maths beyond arithmetic, but I want to go straight into AI/ML",
+      gap: "G6 assumes some baseline of technical background already exists and the maths question is the live one; this is genuinely zero background, where the maths question is premature",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+
     // ── Area 9 · Salary & Negotiation ─────────────────────────────────────
     // Four gaps identified 2026-08-14: none of these are in the 57-question
     // bank, and neither KNOWLEDGE_BASE.salary nor her real examples cover them.

@@ -459,6 +459,54 @@ export const INTERVIEW_PREP_AREA: AreaConfig = {
   },
 };
 
+// Ported verbatim from scripts/areas/ai-impact.mjs. The tenth and last area,
+// closing out the flat-topic model entirely. Otema's 3 real answers cover
+// positioning yourself to work alongside AI, whether learning tech is still
+// worth it, and which field is safest — no other area shares the ai_impact
+// topic tag, so no exact-question matching is needed the way Job Search and
+// Interview Preparation needed it for their shared legacy tag.
+//
+// The area's own dead-end pass found 4 dead ends and 7 missing standalone
+// topics; the 5 highest-severity were closed straight into this first
+// build (S3's exit for "don't know what field yet", S2b, G8, G9, G10). A
+// live area-tester pass then found 2 real implementation gaps beyond the
+// storyboard itself, both fixed here: `reportsExternalTreatment`'s
+// classifier instruction (below, in classifyTool()) didn't recognize a
+// feared future risk from an automated/systemic process — like AI-hiring
+// bias against her background — as "something done to her," so the
+// validating opener guard misfired and stripped validation from a real,
+// on-mission worry; and Stage A's own describes text had no boundary
+// against generating fresh field-exploration coaching when she says she
+// doesn't know her field yet, duplicating Career Paths' own territory the
+// same way Job Search's Stage B once leaked interview-technique content.
+export const AI_IMPACT_AREA: AreaConfig = {
+  n: 10,
+  name: "AI & the Future of Tech Work",
+  topic: "ai_impact",
+  realOrder: ["S1", "S2", "S3"],
+  wrapUp: null,
+  stageSummary: {
+    A: "whether AI changes the plan — is this still worth it, which fields and roles are exposed",
+    B: "working with AI in practice — tools, hiring, ethics, and breaking into AI/ML",
+  },
+  fallbackQuestion: "What's actually on your mind about AI and where this is all heading for you?",
+  supersedes: [],
+  stages: {
+    A: {
+      label: "Whether AI changes the plan",
+      describes:
+        "Whether tech is still worth pursuing at all, which fields or roles are safer or more exposed, positioning yourself to work alongside AI, and what durable skills are actually worth building. Giveaway words: \"worth it\", \"replace\", \"safe\", \"future-proof\", \"my job\", \"my role\". A question about whether to keep going, or which direction is safer, is A even if it names a specific field or role. If she says she doesn't actually know what field to choose yet, don't generate fresh field-exploration coaching (shadowing, trying small projects in a few areas, mapping what she enjoys) — that content belongs to Career Paths & Roadmaps, not here. Say plainly that the field question comes first, and ask if she'd rather work that out before coming back to how AI fits into it.",
+      facets: ["S1", "S2", "S2a", "S2b", "S3", "G1", "G1a", "G2", "G10"],
+    },
+    B: {
+      label: "Working with AI, in practice",
+      describes:
+        "Using AI tools like Copilot or ChatGPT day to day, how AI is showing up in hiring and screening, the ethical responsibilities of building AI systems, and breaking into AI/ML specifically. Giveaway words: \"ChatGPT\", \"Copilot\", \"use AI\", \"hiring\", \"ethics\", \"AI/ML\", \"maths\". A question about how to actually do something with AI today is B even if it's motivated by the same underlying worry that opened the conversation.",
+      facets: ["G3", "G4", "G5", "G5a", "G6", "G6a", "G7", "G8", "G9"],
+    },
+  },
+};
+
 // One WORDALISE function per built area — see AREA_TOPIC_TO_FUNCTION_NAME
 // below, used by UpdateCareerTopic to decide where to chain, and by index.ts
 // to call the right one directly when an area is already open.
@@ -472,6 +520,7 @@ export const AREAS: Record<string, AreaConfig> = {
   further_education: FURTHER_EDUCATION_AREA,
   cv_job_search: JOB_SEARCH_AREA,
   interview_prep: INTERVIEW_PREP_AREA,
+  ai_impact: AI_IMPACT_AREA,
 };
 
 export const AREA_TOPIC_TO_FUNCTION_NAME: Record<string, string> = {
@@ -484,6 +533,7 @@ export const AREA_TOPIC_TO_FUNCTION_NAME: Record<string, string> = {
   further_education: "discussFurtherEducationArea",
   cv_job_search: "discussJobSearchArea",
   interview_prep: "discussInterviewPrepArea",
+  ai_impact: "discussAiImpactArea",
 };
 
 export const WRAP_UP_LINE =
@@ -515,9 +565,7 @@ export function otherAreas(areaN: number): Record<string, string> {
 // AREA_TOPIC_TO_FUNCTION_NAME and adviseOnCareerTopic's currentEntities —
 // needed so DiscussArea.call() can hand off to the destination and answer
 // the question in the same turn, instead of only announcing the switch and
-// leaving her to ask again. Area 10 (AI & the Future of Tech Work), the one
-// area with no DiscussArea yet, still resolves to a real topic slug; the
-// flat adviseOnCareerTopic path picks it up instead of a built area.
+// leaving her to ask again. All ten areas now have a DiscussArea built.
 export const AREA_NUMBER_TO_TOPIC: Record<string, string> = {
   "1": "getting_started",
   "2": "further_education",

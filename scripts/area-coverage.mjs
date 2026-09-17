@@ -34,6 +34,7 @@ const AREAS = [
   { slug: "wellbeing", heading: "Inside Wellbeing &amp; Balance" },
   { slug: "job-search", heading: "Inside Job Search &amp; Applications" },
   { slug: "interview-prep", heading: "Inside Interview Preparation" },
+  { slug: "ai-impact", heading: "Inside AI &amp; the Future of Tech Work" },
 ];
 
 const areaArg = process.argv.find((a) => a.startsWith("--area="));

@@ -9,6 +9,7 @@ import {
   FURTHER_EDUCATION_AREA,
   JOB_SEARCH_AREA,
   INTERVIEW_PREP_AREA,
+  AI_IMPACT_AREA,
   buildFacets,
   mostRelevant,
   queryWords,
@@ -132,6 +133,29 @@ describe("buildFacets", () => {
     expect(INTERVIEW_PREP_AREA.stages.B.facets).toContain("G6");
     expect(INTERVIEW_PREP_AREA.stages.A.facets).toContain("G6a");
     expect(INTERVIEW_PREP_AREA.stages.B.facets).toContain("G6a");
+  });
+
+  it("wires AI & the Future of Tech Work's 3 real answers, from adviseOnCareerTopic", () => {
+    const facets = buildFacets(AI_IMPACT_AREA);
+    for (const id of AI_IMPACT_AREA.realOrder) {
+      expect(facets[id]).toBeDefined();
+      expect(facets[id].source).toBe("OTEMA");
+    }
+    // Confirms it read from the "ai_impact" topic tag, which no other area
+    // shares, so no exact-question matching is needed the way Job Search
+    // and Interview Preparation needed it for their shared legacy tag.
+    expect(facets.S1.question).toBe("How do I position myself to work alongside AI rather than be replaced by it?");
+  });
+
+  it("keeps every drafted facet in AI & the Future of Tech Work's own stage, with no cross-listing", () => {
+    // Unlike Wellbeing, Job Search, and Interview Preparation, no facet here
+    // was found live to need cross-listing into both stages — recorded so a
+    // future area-tester finding that changes this is a deliberate edit, not
+    // an accidental one.
+    const a = new Set(AI_IMPACT_AREA.stages.A.facets);
+    const b = new Set(AI_IMPACT_AREA.stages.B.facets);
+    const overlap = [...a].filter((f) => b.has(f));
+    expect(overlap).toEqual([]);
   });
 
   it("wires Confidence's 5 real answers by exact question text, from addressMindsetChallenge", () => {

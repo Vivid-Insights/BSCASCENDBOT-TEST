@@ -972,6 +972,7 @@
       <button class="sub-tab-btn" onclick="switchSubTab('area6', this)"><span class="sn">06</span>Confidence</button>
       <button class="sub-tab-btn" onclick="switchSubTab('area7', this)"><span class="sn">07</span>Job Search &amp; Applications</button>
       <button class="sub-tab-btn" onclick="switchSubTab('area8', this)"><span class="sn">08</span>Interview Preparation</button>
+      <button class="sub-tab-btn" onclick="switchSubTab('area10', this)"><span class="sn">10</span>AI &amp; the Future of Tech Work</button>
     </div>
 
     <div id="sub-area9" class="sub-panel active">
@@ -3502,6 +3503,224 @@
             <div class="ff-top"><span class="facet-id">S1</span><h4>General technical interview prep</h4><span class="src real">OTEMA</span></div>
             <p class="ff-q">How do I prepare for a technical interview?</p>
             <p class="ff-a">Know the fundamentals for your specific target role, and practice narrating your thinking out loud — process usually matters more than a perfect answer. Mock interviews with a peer or mentor help more than most people expect. What role are you interviewing for?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="sub-area10" class="sub-panel">
+      <div class="section">
+        <div class="section-title">Area Flow · Area 10</div>
+        <h2 class="section-heading">Inside AI &amp; the Future of Tech Work <span class="st proposed">PROPOSED</span></h2>
+        <p class="prompt-intro">One classification call per message places the user in one of two stages; the stage scopes which of Otema's 3 real answers, plus 10 drafted facets, the model is shown; the model writes the reply from that material. Not yet designed in the local harness; this is the first pass — the facet graph below already reflects a dead-end discovery pass, not just the raw closers.</p>
+        <div class="banner spec">
+          <strong>The tenth and last area, closing out the flat-topic model entirely.</strong> Three real answers exist against the <code>ai_impact</code> knowledge topic, covering Q51–57: positioning yourself to work alongside AI rather than be replaced by it, whether learning tech is still worth it at all, and which field is safest to study. Everything else this area needs — hiring, ethics, tool literacy, breaking into AI/ML — was already named in the storyboard's own area-reference stub but never built out into a facet graph until now. Matched by exact question text (<code>realQuestions</code>), the same mechanism as Confidence, Job Search, and Interview Preparation, so nothing else tagged <code>ai_impact</code> in the flat path gets pulled in by accident.
+        </div>
+        <div class="banner spec">
+          <strong>Two stages: whether AI changes the plan, versus working with it in practice.</strong> A is the existential register — is this still worth doing, which fields are safer, how exposed is her specific role, what's actually durable to build toward. B is the practical register — using AI tools like Copilot or ChatGPT without shortcutting her own understanding, how AI is showing up in hiring, the ethical responsibilities of building these systems, and breaking into AI/ML specifically. A question about whether to keep going is A even if it's framed around a specific field; a question about how to actually do something with AI today is B even if it's motivated by the same underlying worry.
+        </div>
+        <div class="banner spec">
+          <strong>Two scope boundaries drawn deliberately narrow, to avoid duplicating sibling areas.</strong> G6 (breaking into AI/ML without a maths background) answers the field-direction question, the same altitude as S3 — it does not draft a study plan, since that's Getting Started's job once she's decided. G7 (what an AI-directed portfolio should demonstrate) answers what to show, not how to format a CV or where to send it — that's Job Search's job. G4 (AI showing up in hiring) answers what's changing about the process in general terms — it does not coach interview technique, since that's Interview Preparation's job. Each of those three facets' closer offers the sibling area by name rather than answering past its own edge, same pattern as Job Search/Interview Preparation's own boundary.
+        </div>
+        <div class="banner info">
+          <strong>Dead-end pass found 4 dead ends and 7 missing standalone topics; the 5 highest-severity are closed below, 6 deferred.</strong> Closed: S3 had no exit for "I don't know what field yet" (mirrors Salary's own S1→Area 3 precedent) — now an explicit exit chip. S2's closer had nothing for personal-capability comparison to AI itself ("I'll never be as good as it, why try") — likely the single most common reaction behind one of only three real answers in this area — closed with <strong>S2b</strong>. Nothing addressed AI-driven hiring/screening tools biased against non-traditional or underrepresented candidates, directly on-mission for BSC's actual audience — closed with <strong>G8</strong>. Nothing addressed comparing herself to AI-fluent peers, an AI-specific echo of the comparison pattern Confidence's own G7 already names — closed with <strong>G9</strong>. Nothing addressed the strategic fork between specializing in AI/ML versus treating AI fluency as a baseline skill for any tech role, which neither S3 nor G6 assumes is still open — closed with <strong>G10</strong>. Deferred as narrower in audience or already partly mitigated: boredom after AI absorbs the interesting part of a job, pace-of-change dread (softened by G2's existing durable-skills framing), AI-generated code quality/accountability, an evasive manager withholding a restructuring answer, competitive anxiety against one specific AI-fluent colleague, and AI-use disclosure norms in a CV or interview.
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · Shape</div><h2 class="section-heading">The Shape of the Area</h2>
+        <div class="key">
+          <p class="key-intro"><strong>Reading the codes:</strong> <span class="chip">S</span> is Otema's real answer (S1 = Q51, S2 = Q52, S3 = Q53 or nearby in the Q51–57 range). <span class="chip">G</span> is a drafted gap facet with no real-answer parent. Response-branch facets (S2a, S2b, G1a, G5a, G6a) are their own cards further down.</p>
+          <div class="key-grid">
+            <div><span class="chip">S1</span> Positioning yourself to work alongside AI</div>
+            <div><span class="chip">S2</span> Is learning tech still worth it</div>
+            <div><span class="chip">S3</span> Which field is safest to study</div>
+            <div><span class="chip">G1</span> Is my specific role actually at risk</div>
+            <div><span class="chip">G2</span> What durable skills to actually build</div>
+            <div><span class="chip">G3</span> Using AI tools to learn without shortcutting understanding</div>
+            <div><span class="chip">G4</span> AI showing up in hiring and assessments</div>
+            <div><span class="chip">G5</span> Ethical responsibilities of building AI systems</div>
+            <div><span class="chip">G6</span> Breaking into AI/ML without a maths background</div>
+            <div><span class="chip">G7</span> What an AI-directed portfolio should demonstrate</div>
+            <div><span class="chip">G8</span> Bias in AI hiring/screening tools</div>
+            <div><span class="chip">G9</span> Comparing herself to AI-fluent peers</div>
+            <div><span class="chip">G10</span> Specialize in AI/ML, or treat it as a baseline skill</div>
+          </div>
+        </div>
+        <div class="flow-note"><strong>G1 exists because S2's real answer is pitched at the general worry, not the specific one.</strong> "Is learning tech still worth it" and "is my current job about to be automated" are different questions wearing the same anxiety — the first is upstream, asked before she's committed to anything; the second is downstream, asked by someone already in a role. Folding G1 into S2 would flatten that distinction the way the dead-end pass exists to catch. <strong>G10 sits in Stage A despite reading like a companion to G6.</strong> G6 already assumes AI/ML has been chosen as the destination; G10 is the fork one level upstream of that choice, the same altitude as S3 rather than G6's own practical-execution register. <strong>S2b's first-drafted phrasing tripped Azure's own content filter, not our prompt.</strong> Found live while testing this area's build: "I'll never be as good as AI, so why even try" reliably gets rejected by Azure OpenAI's content-moderation layer before the model ever sees it — apparently a false positive on the "why even try" pattern near self-deprecating language, a cross-cutting Azure limitation rather than anything a system prompt can fix. Softened to "I feel like I could never match AI's skill level, so it feels pointless to keep learning," which keeps the same meaning and gets through. A real user who phrases it the blunter way still falls through to the existing generic "that didn't come through cleanly" retry message — the same graceful degradation every area already has for a filtered message, not something new this area introduced.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · Facets</div><h2 class="section-heading">The 13 Facets and Where Each Leads</h2>
+        <p class="prompt-intro">Edges are read off the actual closing questions, where one exists yet. <span class="src real">OTEMA</span> is her real questionnaire answer; <span class="src drafted">DRAFTED</span> is generated and still <code>unreviewed</code>. Response-branch facets are shown separately below.</p>
+
+        <div class="stage-band"><span class="sb-id">Stage A</span><h3>Whether AI changes the plan</h3><span class="sb-note">is this still worth it, which fields and roles are exposed, what's actually durable</span></div>
+        <div class="facet-grid">
+          <div class="facet real">
+            <div class="facet-top"><span class="facet-id">S1</span><h4>Positioning yourself to work alongside AI</h4><span class="src real">OTEMA</span></div>
+            <p class="closer">"What role are you aiming this at?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">G2</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet real">
+            <div class="facet-top"><span class="facet-id">S2</span><h4>Is learning tech still worth it</h4><span class="src real">OTEMA</span></div>
+            <p class="closer">"What's worrying you about this?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">S3</span><span class="chip">S2a</span><span class="chip">S2b</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet real">
+            <div class="facet-top"><span class="facet-id">S3</span><h4>Which field is safest to study</h4><span class="src real">OTEMA</span></div>
+            <p class="closer">"What field are you drawn to?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">G6</span><span class="chip">G10</span><span class="chip self">stays</span><span class="chip exit">→ Area 3</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G1</span><h4>Is my specific role actually at risk</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"What does your role actually involve day to day — is it more repetitive execution, or judgment and communication?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">G2</span><span class="chip">G1a</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G2</span><h4>What durable skills to actually build</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"Which of those feels furthest from where you are today — communicating with stakeholders, debugging unfamiliar systems, or making judgment calls under ambiguity?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G10</span><h4>Specialize in AI/ML, or treat it as a baseline skill</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"Which of those two is actually pulling at you — building the tools, or being excellent at using them?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">G6</span><span class="chip">G2</span><span class="chip self">stays</span></div>
+          </div>
+        </div>
+
+        <div class="stage-band"><span class="sb-id">Stage B</span><h3>Working with AI, in practice</h3><span class="sb-note">tools, hiring, ethics, and breaking into AI/ML specifically</span></div>
+        <div class="facet-grid">
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G3</span><h4>Using AI tools to learn without shortcutting understanding</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"Where do you usually reach for it — to get unstuck, or before you've tried it yourself?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">G9</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G4</span><h4>AI showing up in hiring and assessments</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"Do you know yet whether their process actually involves AI tools, or are you preparing in general?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">G8</span><span class="chip self">stays</span><span class="chip exit">→ Area 8</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G5</span><h4>Ethical responsibilities of building AI systems</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"Is this about a system you're building now, or planning ahead for the kind of work you want to do?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">G5a</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G6</span><h4>Breaking into AI/ML without a maths background</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"How much maths have you actually done so far — is this a real gap, or just a fear?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">G6a</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G7</span><h4>What an AI-directed portfolio should demonstrate</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"Do you already have a project to show, or are you starting from scratch?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span><span class="chip exit">→ Area 7</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G8</span><h4>Bias in AI hiring/screening tools</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"Has something specific made you suspect this happened to you, or is it a general worry?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G9</span><h4>Comparing herself to AI-fluent peers</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"What specifically feels like it's coming easier to them than to you?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · Response branches</div>
+        <h2 class="section-heading">What Happens After the Question <span class="st proposed">PROPOSED</span></h2>
+        <div class="banner info"><strong>Five dead ends closed with response branches.</strong> S2's closer has no branch for someone already deep into a bootcamp or degree who hits a wave of AI news and panics mid-course — reassurance grounded in sunk, real progress is a different reply from S2's own answer to someone who hasn't started anything yet. Nor does it have a branch for comparing her own raw ability to AI's directly ("I'll never be as good as it, so why try") — a demotivation distinct from the macro-trend reassurance S2 itself gives. G1's closer has no branch for a role where the restructuring isn't hypothetical — she's already been told. G5's closer has no branch for a live disclosure: being personally asked to do something she thinks is dishonest or harmful with an AI system, not an abstract ethics question. G6's closer has no branch for genuinely zero technical background at all, where the honest answer is that the maths question is premature. All five are drafted into <code>botema-generated-examples.ts</code>, <code>unreviewed</code>, same gate as everything else here.</div>
+        <div class="facet-grid">
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">S2a</span><h4>Already invested, panicking mid-course</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">responds to <span class="chip">S2</span></span></div>
+            <p class="closer">"How far in are you already?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">S2b</span><h4>Comparing her own capability to AI itself</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">responds to <span class="chip">S2</span></span></div>
+            <p class="closer">"What's making you feel behind before you've even started?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G1a</span><h4>Restructuring isn't hypothetical — it's already been raised</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">responds to <span class="chip">G1</span></span></div>
+            <p class="closer">"Has anything been decided yet, or is this still just talk?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span><span class="chip exit">→ Area 3</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G5a</span><h4>Personally asked to do something dishonest or harmful</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">responds to <span class="chip">G5</span></span></div>
+            <p class="closer">"Have you raised this with anyone yet, or has it just been sitting with you?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span><span class="chip exit">→ Area 4</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G6a</span><h4>Genuinely zero technical background yet</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">responds to <span class="chip">G6</span></span></div>
+            <p class="closer">"Before the maths question — have you actually started learning to code yet, in anything?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span><span class="chip exit">→ Area 1</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · Leaving</div><h2 class="section-heading">When to Suggest a Different Area</h2>
+        <p class="prompt-intro">The Flow C hand-off, triggered from inside the area rather than by the user asking.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>What's happening</th><th>What it actually means</th><th>Offer instead</th></tr></thead>
+            <tbody>
+              <tr><td>S3 is asked before she's actually chosen a field to weigh against AI</td><td>The field question comes before the AI-safety question, not alongside it</td><td><strong>Area 3</strong> · Career Paths &amp; Roadmaps</td></tr>
+              <tr><td>G1a's outcome is a real, named restructuring and the live question turns to what's next</td><td>The threat has already landed; the question is now which direction to move in</td><td><strong>Area 3</strong> · Career Paths &amp; Roadmaps</td></tr>
+              <tr><td>G4's live question is specific interview technique for an AI-assisted process, not what's changing in general</td><td>She has a real interview coming and wants to prepare for it, not understand the trend</td><td><strong>Area 8</strong> · Interview Preparation</td></tr>
+              <tr><td>G5a's disclosure turns to wanting advice from someone who's navigated this themselves</td><td>A judgment call best made with a real person's perspective, not just principles</td><td><strong>Area 4</strong> · Mentorship</td></tr>
+              <tr><td>G6a's outcome is genuinely starting from zero and wanting the actual first steps</td><td>The question is upstream of even choosing AI/ML as a direction</td><td><strong>Area 1</strong> · Getting Started</td></tr>
+              <tr><td>G7's live question is CV mechanics or where to actually send the portfolio, not what to put in it</td><td>The question has moved from what to build to how to package and send it</td><td><strong>Area 7</strong> · Job Search &amp; Applications</td></tr>
+              <tr><td>Two turns with no new information, or a facet revisited with nothing added</td><td>The area is done, whether or not every facet was covered</td><td>Sum up and offer the remaining areas</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · To build</div><h2 class="section-heading">What This Needs</h2>
+        <div class="grid-2">
+          <div class="scope-card can">
+            <div class="scope-head">Already true</div>
+            <div class="scope-body">
+              <div class="scope-item"><strong>The three real answers already live today</strong><div class="example">Served flat via <code>adviseOnCareerTopic</code>, topic <code>ai_impact</code> — no stage model, no dead-end handling</div></div>
+              <div class="scope-item"><strong>Extra grounding knowledge already written</strong><div class="example"><code>bsc-knowledge.ts</code>'s <code>ai_impact</code> block: durable vs. exposed roles, AI tools as a baseline skill not a shortcut, future-proofing habits, AI's effect on hiring, and the ethics of building AI systems — the source for most of the drafted facets above, not invented from nothing</div></div>
+              <div class="scope-item"><strong>A dead-end discovery pass</strong><div class="example">Found 4 dead ends and 7 missing standalone topics; the 5 highest-severity closed above (S3's exit, S2b, G8, G9, G10), 6 lower-priority ones deferred past this first build</div></div>
+              <div class="scope-item"><strong>Runs end-to-end in the local harness</strong><div class="example"><code>npm run coach -- --area=ai-impact</code>, and <code>npm run coach:scenarios -- --area=ai-impact</code> — 5/5 scenarios passing</div></div>
+              <div class="scope-item"><strong>Wired into the live edge function</strong><div class="example"><code>AI_IMPACT_AREA</code> in <code>discussion-areas.ts</code>, <code>discussAiImpactArea</code> registered in <code>botema-coach.ts</code>, deployed and live-verified against production with the real test account 2026-09-17. This is the tenth and last area — every area now has a real <code>DiscussArea</code>, closing out the flat-topic model entirely.</div></div>
+              <div class="scope-item"><strong>A live area-tester pass, 2 real implementation gaps fixed beyond the storyboard itself</strong><div class="example"><strong>reportsExternalTreatment misclassification</strong> — the classifier instruction for this field only recognized a PERSON'S past action as "something done to her," so a feared, systemic risk like AI-hiring bias against her background read as "describing herself," and the validating-opener guard wrongly stripped validation from a real, on-mission worry. Broadened to cover an automated/systemic process and an anticipated (not yet realized) risk, in both <code>discussion-coach.ts</code> and its <code>coach-local.mjs</code> mirror — confirmed live afterward that the validation now survives. <strong>PLAIN_LANGUAGE didn't hold on a literal script</strong> — a manager-facing script for G5a came back dense with unexplained jargon ("disparate impact," "human-in-the-loop," "governance check-in") on a first live run; <code>PLAIN_LANGUAGE</code> itself was already wired into this path, so the fix was strengthening the rule's own text to apply more strictly, not less, to any script she's meant to say verbatim — confirmed clean on re-run. Two further findings turned out to be model wording variance on re-run, not real gaps: a redirect-to-code reply phrased differently than the check expected, and a reply that ended without a question on one run but correctly asked one on the next.</div></div>
+            </div>
+          </div>
+          <div class="scope-card cant">
+            <div class="scope-head">Doesn't exist yet</div>
+            <div class="scope-body">
+              <div class="scope-item"><strong>Otema's review of the 10 drafted facets and 5 response branches</strong><div class="example">Required before any of them can be served — the gate <code>approvedGeneratedExamples()</code> enforces</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · Full text</div><h2 class="section-heading">All Three Real Answers, in Full</h2>
+        <p class="prompt-intro">The complete question and answer behind each of S1, S2, and S3 — Otema's real words from the questionnaire. Every other facet in this area is drafted; that happens once the dead-end pass confirms the set.</p>
+        <div class="full-list">
+          <div class="full-facet real">
+            <div class="ff-top"><span class="facet-id">S1</span><h4>Positioning yourself to work alongside AI</h4><span class="src real">OTEMA</span></div>
+            <p class="ff-q">How do I position myself to work alongside AI rather than be replaced by it?</p>
+            <p class="ff-a">Learn to direct and validate AI output rather than do the repetitive work it's replacing — that's the shift that matters. If you're coming from a non-tech background, your domain knowledge plus AI fluency is worth more than either alone. What role are you aiming this at?</p>
+          </div>
+          <div class="full-facet real">
+            <div class="ff-top"><span class="facet-id">S2</span><h4>Is learning tech still worth it</h4><span class="src real">OTEMA</span></div>
+            <p class="ff-q">Is learning tech still worth it due to AI replacing jobs?</p>
+            <p class="ff-a">AI is enhancing work more than replacing it — it's a bit like the fear around calculators in classrooms back in 1986, which turned out to just make people more efficient. What's worrying you about this?</p>
+          </div>
+          <div class="full-facet real">
+            <div class="ff-top"><span class="facet-id">S3</span><h4>Which field is safest to study</h4><span class="src real">OTEMA</span></div>
+            <p class="ff-q">Which tech field should I study that AI couldn't replace?</p>
+            <p class="ff-a">There isn't really a field immune to it — the better question is how AI's advancements apply to whatever field you choose, so you can use that to move forward rather than fear it. What field are you drawn to?</p>
           </div>
         </div>
       </div>
