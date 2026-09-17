@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { resolveNarrowOrAnswer, withChoices, CHOICES_MARKER, pickRandom, LONG_FORM_ESCAPE_HATCH, stripUnsourcedFigures, hasUnsourcedFigure, NO_RELIABLE_PAY_DATA, capSentences, flattenInlineList, stripImplausibleFigures, stripImplausiblePeriods, dropRepeatedSentences, stripAdsOversell, stripQuotaConcession, dropSecondQuestion, openerShape, isValidatingOpener, stripRepeatedOpener, stripUnearnedValidation, flattenEnumerations, dropDanglingQuestion, endsOnDanglingReference, isOnlyAQuestion, echoesUser, stripInventedLocation, mentionedByUser, capSentencesFlagged } from "./converser.ts";
+import { resolveNarrowOrAnswer, withChoices, CHOICES_MARKER, pickRandom, LONG_FORM_ESCAPE_HATCH, stripUnsourcedFigures, hasUnsourcedFigure, NO_RELIABLE_PAY_DATA, capSentences, flattenInlineList, stripImplausibleFigures, stripImplausiblePeriods, dropRepeatedSentences, stripAdsOversell, stripQuotaConcession, stripPersonaBioLeak, dropSecondQuestion, openerShape, isValidatingOpener, stripRepeatedOpener, stripUnearnedValidation, flattenEnumerations, dropDanglingQuestion, endsOnDanglingReference, isOnlyAQuestion, echoesUser, stripInventedLocation, mentionedByUser, capSentencesFlagged } from "./converser.ts";
 
 describe("pickRandom", () => {
   it("returns exactly n items when the pool is larger than n", () => {
@@ -630,6 +630,42 @@ describe("stripQuotaConcession", () => {
   it("does not fire on ordinary talk about a diversity programme she might join", () => {
     const raw = "BSC runs a mentorship programme worth looking at. Would that help?";
     expect(stripQuotaConcession(raw).stripped).toBe(false);
+  });
+});
+
+describe("stripPersonaBioLeak", () => {
+  // Real reply from a live run of Interview Preparation's G8 (the "tell me
+  // about yourself" pitch): every other detail was correctly bracketed as
+  // fill-in-the-blank except this one, which stated Otema's own persona
+  // biography (BOTEMA_VALUES' "WHO YOU ARE" line) as the user's settled fact.
+  it("removes a sentence that states Otema's own persona biography as the user's credential", () => {
+    const raw = "I'm a backend developer with a Computer Engineering background and a Masters in data science. I've built APIs and services in [tech stack]. Does that align with your actual background?";
+    const { text, stripped } = stripPersonaBioLeak(raw, "I have an interview for a backend developer role");
+    expect(stripped).toBe(true);
+    expect(text).not.toMatch(/computer engineering/i);
+    expect(text).not.toMatch(/masters? in data science/i);
+    expect(text).toContain("I've built APIs");
+    expect(text).toContain("Does that align");
+  });
+
+  it("does not fire if she actually stated that background herself", () => {
+    const raw = "Great — lead with your Computer Engineering background and a Masters in data science, since that's exactly what you told me. What role are you targeting?";
+    const saidByUser = "I have a Computer Engineering background and a Masters in data science, interviewing for a data role";
+    expect(stripPersonaBioLeak(raw, saidByUser).stripped).toBe(false);
+  });
+
+  it("leaves an unrelated reply about data science careers untouched", () => {
+    const raw = "Data science roles usually test SQL, statistics, and a take-home case study. What track are you interviewing for?";
+    expect(stripPersonaBioLeak(raw, "").stripped).toBe(false);
+  });
+
+  it("cleans up the orphaned closing quote left behind when a removed dialogue sentence never closed its own quote", () => {
+    const raw = "Say something like this: “I'm a backend engineer with a Computer Engineering background and a Masters in data science.” What's the specific tech stack on this team?";
+    const { text, stripped } = stripPersonaBioLeak(raw, "I have an interview for a backend developer role");
+    expect(stripped).toBe(true);
+    expect(text).not.toMatch(/computer engineering/i);
+    expect(text).not.toMatch(/[“”"]/);
+    expect(text).toContain("What's the specific tech stack on this team?");
   });
 });
 

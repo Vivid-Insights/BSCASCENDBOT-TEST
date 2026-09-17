@@ -971,6 +971,7 @@
       <button class="sub-tab-btn" onclick="switchSubTab('area5', this)"><span class="sn">05</span>Wellbeing &amp; Balance</button>
       <button class="sub-tab-btn" onclick="switchSubTab('area6', this)"><span class="sn">06</span>Confidence</button>
       <button class="sub-tab-btn" onclick="switchSubTab('area7', this)"><span class="sn">07</span>Job Search &amp; Applications</button>
+      <button class="sub-tab-btn" onclick="switchSubTab('area8', this)"><span class="sn">08</span>Interview Preparation</button>
     </div>
 
     <div id="sub-area9" class="sub-panel active">
@@ -3316,6 +3317,191 @@
             <div class="ff-top"><span class="facet-id">S4</span><h4>Using LinkedIn to support the search</h4><span class="src real">OTEMA</span></div>
             <p class="ff-q">How should I use LinkedIn to support my job search in tech?</p>
             <p class="ff-a">Keep your profile aligned to your target role's keywords, post regularly about what you're building, and reach out for short informational chats rather than only applying cold. After you apply somewhere, connecting with someone on that team with a short note goes a long way. What does your profile look like right now?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="sub-area8" class="sub-panel">
+      <div class="section">
+        <div class="section-title">Area Flow · Area 8</div>
+        <h2 class="section-heading">Inside Interview Preparation <span class="st proposed">PROPOSED</span></h2>
+        <p class="prompt-intro">One classification call per message places the user in one of two stages; the stage scopes which of Otema's 1 real answer, plus 14 drafted facets, the model is shown; the model writes the reply from that material. Not yet designed in the local harness; this is the first pass — the facet graph below already reflects a dead-end discovery pass, not just the raw closers.</p>
+        <div class="banner spec">
+          <strong>The thinnest area by design, per the storyboard's own issue log (ISSUE-011, resolved 15 Aug).</strong> Job Search and Interview Preparation were split from one shared pre-v4 topic tag into two areas — Job Search took Q41, 42, 44, 45; this area took Q43 alone: "How do I prepare for a technical interview?" One real answer against a full knowledge topic means this area leans on drafted content more than any area built so far, the same way the issue log predicted: <em>"the first candidate for drafted answers."</em> Matched by exact question text (<code>realQuestions</code>), same mechanism as Confidence and Job Search, so the shared legacy tag never pulls in Job Search's own four answers by accident.
+        </div>
+        <div class="banner spec">
+          <strong>Two stages: getting ready, versus the interview itself and what follows.</strong> A covers everything she does BEFORE the interview happens — what to study and practice (coding, system design, behavioural STAR stories, a self-introduction pitch), researching the company, preparing questions to ask, a take-home/online assessment, and getting the practical setup right whether it's remote or in-person. B covers what happens once she's actually in it or just after — freezing or not knowing an answer in the moment, interview-day nerves specifically, and following up afterward. A question about preparation is A even the night before; a question about handling the room itself, or what happens next, is B.
+        </div>
+        <div class="banner info">
+          <strong>Three standalone gaps found in the dead-end pass, on top of the five drafted for the first cut above.</strong> Nothing here covered the near-universal "tell me about yourself" opening pitch — a distinct skill from a STAR story or company research, and something almost every interview format opens with. Nothing covered take-home tests or timed online assessments, a format S1's own premise ("practice narrating your thinking out loud") doesn't fit at all, since there's no one to narrate to. And every technical facet silently assumed software engineering specifically, contradicting BSC's own multi-track scope (Data/ML, UX/UI, Cybersecurity, Product, Cloud/DevOps) stated elsewhere in <code>bsc-knowledge.ts</code>. <strong>G8</strong>, <strong>G9</strong>, and <strong>G10</strong> below close these. Two lower-priority findings — concerning information turned up while researching a company, and pacing a full day of back-to-back interview rounds — were also found and are deferred past this first build, same treatment other areas have given lower-severity findings.
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · Shape</div><h2 class="section-heading">The Shape of the Area</h2>
+        <div class="key">
+          <p class="key-intro"><strong>Reading the codes:</strong> <span class="chip">S</span> is Otema's one real answer (S1 = Q43). <span class="chip">G</span> is a drafted gap facet with no real-answer parent — every facet here except S1 is one, since one real answer against a full knowledge topic leaves almost everything else to fill in. Response-branch facets (G2a, G4a, G6a, G7a) are their own cards further down.</p>
+          <div class="key-grid">
+            <div><span class="chip">S1</span> General technical interview prep (Q43)</div>
+            <div><span class="chip">G1</span> System design interview prep</div>
+            <div><span class="chip">G2</span> Behavioural interviews and STAR stories</div>
+            <div><span class="chip">G3</span> Researching the company and questions to ask</div>
+            <div><span class="chip">G4</span> Getting the practical setup right, remote or in-person</div>
+            <div><span class="chip">G5</span> Freezing or not knowing an answer in the moment</div>
+            <div><span class="chip">G6</span> Interview-day nerves specifically</div>
+            <div><span class="chip">G7</span> Following up after the interview</div>
+            <div><span class="chip">G8</span> The "tell me about yourself" pitch</div>
+            <div><span class="chip">G9</span> Take-home tests and timed online assessments</div>
+            <div><span class="chip">G10</span> Interview prep for non-software-engineering tracks</div>
+          </div>
+        </div>
+        <div class="flow-note"><strong>G4 was broadened, not split.</strong> The dead-end pass found in-person interview logistics (attire, travel time, what to bring) had nowhere to go, since the first-cut G4 was scoped to "remote/virtual" only. Rather than add an eleventh facet for what's really the same underlying question — getting the practical setup right — G4 now covers both formats, asking which one applies. <strong>G6a mirrors an already-approved pattern:</strong> Confidence's S3c routes physiological anxiety (not a belief about competence) to Wellbeing; G6a does the same thing here, for the identical shape of gap, and the leaving table below gets the matching row.</div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · Facets</div><h2 class="section-heading">The 11 Facets and Where Each Leads</h2>
+        <p class="prompt-intro">Edges are read off the actual closing questions, where one exists yet. <span class="src real">OTEMA</span> is her real questionnaire answer; <span class="src drafted">DRAFTED</span> is generated and still <code>unreviewed</code>. Response-branch facets are shown separately below.</p>
+
+        <div class="stage-band"><span class="sb-id">Stage A</span><h3>Getting ready</h3><span class="sb-note">what to study, practice, and prepare before the interview happens</span></div>
+        <div class="facet-grid">
+          <div class="facet real">
+            <div class="facet-top"><span class="facet-id">S1</span><h4>General technical interview prep</h4><span class="src real">OTEMA</span></div>
+            <p class="closer">"What role are you interviewing for?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">G1</span><span class="chip">G2</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G1</span><h4>System design interview prep</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"What level of role is this — is system design likely to come up?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">S1</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G2</span><h4>Behavioural interviews and STAR stories</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"What's one situation from your work that you're proudest of handling well?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">G2a</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G3</span><h4>Researching the company and questions to ask</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"What have you found out about them so far?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G4</span><h4>Getting the practical setup right, remote or in-person</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"Is this remote or in person, and have you actually tested or planned the practical side yet?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">G4a</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G8</span><h4>The "tell me about yourself" pitch</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"What's the one thing you'd want them to remember about you after you leave the room?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G9</span><h4>Take-home tests and timed online assessments</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"Is this a timed online test, or a longer take-home you can work on over a few days?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G10</span><h4>Interview prep for non-software-engineering tracks</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"What track is this for, and do you know yet what their technical round actually looks like?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">G3</span><span class="chip">G8</span><span class="chip self">stays</span></div>
+          </div>
+        </div>
+
+        <div class="stage-band"><span class="sb-id">Stage B</span><h3>In the room, and after</h3><span class="sb-note">handling the interview itself, and what happens once it's over</span></div>
+        <div class="facet-grid">
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G5</span><h4>Freezing or not knowing an answer in the moment</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"What actually happens for you in that moment — do you go blank, or start guessing?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">G6</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G6</span><h4>Interview-day nerves specifically</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"Is it this interview specifically, or does this happen in most high-pressure moments for you?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">G5</span><span class="chip">G6a</span><span class="chip self">stays</span><span class="chip exit">→ Area 6</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G7</span><h4>Following up after the interview</h4><span class="src drafted">DRAFTED</span></div>
+            <p class="closer">"Is there anything specific from the conversation worth referencing?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip">G7a</span><span class="chip self">stays</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · Response branches</div>
+        <h2 class="section-heading">What Happens After the Question <span class="st proposed">PROPOSED</span></h2>
+        <div class="banner info"><strong>Four dead ends closed with response branches.</strong> G2's closer has no branch for having no professional story to draw on at all — a real gap for the bootcamp/career-switcher population Job Search's own facets already exist to serve. G4's closer has no branch for a connectivity or hardware constraint that testing can't fix, only reschedule around. G6's closer already forks correctly between ordinary nerves and a wider self-doubt pattern, but has no branch for physiological, panic-level symptoms — the same shape of gap Confidence's S3c already found and routed to Wellbeing. G7's closer assumes a first thank-you note; it has no branch for prolonged silence afterward, the same shape as Job Search's own S2a one stage later. All four are drafted into <code>botema-generated-examples.ts</code>, <code>unreviewed</code>, same gate as everything else here.</div>
+        <div class="facet-grid">
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G2a</span><h4>No professional story to draw on</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">responds to <span class="chip">G2</span></span></div>
+            <p class="closer">"What's something you've actually built or organised, in any setting, that you could tell that way?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G4a</span><h4>Connectivity or hardware itself is unreliable</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">responds to <span class="chip">G4</span></span></div>
+            <p class="closer">"What's actually unreliable — the connection, the device, or the space you'd be doing this from?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G6a</span><h4>Physiological, panic-level symptoms</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">responds to <span class="chip">G6</span></span></div>
+            <p class="closer">"Does this happen only around interviews, or has it shown up in other high-stakes moments too?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span><span class="chip exit">→ Area 5</span></div>
+          </div>
+          <div class="facet drafted">
+            <div class="facet-top"><span class="facet-id">G7a</span><h4>Prolonged silence after the interview</h4><span class="src drafted">DRAFTED</span><span class="elabel" style="margin-left:auto">responds to <span class="chip">G7</span></span></div>
+            <p class="closer">"How long ago did they say you'd hear back?"</p>
+            <div class="edges"><span class="elabel">leads to</span><span class="chip self">stays</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · Leaving</div><h2 class="section-heading">When to Suggest a Different Area</h2>
+        <p class="prompt-intro">The Flow C hand-off, triggered from inside the area rather than by the user asking.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>What's happening</th><th>What it actually means</th><th>Offer instead</th></tr></thead>
+            <tbody>
+              <tr><td>An offer comes in and the question turns to pay</td><td>The interview is over and produced a result; the live question is negotiation</td><td><strong>Area 9</strong> · Salary &amp; Negotiation</td></tr>
+              <tr><td>Interview-day nerves turn out to be a wider pattern of self-doubt, not specific to this one interview</td><td>A confidence problem wearing an interview-prep question's clothes</td><td><strong>Area 6</strong> · Confidence &amp; Imposter Syndrome</td></tr>
+              <tr><td>G6a's outcome is physiological/panic symptoms showing up beyond just interviews</td><td>A wellbeing problem, not an interview-specific one</td><td><strong>Area 5</strong> · Wellbeing &amp; Balance</td></tr>
+              <tr><td>No interview is actually scheduled yet — the live question is getting one, not preparing for one</td><td>The question is upstream of this area</td><td><strong>Area 7</strong> · Job Search &amp; Applications</td></tr>
+              <tr><td>Two turns with no new information, or a facet revisited with nothing added</td><td>The area is done, whether or not every facet was covered</td><td>Sum up and offer the remaining areas</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · To build</div><h2 class="section-heading">What This Needs</h2>
+        <div class="grid-2">
+          <div class="scope-card can">
+            <div class="scope-head">Already true</div>
+            <div class="scope-body">
+              <div class="scope-item"><strong>Runs end-to-end in the local harness</strong><div class="example"><code>npm run coach -- --area=interview-prep</code>, and <code>npm run coach:scenarios -- --area=interview-prep</code> — 5/5 scenarios passing</div></div>
+              <div class="scope-item"><strong>Wired into the live edge function</strong><div class="example"><code>INTERVIEW_PREP_AREA</code> in <code>discussion-areas.ts</code>, <code>discussInterviewPrepArea</code> registered in <code>botema-coach.ts</code>, deployed and live-verified against production with the real test account 2026-09-17</div></div>
+              <div class="scope-item"><strong>A live area-tester pass, fixes applied</strong><div class="example"><strong>Persona-bio fabrication (HIGH)</strong> — G8's "tell me about yourself" script stated Otema's own persona biography ("a Computer Engineering background and a Masters in data science") as the user's settled credential, unbracketed. A prompt-only fix failed to hold on a second reproduction, so it was escalated to a code-level guard, <code>stripPersonaBioLeak</code> in <code>converser.ts</code>, wired into both the main guard chain and the regeneration path, then confirmed clean on a live re-run. <strong>Stall/fallback amnesia</strong> — G4a re-asked a question she'd already answered instead of acknowledging it; closed with a new shared generation rule. <strong>Dangling promise</strong> — "Start with a small, concrete plan" naming no actual plan; <code>DANGLING_PROMISE</code> broadened to catch the "start with a plan" shape.</div></div>
+              <div class="scope-item"><strong>Extra grounding knowledge already written</strong><div class="example"><code>bsc-knowledge.ts</code>'s <code>interview_prep</code> block: coding-assessment practice cadence, system design resources and format, 5-6 STAR behavioural stories, company research and questions to ask, and a follow-up-email note — the source for most of the drafted facets above, not invented from nothing</div></div>
+              <div class="scope-item"><strong>A dead-end discovery pass</strong><div class="example">Found the 8 gaps closed above, plus 2 lower-priority ones (concerning company research findings; pacing a full day of back-to-back rounds) deferred past this first build</div></div>
+            </div>
+          </div>
+          <div class="scope-card cant">
+            <div class="scope-head">Doesn't exist yet</div>
+            <div class="scope-body">
+              <div class="scope-item"><strong>Otema's review of the 14 drafted facets</strong><div class="example">Required before any of them can be served — the gate <code>approvedGeneratedExamples()</code> enforces</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Area Flow · Full text</div><h2 class="section-heading">The One Real Answer, in Full</h2>
+        <p class="prompt-intro">The complete question and answer behind S1 — Otema's real words from the questionnaire. Every other facet in this area is drafted; see the generated-examples file for the full set now that all 14 have been through the harness and an area-tester pass.</p>
+        <div class="full-list">
+          <div class="full-facet real">
+            <div class="ff-top"><span class="facet-id">S1</span><h4>General technical interview prep</h4><span class="src real">OTEMA</span></div>
+            <p class="ff-q">How do I prepare for a technical interview?</p>
+            <p class="ff-a">Know the fundamentals for your specific target role, and practice narrating your thinking out loud — process usually matters more than a perfect answer. Mock interviews with a peer or mentor help more than most people expect. What role are you interviewing for?</p>
           </div>
         </div>
       </div>

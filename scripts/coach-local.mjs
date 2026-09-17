@@ -280,6 +280,7 @@ const AREAS_BUILT = [
   "mentorship",
   "wellbeing",
   "job-search",
+  "interview-prep",
 ];
 
 if (!AREAS_BUILT.includes(AREA_SLUG)) {
@@ -499,6 +500,37 @@ function stripQuotaConcession(text) {
   return kept.join(" ").replace(/\s{2,}/g, " ").trim();
 }
 
+// Found by area-tester on Interview Preparation, 2026-09-17, then reproduced
+// identically on a live smoke-test run right after the prompt-only fix was
+// deployed: asked for a "tell me about yourself" script, the reply correctly
+// bracketed every other detail as fill-in-the-blank except one — it stated
+// "a Computer Engineering background and a Masters in data science" as her
+// settled credential, unbracketed. That is Otema's OWN persona biography
+// (see BOTEMA_VALUES' "WHO YOU ARE" line), copied verbatim into a script
+// written for the USER to recite as her own. Two failures on the same
+// instruction is this repo's line for writing the check instead of
+// rewording a third time.
+const PERSONA_BIO_LEAK = /\bcomputer engineering background\b|\bmasters?(?:'s)? (?:degree )?in data science\b/i;
+
+function stripPersonaBioLeak(text, saidByUser) {
+  if (PERSONA_BIO_LEAK.test(saidByUser)) return text;
+  const sentences = text.match(/[^.!?]+[.!?]*/g) || [text];
+  const kept = [];
+  let strippedAny = false;
+  let danglingQuote = false;
+  for (const sentence of sentences) {
+    if (PERSONA_BIO_LEAK.test(sentence)) {
+      strippedAny = true;
+      danglingQuote = (sentence.match(/["“”]/g) || []).length % 2 === 1;
+      continue;
+    }
+    kept.push(danglingQuote ? sentence.replace(/^\s*["“”]\s*/, " ") : sentence);
+    danglingQuote = false;
+  }
+  if (!strippedAny) return text;
+  return kept.join(" ").replace(/\s{2,}/g, " ").trim();
+}
+
 // ── Fix 2: a question with nothing left in front of it ─────────────────────
 // capSentences() deliberately keeps the last question, so when the guards cut
 // the body the question is what survives — pointing at advice that no longer
@@ -519,8 +551,12 @@ const DANGLING_REFERENCE =
 // a list-noun ("those steps"); "try this in order" names no noun at all, so
 // it never matched. Same conclusion either way: nothing to repair, only to
 // regenerate — see endsOnDanglingReference() below.
+// A further variant, found by area-tester on Interview Preparation:
+// "Start with a small, concrete plan." with no plan named anywhere else in
+// the reply — a directive promising structure ("a plan") rather than an
+// object she can point back to ("this"/"these").
 const DANGLING_PROMISE =
-  /\btry\s+(?:this|that|these|it)\b[^.!?]*\b(?:in order|first|below|next|like (?:this|so))\b/i;
+  /\btry\s+(?:this|that|these|it)\b[^.!?]*\b(?:in order|first|below|next|like (?:this|so))\b|\bstart(?:ing)? with an? (?:\w+[,\s]+){0,3}plan\b/i;
 
 // A third shape, found live on Career Paths: a short heading-like fragment
 // closing the reply with nothing behind it — "What I'd do first.", "Here's
@@ -1587,6 +1623,23 @@ async function wordalise(message, stage, history, facets, search = null, used = 
     // with specific week/hour counts is the shape to catch, not just a
     // single number.
     "The same honesty that applies to money applies to schedules and routines: never invent a timeline broken into specific stages with specific durations (\"8-12 weeks to X, then 6-8 weeks to Y\") or a specific weekly-hours commitment, unless it appears in the material you were given. A multi-step fabricated schedule is exactly as dishonest as an invented salary figure, even dressed up as a realistic-sounding plan. Say what to work out together instead.",
+    // Found by area-tester on Interview Preparation, 2026-09-17: asked for a
+    // "tell me about yourself" script, the reply correctly bracketed most of
+    // it as fill-in-the-blank ("[Your Name]", "[your stack]") but stated one
+    // specific credential as fact, unbracketed — a Master's degree — with no
+    // basis in anything she'd said. It matched Botema's OWN persona
+    // background exactly: the model filled a gap in HER template with facts
+    // about ITSELF. If she used that script close to verbatim, she would
+    // claim a degree she does not have.
+    "When you offer her a script, template, or fill-in-the-blank line to say to someone else — a pitch, an email, an opening line — bracket EVERY substantive detail she'd need to supply herself: her name, her background, her degree, her employer, her years of experience, any specific number. Never state one of these as settled fact unless she already told you it in this conversation, and never draw a biographical detail from your own persona or voice examples to fill a gap in what is meant to be HER script.",
+    // Found the same sweep, same area: she'd already been given a full
+    // contingency plan for an unreliable connection, then confirmed "there's
+    // no fixing that before the interview" — not a new question, just
+    // confirming the constraint holds. The reply repeated the same plan
+    // almost verbatim, the repeat-advice guard correctly stripped it, and
+    // nothing was left to say — so the turn fell to the area's bare fallback
+    // question, reading as if the coach had forgotten the conversation.
+    "If her latest message only confirms or restates something you've already fully answered, with no new angle to work — she's not asking again, just acknowledging — a short confirmation that the existing plan or answer still holds IS a complete reply. You do not need to invent a new angle or repeat the plan in full to have something to say.",
     // HOW YOU OPEN.
     //
     // The previous version of this rule named the failing phrase and banned
@@ -2026,9 +2079,11 @@ async function main() {
 
     const unquota = stripQuotaConcession(reply);
     if (unquota !== reply) console.log(C.amber("  [quota concession removed — she does not read that sentence]"));
+    const unleaked = stripPersonaBioLeak(unquota, saidByUser);
+    if (unleaked !== unquota) console.log(C.amber("  [persona-bio leak removed — that credential is Otema's, not hers]"));
     // Undefined means the model dropped the field; leave the opener alone
     // rather than stripping on a guess.
-    const unearned = placed.reportsExternalTreatment === false ? stripUnearnedValidation(unquota) : unquota;
+    const unearned = placed.reportsExternalTreatment === false ? stripUnearnedValidation(unleaked) : unleaked;
     if (unearned !== unquota) console.log(C.amber("  [validating opener dropped — she described herself, not something done to her]"));
     const { text: figureGuarded, stripped } = search ? { text: unearned, stripped: false } : stripFigures(unearned);
     if (stripped) console.log(C.amber("  [figure guard fired — a figure or source claim was removed]"));
@@ -2162,6 +2217,7 @@ async function main() {
         // shorter chain here let the regenerated reply open with the exact
         // clause the opener guard had just stripped from the first one.
         let regen = stripQuotaConcession(again);
+        regen = stripPersonaBioLeak(regen, saidByUser);
         if (placed.reportsExternalTreatment === false) regen = stripUnearnedValidation(regen);
         regen = stripRepeatedOpener(regen, priorReplies);
         regen = dropRepeatedSentences(regen, priorReplies);

@@ -8,6 +8,7 @@ import {
   CAREER_PATHS_AREA,
   FURTHER_EDUCATION_AREA,
   JOB_SEARCH_AREA,
+  INTERVIEW_PREP_AREA,
   buildFacets,
   mostRelevant,
   queryWords,
@@ -107,6 +108,30 @@ describe("buildFacets", () => {
     expect(JOB_SEARCH_AREA.stages.B.facets).toContain("G2");
     expect(JOB_SEARCH_AREA.stages.A.facets).toContain("G3");
     expect(JOB_SEARCH_AREA.stages.B.facets).toContain("G3");
+  });
+
+  it("wires Interview Preparation's 1 real answer by exact question text, from adviseOnCareerTopic", () => {
+    const facets = buildFacets(INTERVIEW_PREP_AREA);
+    for (const id of INTERVIEW_PREP_AREA.realOrder) {
+      expect(facets[id]).toBeDefined();
+      expect(facets[id].source).toBe("OTEMA");
+    }
+    // Confirms it did NOT fall back to topic-tag matching on "interview_prep"
+    // (Q43 is actually tagged "cv_job_search" in botema-examples.ts, a
+    // pre-v4 leftover) and did NOT pick up any of Job Search's own answers.
+    expect(facets.S1.question).toBe("How do I prepare for a technical interview?");
+  });
+
+  it("cross-lists G6 and G6a into both of Interview Preparation's stages", () => {
+    // Found necessary live (area-tester, 2026-09-17): a bare "I'm really
+    // nervous about it" opening line classified into either stage across
+    // different live runs — both facets are about the same feeling
+    // described at two different times (anticipatory vs in-the-moment), so
+    // both are made reachable from either stage.
+    expect(INTERVIEW_PREP_AREA.stages.A.facets).toContain("G6");
+    expect(INTERVIEW_PREP_AREA.stages.B.facets).toContain("G6");
+    expect(INTERVIEW_PREP_AREA.stages.A.facets).toContain("G6a");
+    expect(INTERVIEW_PREP_AREA.stages.B.facets).toContain("G6a");
   });
 
   it("wires Confidence's 5 real answers by exact question text, from addressMindsetChallenge", () => {

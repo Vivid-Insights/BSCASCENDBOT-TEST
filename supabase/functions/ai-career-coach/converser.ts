@@ -472,6 +472,44 @@ export function stripQuotaConcession(text: string): { text: string; stripped: bo
   return { text: kept.join(" ").replace(/\s{2,}/g, " ").trim(), stripped: true };
 }
 
+// Found by area-tester on Interview Preparation, 2026-09-17, then reproduced
+// identically on a second live run right after the prompt-only fix was
+// deployed: asked for a "tell me about yourself" script, the reply correctly
+// bracketed every other detail as fill-in-the-blank ("[Your Name]", "[your
+// stack]") except one — it stated "a Computer Engineering background and a
+// Masters in data science" as her settled credential, unbracketed. That is
+// Otema's OWN persona biography (see BOTEMA_VALUES' "WHO YOU ARE" line in
+// botema-examples.ts), copied verbatim into a script written for the USER to
+// recite as HER OWN background — a fabricated credential she never stated.
+// Two failures on the same instruction is this repo's line for writing the
+// check instead of rewording a third time. Any sentence stating this
+// specific combination is removed unless she already said it herself in this
+// conversation — the one case where it would actually be hers to claim.
+const PERSONA_BIO_LEAK = /\bcomputer engineering background\b|\bmasters?(?:'s)? (?:degree )?in data science\b/i;
+
+export function stripPersonaBioLeak(text: string, saidByUser: string): { text: string; stripped: boolean } {
+  if (PERSONA_BIO_LEAK.test(saidByUser)) return { text, stripped: false };
+  const sentences = text.match(/[^.!?]+[.!?]*/g) || [text];
+  const kept: string[] = [];
+  let strippedAny = false;
+  let danglingQuote = false;
+  for (const sentence of sentences) {
+    if (PERSONA_BIO_LEAK.test(sentence)) {
+      strippedAny = true;
+      // A removed sentence that opened a quote (e.g. a dialogue script) but
+      // never closed it before its own period leaves the closing quote mark
+      // glued onto the front of the next sentence — an odd quote count here
+      // means that's what happened, so strip that orphaned mark next.
+      danglingQuote = (sentence.match(/["“”]/g) || []).length % 2 === 1;
+      continue;
+    }
+    kept.push(danglingQuote ? sentence.replace(/^\s*["“”]\s*/, " ") : sentence);
+    danglingQuote = false;
+  }
+  if (!strippedAny) return { text, stripped: false };
+  return { text: kept.join(" ").replace(/\s{2,}/g, " ").trim(), stripped: true };
+}
+
 // ── Vary the way in ─────────────────────────────────────────────────────────
 // The previous approach here was a ban: addressMindsetChallenge said never to
 // open with "I hear you" or "That sounds hard". It worked, in the narrow sense
@@ -820,8 +858,13 @@ const DANGLING_REFERENCE =
 // no routine anywhere in the text (dropRepeatedSentences() had stripped it as
 // already-said). DANGLING_REFERENCE only matches a demonstrative next to a
 // list-noun ("those steps"); this names no noun at all.
+// A further variant, found by area-tester on Interview Preparation
+// (2026-09-17): "Start with a small, concrete plan." with no plan named
+// anywhere else in the reply — a directive promising structure ("a plan")
+// rather than an object she can point back to ("this"/"these"), so neither
+// the original pattern nor DANGLING_REFERENCE caught it.
 const DANGLING_PROMISE =
-  /\btry\s+(?:this|that|these|it)\b[^.!?]*\b(?:in order|first|below|next|like (?:this|so))\b/i;
+  /\btry\s+(?:this|that|these|it)\b[^.!?]*\b(?:in order|first|below|next|like (?:this|so))\b|\bstart(?:ing)? with an? (?:\w+[,\s]+){0,3}plan\b/i;
 
 // A third shape, found live on Career Paths: a short heading-like fragment
 // closing the reply with nothing behind it at all — "What I'd do first.",

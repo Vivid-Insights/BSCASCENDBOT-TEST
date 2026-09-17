@@ -421,6 +421,44 @@ export const JOB_SEARCH_AREA: AreaConfig = {
   },
 };
 
+// Ported verbatim from scripts/areas/interview-prep.mjs. The thinnest area
+// in the project: Otema has one real answer (S1, Q43); every other facet is
+// drafted, mostly sourced from bsc-knowledge.ts's interview_prep block
+// rather than invented. G6 and G6a are cross-listed into both stages — a
+// bare "I'm really nervous about it" opening line classified into either
+// stage across different live runs, the same soft-classification-boundary
+// pattern seen on Wellbeing's S2/S4 and Job Search's G2/G3.
+export const INTERVIEW_PREP_AREA: AreaConfig = {
+  n: 8,
+  name: "Interview Preparation",
+  topic: "interview_prep",
+  realQuestions: [
+    "How do I prepare for a technical interview?",
+  ],
+  realOrder: ["S1"],
+  wrapUp: null,
+  stageSummary: {
+    A: "getting ready — what to study, practice, and prepare beforehand",
+    B: "in the room, and after — the interview itself and what follows",
+  },
+  fallbackQuestion: "Where are you at with this interview right now?",
+  supersedes: [],
+  stages: {
+    A: {
+      label: "Getting ready",
+      describes:
+        "What to study, practice, and prepare before the interview happens: general technical prep, system design, behavioural/STAR stories, a self-introduction pitch, company research and questions to ask, a take-home or timed assessment, non-software-engineering track prep, and the practical setup (remote or in-person). Giveaway words: \"prepare\", \"practice\", \"study\", \"before\", \"what should I expect\". A question about preparation is A even the night before the interview.",
+      facets: ["S1", "G1", "G2", "G2a", "G3", "G4", "G4a", "G6", "G6a", "G8", "G9", "G10"],
+    },
+    B: {
+      label: "In the room, and after",
+      describes:
+        "Handling the interview itself, and what happens once it's over: freezing or not knowing an answer, interview-day nerves specifically, and following up afterward. Giveaway words: \"during\", \"in the moment\", \"nervous\", \"blanked\", \"after the interview\", \"heard back\". A question about handling the room itself, or what happens next, is B even if the interview hasn't started yet — anticipating a specific in-the-moment failure is still about the room, not the studying.",
+      facets: ["G5", "G6", "G6a", "G7", "G7a"],
+    },
+  },
+};
+
 // One WORDALISE function per built area — see AREA_TOPIC_TO_FUNCTION_NAME
 // below, used by UpdateCareerTopic to decide where to chain, and by index.ts
 // to call the right one directly when an area is already open.
@@ -433,6 +471,7 @@ export const AREAS: Record<string, AreaConfig> = {
   career_paths: CAREER_PATHS_AREA,
   further_education: FURTHER_EDUCATION_AREA,
   cv_job_search: JOB_SEARCH_AREA,
+  interview_prep: INTERVIEW_PREP_AREA,
 };
 
 export const AREA_TOPIC_TO_FUNCTION_NAME: Record<string, string> = {
@@ -444,6 +483,7 @@ export const AREA_TOPIC_TO_FUNCTION_NAME: Record<string, string> = {
   career_paths: "discussCareerPathsArea",
   further_education: "discussFurtherEducationArea",
   cv_job_search: "discussJobSearchArea",
+  interview_prep: "discussInterviewPrepArea",
 };
 
 export const WRAP_UP_LINE =
@@ -475,9 +515,9 @@ export function otherAreas(areaN: number): Record<string, string> {
 // AREA_TOPIC_TO_FUNCTION_NAME and adviseOnCareerTopic's currentEntities —
 // needed so DiscussArea.call() can hand off to the destination and answer
 // the question in the same turn, instead of only announcing the switch and
-// leaving her to ask again. The 3 areas with no DiscussArea yet (7, 8, 10)
-// still resolve to a real topic slug; the flat adviseOnCareerTopic path
-// picks those up instead of a built area.
+// leaving her to ask again. Area 10 (AI & the Future of Tech Work), the one
+// area with no DiscussArea yet, still resolves to a real topic slug; the
+// flat adviseOnCareerTopic path picks it up instead of a built area.
 export const AREA_NUMBER_TO_TOPIC: Record<string, string> = {
   "1": "getting_started",
   "2": "further_education",

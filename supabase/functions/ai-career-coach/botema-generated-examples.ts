@@ -554,6 +554,136 @@ export const BOTEMA_GENERATED_EXAMPLES: Record<string, GeneratedExample[]> = {
       reviewStatus: "unreviewed", drafted: "2026-09-16",
     },
 
+    // ── Area 8 · Interview Preparation ─────────────────────────────────────
+    // The thinnest area in the project: Otema has one real answer (S1, Q43);
+    // everything else here is drafted. Ten gaps identified 2026-09-17 in the
+    // storyboard's dead-end discovery pass, before this area had ever been
+    // built anywhere. G1-G7 are the first-cut facets built from
+    // bsc-knowledge.ts's interview_prep block; G8-G10 are the three
+    // standalone gaps the dead-end pass found on top of those (the near-
+    // universal "tell me about yourself" pitch, take-home/timed online
+    // assessments — a format S1's own "narrate your thinking out loud"
+    // premise doesn't fit, since there's no one to narrate to — and prep for
+    // non-software-engineering tracks, since every other facet silently
+    // assumed SWE). G2a, G4a, G6a, and G7a are response branches closing
+    // four more dead ends found reading the closers above.
+    {
+      question: "How do I prepare for a system design interview?",
+      answer:
+        "Practice drawing and explaining a handful of common systems out loud — a URL shortener, a chat app, a search engine, a ride-sharing backend — and get comfortable justifying tradeoffs rather than reciting a perfect answer. \"Designing Data-Intensive Applications\" and the Grokking the System Design Interview course are both worth the time if you can get access to them. What level of role is this — is system design likely to come up?",
+      topic: "interview_prep", area: 8, facet: "G1",
+      gap: "System design interviews are a distinct skill from coding-assessment prep, common for mid-to-senior engineering roles, and S1's real answer doesn't address it at all",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "How do I prepare for the behavioural part of an interview?",
+      answer:
+        "Prepare five or six STAR stories — situation, task, action, result — covering leadership, conflict, a failure, collaboration under pressure, and a time you had to learn something fast, then adapt the same stories to whatever they actually ask. Curiosity, directness, and self-awareness read well here; companies with strong engineering cultures are testing how you work with people as much as how you code. What's one situation from your work that you're proudest of handling well?",
+      topic: "interview_prep", area: 8, facet: "G2",
+      gap: "Behavioural/STAR-format interviews are a distinct skill from technical prep, and nothing in S1's real answer addresses building or structuring these stories",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "How should I research a company before an interview?",
+      answer:
+        "Look at their engineering blog, recent product releases, and what they've said publicly about their tech stack, then come with three to five thoughtful questions that show you've actually done that — something like what a typical first ninety days looks like, or the biggest technical challenge the team is facing right now. What have you found out about them so far?",
+      topic: "interview_prep", area: 8, facet: "G3",
+      gap: "Company research and preparing questions to ask is standard interview prep that nothing here covers",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "What should I do to get ready practically for the interview itself, whether it's remote or in person?",
+      answer:
+        "Test the whole remote setup end-to-end beforehand — connection, camera, the platform they're actually using — not just that your laptop turns on; for an in-person one, know exactly how you're getting there with time to spare, and bring a couple of printed copies of your CV even if they already have one. Is this remote or in person, and have you actually tested or planned the practical side yet?",
+      topic: "interview_prep", area: 8, facet: "G4",
+      gap: "Practical setup — remote or in-person — is a basic readiness question nothing here covers; broadened from an initial remote-only draft once in-person logistics turned out to have nowhere to go",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "What do I do if I freeze up or don't know an answer during the interview?",
+      answer:
+        "If you genuinely don't know, say that plainly rather than guessing blindly — then think out loud about how you'd actually go about figuring it out, since that's usually worth more to them than a lucky guess. Interviewers are watching your process as much as whether you land on the exact right answer. What actually happens for you in that moment — do you go blank, or start guessing?",
+      topic: "interview_prep", area: 8, facet: "G5",
+      gap: "Handling not knowing an answer in the moment is a distinct, high-anxiety scenario nothing here addresses",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "I'm really nervous about this interview, is that normal?",
+      answer:
+        "Nerves before an interview aren't a readout of how prepared you actually are — they show up for almost everyone, however ready they are. A few slow breaths before you start, and having your opening pitch rehearsed enough that it doesn't need active thought, both help more than trying to talk yourself out of feeling nervous at all. Is it this interview specifically, or does this happen in most high-pressure moments for you?",
+      topic: "interview_prep", area: 8, facet: "G6",
+      gap: "Interview-day nerves specifically — distinct from a wider self-doubt pattern, which the leaving table routes to Confidence — nothing here addresses ordinary nerves on their own terms",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "Should I follow up after the interview, and how?",
+      answer:
+        "Send a brief note within a day or two thanking them and referencing something specific you actually discussed — it's unusual enough to be memorable and signals genuine interest rather than reading like a form letter. Is there anything specific from the conversation worth referencing?",
+      topic: "interview_prep", area: 8, facet: "G7",
+      gap: "Post-interview follow-up etiquette is standard prep content nothing here covers",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "How do I answer 'tell me about yourself' well?",
+      answer:
+        "Have a 60-90 second version of your story ready before anything else — where you're coming from, what you've actually built or done, and why this particular role — and keep it consistent whether you're telling it to a recruiter on a first call or an engineer three rounds in. What's the one thing you'd want them to remember about you after you leave the room?",
+      topic: "interview_prep", area: 8, facet: "G8",
+      gap: "The near-universal opening pitch is a distinct skill from a STAR story (a specific incident) or company research (facts about them, not her) — nothing here covered it at all",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "How do I prepare for a take-home test or a timed online assessment?",
+      answer:
+        "A take-home is judged differently from a live round — there's no one to narrate your thinking to, so the code itself and a short note explaining your decisions have to do that work instead. Read the instructions literally, leave time to test edge cases, and don't submit right at the deadline in case something goes wrong on your end. Is this a timed online test, or a longer take-home you can work on over a few days?",
+      topic: "interview_prep", area: 8, facet: "G9",
+      gap: "S1's real answer explicitly premises 'practice narrating your thinking out loud' on a live audience — that guidance doesn't transfer to an async format with no interviewer present, and a large share of technical hiring now runs one",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "I'm interviewing for a product management/data/design role, not software engineering — does the same prep apply?",
+      answer:
+        "Prep looks different depending on the track — a data or ML role usually means a case study or take-home analysis rather than algorithm questions, product management leans on structured problem-solving and prioritisation, and design roles are mostly a portfolio walkthrough. The STAR stories and company research still apply everywhere; it's the technical round itself that changes shape. What track is this for, and do you know yet what their technical round actually looks like?",
+      topic: "interview_prep", area: 8, facet: "G10",
+      gap: "Every existing facet (coding practice, system design) silently assumed software engineering specifically, contradicting BSC's own multi-track scope (Data/ML, UX/UI, Cybersecurity, Product, Cloud/DevOps) stated in bsc-knowledge.ts's career_paths block",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "I've never actually had a job — I'm coming into this straight from a bootcamp, so I don't have a work story for the behavioural round.",
+      answer:
+        "If you don't have a work story yet, don't force one — pull from anywhere you actually did something under pressure: a group project, a hackathon, a bootcamp capstone, even something you organised outside tech entirely. The STAR shape works the same regardless of where the story comes from; what matters is that it's specific and it's really yours. What's something you've actually built or organised, in any setting, that you could tell that way?",
+      topic: "interview_prep", area: 8, facet: "G2a", respondsTo: "G2",
+      userSaid: "I've never had a job, I'm coming from a bootcamp, I don't have a work story",
+      gap: "G2's real premise assumes a professional incident exists to draw on — this is the case where it doesn't, common for the bootcamp/career-switcher population Job Search's own facets already exist to serve",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "My internet cuts out constantly and there's no fixing that before the interview.",
+      answer:
+        "If the connection or the device itself is the real problem, testing it won't fix that on its own — plan around it instead: a backup like a phone hotspot, a quieter place with better signal even if it's not home, and telling the interviewer upfront if the call drops so it reads as prepared rather than unprofessional. What's actually unreliable — the connection, the device, or the space you'd be doing this from?",
+      topic: "interview_prep", area: 8, facet: "G4a", respondsTo: "G4",
+      userSaid: "My internet cuts out constantly, there's no fixing that before the interview",
+      gap: "G4's closer assumes testing surfaces and fixes the problem — this is the case where the problem is a resource constraint testing can't solve",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "It's not really nerves — I've been nauseous and not sleeping since I got the invite.",
+      answer:
+        "What you're describing sounds like more than ordinary pre-interview nerves, and that's worth taking seriously in its own right rather than only as an interview problem — breathing and preparation help with nerves, but this deserves more than an interview tip. Does this happen only around interviews, or has it shown up in other high-stakes moments too?",
+      topic: "interview_prep", area: 8, facet: "G6a", respondsTo: "G6",
+      userSaid: "It's not nerves, I've been nauseous and not sleeping since I got the interview invite",
+      gap: "G6 is scoped to belief-based, interview-specific nerves — this is a physiological/panic-level response, the same shape of gap Confidence's S3c already found and routed to Wellbeing",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+    {
+      question: "It's been two weeks since the interview and total silence.",
+      answer:
+        "Weeks of silence after an interview is common and usually isn't personal — timelines slip on their end far more often than they reflect on you. One polite check-in referencing the date they gave you is reasonable; after that, treat continued silence as your answer and keep moving rather than waiting on it. How long ago did they say you'd hear back?",
+      topic: "interview_prep", area: 8, facet: "G7a", respondsTo: "G7",
+      userSaid: "It's been two weeks since the interview and total silence",
+      gap: "G7's closer assumes a first thank-you note is the live question — this is prolonged silence afterward, the same shape as Job Search's own S2a one stage earlier in the process",
+      reviewStatus: "unreviewed", drafted: "2026-09-17",
+    },
+
     // ── Area 9 · Salary & Negotiation ─────────────────────────────────────
     // Four gaps identified 2026-08-14: none of these are in the 57-question
     // bank, and neither KNOWLEDGE_BASE.salary nor her real examples cover them.

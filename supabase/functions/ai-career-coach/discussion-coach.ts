@@ -23,6 +23,7 @@ import {
   NO_INVENTED_FIGURES,
   HISTORY_WINDOW,
   stripQuotaConcession,
+  stripPersonaBioLeak,
   stripUnsourcedFigures,
   stripUnearnedValidation,
   stripRepeatedOpener,
@@ -281,6 +282,15 @@ function buildAreaSystemPrompt(
     "The examples above are the nearest material you have. They are not necessarily the right material. If her situation has moved past what they describe, then say what fits HER, and let the examples inform only your voice. Advice that would have been right two turns ago is wrong now, and she will notice.",
     "When she adds a fact, the reply must be ABOUT that fact. It is not background colour — it is evidence about her situation, and it should change what you tell her, not sit alongside the same advice as before.",
     "You can see everything you have already said in this conversation. Do NOT repeat advice you have already given — she heard it. If a point still applies, refer back to it in a clause and spend the reply on what is new.",
+    // Found by area-tester on Interview Preparation, 2026-09-17: she'd
+    // already been given a full contingency plan for an unreliable
+    // connection, then confirmed "there's no fixing that before the
+    // interview" — not a new question, just her confirming the constraint
+    // holds. The reply repeated the same plan almost verbatim, the repeat-
+    // advice guard correctly stripped it, and nothing was left to say — so
+    // the turn fell to the area's bare fallback question, reading as if the
+    // coach had forgotten the entire conversation.
+    "If her latest message only confirms or restates something you've already fully answered, with no new angle to work — she's not asking again, just acknowledging — a short confirmation that the existing plan or answer still holds IS a complete reply. You do not need to invent a new angle or repeat the plan in full to have something to say.",
     // Found by area-tester 2026-09-03: a drawn example's opening CLAIM — the
     // thing that reframes what she's afraid of or asking, not just its topic
     // — was repeatedly getting mined for tactics and dropped. "How long will
@@ -319,6 +329,15 @@ function buildAreaSystemPrompt(
     // Seen again the same sweep, on Career Paths — a four-tier fabricated
     // schedule with no basis anywhere in the material.
     "The same honesty that applies to money applies to schedules and routines: never invent a timeline broken into specific stages with specific durations (\"8-12 weeks to X, then 6-8 weeks to Y\") or a specific weekly-hours commitment, unless it appears in the material you were given. A multi-step fabricated schedule is exactly as dishonest as an invented salary figure, even dressed up as a realistic-sounding plan. Say what to work out together instead.",
+    // Found by area-tester on Interview Preparation, 2026-09-17: asked for a
+    // "tell me about yourself" script, the reply correctly bracketed most of
+    // it as fill-in-the-blank ("[Your Name]", "[your stack]") but stated one
+    // specific credential as fact, unbracketed — a Master's degree — with no
+    // basis in anything she'd said. It matched Botema's OWN persona
+    // background in BOTEMA_VALUES exactly: the model filled a gap in HER
+    // template with facts about ITSELF. If she used that script close to
+    // verbatim, she would claim a degree she does not have.
+    "When you offer her a script, template, or fill-in-the-blank line to say to someone else — a pitch, an email, an opening line — bracket EVERY substantive detail she'd need to supply herself: her name, her background, her degree, her employer, her years of experience, any specific number. Never state one of these as settled fact unless she already told you it in this conversation, and never draw a biographical detail from your own persona or voice examples to fill a gap in what is meant to be HER script.",
     VARY_YOUR_OPENING,
     priorReplies.length
       ? `You have already opened replies in this conversation with: ${priorReplies.map((r) => `"${r.split(/\s+/).slice(0, 6).join(" ")}…"`).join(", ")}. Do NOT begin this one like ANY of those — a different first word and a different shape, not the same construction with the noun swapped.`
@@ -658,6 +677,7 @@ export class DiscussArea extends WordaliseFunction {
         const again = await generate(this.area, regenTarget, question, history, facets, state.coveredFacets, state, priorReplies, this.azure);
         if (again.raw) {
           let regen = stripQuotaConcession(again.raw).text;
+          regen = stripPersonaBioLeak(regen, saidByUser).text;
           if (placed.reportsExternalTreatment === false) regen = stripUnearnedValidation(regen);
           regen = stripRepeatedOpener(regen, priorReplies);
           regen = dropRepeatedSentences(regen, priorReplies);
@@ -713,7 +733,8 @@ export class DiscussArea extends WordaliseFunction {
     saidByUser: string,
   ): { text: string; capped: boolean; deduped: boolean } {
     const unquota = stripQuotaConcession(raw).text;
-    const unearned = placed.reportsExternalTreatment === false ? stripUnearnedValidation(unquota) : unquota;
+    const unleaked = stripPersonaBioLeak(unquota, saidByUser).text;
+    const unearned = placed.reportsExternalTreatment === false ? stripUnearnedValidation(unleaked) : unleaked;
     const figureGuarded = stripUnsourcedFigures(unearned);
     const guarded = stripInventedLocation(figureGuarded, saidByUser);
     const openerFixed = stripRepeatedOpener(guarded, priorReplies);
